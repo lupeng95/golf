@@ -38,7 +38,8 @@ Template.matchcaddie.helpers({
       if (court){
         name = court.name;
         card.courtID = Router.current().params._id;
-        card.courtName = court.name
+        card.courtName = court.name;
+        card.city = court.city;
         Session.set(SMC,card);
       }
       

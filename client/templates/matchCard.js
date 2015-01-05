@@ -90,9 +90,10 @@ function rule2(){
       if (maxRet >0){
         if( maxRet == p[i]){
           $("#r_"+i).addClass("win")
-        }else{
-          $("#r_"+i).append("<sup>+"+(maxRet-p[i])+"</sup>")
         }
+        // else{
+        //   $("#r_"+i).append("<sup>+"+(maxRet-p[i])+"</sup>")
+        // }
       }
       
     }
@@ -229,9 +230,10 @@ function rule3(){
       if (maxRet >0){
         if( maxRet == p[i]){
           $("#r_"+i).addClass("win")
-        }else{
-          $("#r_"+i).append("<sup>+"+(maxRet-p[i])+"</sup>")
         }
+      //   else{
+      //     $("#r_"+i).append("<sup>+"+(maxRet-p[i])+"</sup>")
+      //   }
       }
       
     }
@@ -483,9 +485,10 @@ function rule4(){  //拉斯
     if (maxRet >0){
       if( maxRet == p[i]){
         $("#r_"+i).addClass("win")
-      }else{
-        $("#r_"+i).append("<sup>+"+(maxRet-p[i])+"</sup>")
       }
+      // else{
+      //   $("#r_"+i).append("<sup>+"+(maxRet-p[i])+"</sup>")
+      // }
     }
     
   }
@@ -510,11 +513,12 @@ Template.matchcard.rendered = function() {
       ret[j]+=player.total;
       p[j]="";
       if (player.total){
-        var r="off";
-        if (player["on"]){
-          r="on";
-        }
-        p[j] = player.total+"<sup>"+player["put"]+"</sup><sub>"+r+"</sub>"
+        // var r="off";
+        // if (player["on"]){
+        //   r="on";
+        // }
+        p[j] = player.total
+        //+"<sup>"+player["put"]+"</sup><sub>"+r+"</sub>"
       }
     }
     var ind=parseInt(i)+1;
@@ -537,8 +541,8 @@ Template.matchcard.rendered = function() {
             </tr>'
 
   $("#recordTable").append(html)
-
   switch(card.rule){
+    case 0:
     case 1:
       rule1();
       break;
@@ -586,7 +590,12 @@ Template.matchcard.helpers({
     
     for (var i in card.players){
       if(card.players[i]){
-        players.push(card.players[i].name.substring(0,3))
+        if (card.players[i].name.length >3){
+          players.push(card.players[i].name.substring(0,3)+"...")
+        }else{
+          players.push(card.players[i].name)
+        }
+        
       }else{
         players.push("")
       }
@@ -627,10 +636,46 @@ Template.matchcard.events({
 
   },
   'click #btn-ok':function(event, template) {
-    if(card.finish){
-      return;
-    }
+    // if(card.finish){
+    //   return;
+    // }
     card.finish = 1;
+    $("#btn-ok").html("上传中");
+
+    for(var i in card.players){
+      if(card.players[i]){
+        var p={};
+        p.userId = card.players[i].userId;
+        p.name = card.players[i].name;
+        p.tel = card.players[i].tel;
+        p.courtID = card.courtID;
+        p.courtName = card.courtName;
+        p.city = card.city;
+        
+        p.record = card.records[i];
+        //p.createdAt = new Date();
+
+        Meteor.call('addMatch', p, function(error, result) {
+          var ret = '比赛结果已储存.'
+          if (error) {
+            alert(error.reason);
+          } else {
+            Template.appBody.addNotification({
+              action: '确定',
+              title: ret,
+              callback: function() {
+
+              }
+            });
+          }
+        });
+
+        // var _id = matchData.insert(p);
+        // console.log(_id)
+      }
+        
+    }
+
     $("#btn-ok").html("已结束");
     Session.set(SMC,card);
 

@@ -25,7 +25,16 @@ Template.matchplayer.events({
    	if (!tel){
    		card.players[id]=0;
    	}else{
-   		card.players[id]={name:name,tel:tel}
+   		var user = Meteor.users.findOne({username:tel})
+   		if(user){
+	   		if(user.profile.nickname){
+	   			name = user.profile.nickname;
+	   		}
+	   		card.players[id]={name:name,tel:user.username,userId:user._id}
+   		}else{
+   			card.players[id]={name:name,tel:tel,userId:0}
+   		}
+   		
    	}
    	
    	Session.set(SMC,card)

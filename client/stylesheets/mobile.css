@@ -179,7 +179,7 @@ nav.black{
 	left: 3px;
 	z-index: 1;
  
-	background: #333;
+	background: #eee;
  
 	-webkit-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
 	-moz-box-shadow:inset 0px 1px 3px rgba(0,0,0,0.5);
@@ -225,4 +225,72 @@ nav.black{
 .sumline{
 	background-color: #f8b27c;
 }
+
+
+.smart-timeline {
+	position: relative;
+}
+
+.smart-timeline-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.smart-timeline-list:after {
+	content: " ";
+	background-color: #eee;
+	position: absolute;
+	display: block;
+	width: 2px;
+	top: 0;
+	left: 15px;
+	bottom: 0;
+	z-index: 1;
+}
+
+.smart-timeline-list li {
+	position: relative;
+	margin: 0;
+	padding: 15px 0;
+}
+
+.smart-timeline-icon {
+	background: #3276b1;
+	color: #fff;
+	border-radius: 50%;
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	line-height: 28px;
+	font-size: 14px;
+	text-align: center;
+	left: 0px;
+	top: 10px;
+	z-index: 100;
+	padding: 2px;
+}
+
+.smart-timeline-icon-my{
+	background: #f8b27c;
+}
+
+.smart-timeline-time {
+	float: left;
+	width: 50px;
+	text-align: right;
+	font-size: 14px;
+	font-weight: normal;;
+}
+
+.smart-timeline-content {
+	margin-left: 40px;
+}
+
+.smart-timeline-content small {
+	font-style: italic;
+}
+
+
+
 

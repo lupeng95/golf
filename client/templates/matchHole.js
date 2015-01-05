@@ -23,7 +23,8 @@ function setPageBtn(page){
 
 }
 function initPage(cPage,hole){
-  cPage.find("#par").html(card.records[0][hole].par)
+  
+  cPage.find("tr #par").html(card.records[0][hole].par)
   var vals = cPage.find("input[type=tel]")
   for(var i=0;i<vals.length; i++){
       var item = $(vals[i]);
@@ -305,7 +306,8 @@ Template.matchhole.events({
   },
   'keyup input[type=tel]':function(event, template) {
     var v = $(event.target).val();
-    if(v.length ==2){
+    var num = parseInt(v);
+    if(v.length ==2 || (num>1 && num<10)){
       var ind = $('.activeSection input[type=tel]').index(event.target) + 1;
       if(ind < $('.activeSection input[type=tel]').length){
         $('.activeSection input[type=tel]').eq(ind).focus()
