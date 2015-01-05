@@ -1,0 +1,55 @@
+<template name="matchcaddie">
+  <div class="page match">
+
+  	 <div  class="content-scrollable full-screen-notitle" >
+        <div style="background-color:#fff;margin:15px">
+          <h3 style="margin-bottom:5px">{{getCourtName}}</h3>
+
+          <div class="well" style="max-width: 100%; margin: 0 auto 10px;">
+            <label>请选择参赛球员：</label>
+            {{#if getPlayer 0}}
+              <button type="button" id="player" class="btn btn-success  btn-block" value="0">{{getPlayer 0}}</button>
+            {{else}}
+              <button type="button" id="player" class="btn btn-default  btn-block" value="0"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#999"></span>添加球员</button>
+            {{/if}}
+
+            {{#if getPlayer 1}}
+              <button type="button" id="player" class="btn btn-success  btn-block" value="1">{{getPlayer 1}}</button>
+            {{else}}
+              <button type="button" id="player" class="btn btn-default  btn-block" value="1"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#999"></span>添加球员</button>
+            {{/if}}
+
+            {{#if getPlayer 2}}
+              <button type="button" id="player" class="btn btn-success  btn-block" value="2">{{getPlayer 2}}</button>
+            {{else}}
+              <button type="button" id="player" class="btn btn-default  btn-block" value="2"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#999"></span>添加球员</button>
+            {{/if}}
+
+            {{#if getPlayer 3}}
+              <button type="button" id="player" class="btn btn-success  btn-block" value="3">{{getPlayer 3}}</button>
+            {{else}}
+              <button type="button" id="player" class="btn btn-default  btn-block" value="3"><span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#999"></span>添加球员</button>
+            {{/if}}
+
+          </div>
+          <div class="well" style="max-width: 100%; margin: 0 auto 10px;text-align:center">
+            <label style="text-align:left;width:100%">请选择比赛方式：</label>
+            
+            <div class="btn-group" role="group" style="padding:0;">
+             
+              
+              <button type="button" id="rule" class="btn btn-default" value="1" style="font-size:15px" {{isReady 2 false}}>比杆</button>
+              <button type="button" id="rule" class="btn btn-default" value="2" style="font-size:15px" {{isReady 2 false}}>比洞</button>
+              <button type="button" id="rule" class="btn btn-default" value="3" style="font-size:15px" {{isReady 3 true}}>斗地主</button>
+               <button type="button" id="rule" class="btn btn-default" value="4" style="font-size:15px" {{isReady 4 false}}>拉斯</button>
+            </div>
+          </div>
+
+
+          <button type="button" id="start" class="btn btn-primary  btn-block" {{isReady 1 false}}>开始</button>
+  
+
+        </div>
+	   </div>
+  </div>
+</template>

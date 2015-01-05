@@ -1,0 +1,36 @@
+<template name="matchperson1">
+  <div class="page match">
+  	{{>nav title='球场选择' black=true back=true}}
+  	 <div  class="content-scrollable full-screen">
+      <div class="well">
+  	    <form>
+          <fieldset>
+            <div class="form-group">
+              <label >城市：<br></label>
+              <select id="citySelect" class="form-control">
+                <option value="北京" selected>北京</option>
+                <option value="上海">上海</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="courtSelect">球场：<br></label>
+              <select id="courtSelect" class="form-control">
+                {{#each courtListByCity}}
+                  <option value="{{_id}}">{{name}}</option>
+
+                {{/each}}
+                
+              </select>
+            </div>
+            <div class="form-group" style="text-align:center;">
+              <button type="submit" class="btn btn-primary" style="margin:5px">比赛记分</button>
+               <button type="button" id="caddie" class="btn btn-primary" style="margin:5px">球童记分</button>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
+	   </div>
+  </div>
+</template>

@@ -1,0 +1,42 @@
+<template name="matchperson2">
+  <div class="page match">
+  	{{> nav title='计分卡' black=true back=true}}
+  	 <div  class="matchpage content-scrollable full-screen">
+      <div class="title">
+        <table  class="table" style="height:100%;margin:0;text-align:center">
+          <thead style="height:100%">
+             <tr >
+                <th style="width:12%;padding:0;height:30px;">球洞</th>
+                <th style="width:22%;padding:0">标准杆</th>
+                <th style="width:22%;padding:0">杆数</th>
+                <th style="width:22%;padding:0">推杆数</th>
+                <th style="width:22%;padding:0">开球上道</th>
+              </tr>
+          </thead>
+         
+        </table>
+      </div>
+
+      <div class="card content-scrollable">
+         <table  class="table ">
+
+            {{#each getHoles}}
+            <tr >
+            <td style="width:12%;padding:0;">{{this.ind}}</td>
+            <td style="width:22%;padding:0">{{this.par}}</td>
+            <td style="width:22%;padding:0"><input type="tel" name="no2" maxlength="2"/></td>
+            <td style="width:22%;padding:0"><input type="tel" name="no3" maxlength="2"/></td>
+            <td style="width:22%;padding:0"><input type="checkbox" name="no4" /></td>
+            </tr>
+            {{/each}}
+
+         
+        </table>
+
+       
+        
+      </div>
+      
+	   </div>
+  </div>
+</template>

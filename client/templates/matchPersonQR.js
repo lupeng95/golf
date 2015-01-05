@@ -1,0 +1,9 @@
+
+
+Template.matchpersoncardQR.rendered = function() {
+  var hostname=window.location.hostname;
+  var port=window.location.port;
+  jQuery('#qrcode').qrcode({width: 180,height: 180,text: "http://"+hostname+":"+port+"/matchcaddie/"+Router.current().params._id});
+  
+}
+

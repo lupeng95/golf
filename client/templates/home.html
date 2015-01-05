@@ -1,0 +1,46 @@
+<template name="home">
+  <div class="page home">
+
+    {{>nav title='G&G Golf' black=true home=true}}
+
+    <div class="content-scrollable full-screen" style="background-image: url(./img/homeBg.jpg);no-repeat left top;background-size:cover;">
+      <a href="{{pathFor 'matchperson1'}}">
+     <div class="menu_block" style="top:8%;width:47%;height:40%;left:2%;background-color: #d9522c;">
+        <div class="menu_title">
+        比赛
+        </div>
+     </div>
+   </a> 
+
+     <div class="menu_block" style="top:8%;width:47%;height:30%;left:51%;background-color: #009900;">
+      <div class="menu_title">
+         好友
+        </div>
+     
+     </div>
+
+      <div class="menu_block" style="top:50%;width:47%;height:30%;left:2%;background-color: #ae193e;">
+        <div class="menu_title">
+         成绩
+        </div>
+      
+     </div>
+
+     <div class="menu_block" style="top:40%;width:47%;height:40%;left:51%;background-color: #0099ab;">
+      <div class="menu_title">
+         排行榜
+        </div>
+      
+     </div>
+     <div class="menu_block" style="top:82%;width:96%;height:12%;left:2%;background-color: #fba919;">
+      <div class="menu_title" style="top:10%">
+         我
+        </div>
+      
+     </div>
+
+ 
+    </div>
+
+  </div>
+</template>

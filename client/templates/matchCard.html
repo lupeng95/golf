@@ -1,0 +1,46 @@
+<template name="matchcard">
+  <div class="page match">
+    {{#nav title='计分卡' subtext=getRule black=true home=true}}
+     
+        <a class="menu-btn" href="#" id="btn-ok">结束&提交</a>
+      {{/nav}}
+  	 <div  class="matchpage content-scrollable full-screen">
+      <div class="title" style="height:60px">
+        <table  class="table" style="height:100%;margin:0;text-align:center;height:100%;">
+           <tr style="background-color: #ddd;">
+            <td>{{getRule}}</td>
+            <td id="r_0">0</td>
+            <td id="r_1">0</td>
+            <td id="r_2">0</td>
+            <td id="r_3">0</td>
+
+          </tr>
+ 
+             <tr >
+                <th style="width:16%;padding:0;height:30px;">洞(杆)</th>
+                {{#each getPlayers}}
+                <th style="width:21%;padding:0">{{this}}</th>
+                {{/each}}
+              </tr>
+
+         
+         
+        </table>
+      </div>
+
+      <div class="card content-scrollable" style="top:60px;">
+         <table  class="table " id="recordTable">
+
+
+
+         
+        </table>
+
+       
+        
+      </div>
+      
+	   </div>
+  </div>
+  {{getMatchResult}}
+</template>

@@ -1,0 +1,105 @@
+<template name="matchhole">
+  <div class="page match">
+  
+     {{#nav title=getHoleName black=true back=true}}
+     
+        <a class="menu-btn" href="#" id="btn-ok">确定</a>
+      {{/nav}}
+     <div  class="matchpage content-scrollable full-screen">
+      <div class="title">
+        <table  class="table" style="height:100%;margin:0;text-align:center">
+          <thead style="height:100%">
+             <tr >
+                <th style="width:20%;padding:0;height:30px;">球员</th>
+                <th style="width:20%;padding:0">标准杆</th>
+                <th style="width:20%;padding:0">杆数</th>
+                <th style="width:20%;padding:0">推杆数</th>
+                <th style="width:20%;padding:0">上道</th>
+              </tr>
+          </thead>
+         
+        </table>
+      </div>
+
+      <div class="card content-scrollable">
+        <div class="section " ind="0">
+         <table  class="table" >
+
+            {{#each getHoleRecord0}}
+            <tr >
+            <td style="width:20%;padding:0;">{{getPlayerName this.name}}</td>
+            <td style="width:20%;padding:0" id="par">{{this.record.par}}</td>
+            <td style="width:20%;padding:0"><input type="tel" name="total" player="{{this.ind}}" maxlength="2" value="{{this.record.total}}"/></td>
+            <td style="width:20%;padding:0"><input type="tel" name="put" player="{{this.ind}}"  maxlength="2" value="{{this.record.put}}"/></td>
+             <td style="width:20%;padding:0">
+                <div class="checkbox">
+           
+                    <input type="checkbox" player="{{this.ind}}" id="checkbox0_{{this.hole}}_{{this.ind}}" name="on" checked="{{this.record.on}}"/>
+             
+                    <label for="checkbox0_{{this.hole}}_{{this.ind}}"></label>
+                </div>
+              </td>
+            </tr>
+          
+            {{/each}}
+         
+          </table>
+
+          <table style="border:0">
+            <tr style="background-color: #fff;">
+              <td style="text-align:left">
+                <button type="button" id="preBtn" class="btn btn-primary" ><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span id="pre">上一洞</span></button>
+              </td>
+              <td style="text-align:right">
+                <button type="button" id="nextBtn" class="btn btn-primary" ><span id="next">下一洞</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+              </td>
+            </tr>
+         
+          
+          </table>
+        </div>
+        <div class="section " ind="1">
+         <table  class="table " >
+
+            {{#each getHoleRecord1}}
+            <tr >
+            <td style="width:20%;padding:0;">{{getPlayerName this.name}}</td>
+            <td style="width:20%;padding:0" id="par">{{this.record.par}}</td>
+            <td style="width:20%;padding:0"><input type="tel" name="total" player="{{this.ind}}" maxlength="2" value="{{this.record.total}}"/></td>
+            <td style="width:20%;padding:0"><input type="tel" name="put" player="{{this.ind}}"  maxlength="2" value="{{this.record.put}}"/></td>
+            
+              <td style="width:20%;padding:0">
+                <div class="checkbox">
+                 
+                    <input type="checkbox"  player="{{this.ind}}" id="checkbox1_{{this.hole}}_{{this.ind}}" name="on" checked="{{this.record.on}}"/>
+                 
+                    <label for="checkbox1_{{this.hole}}_{{this.ind}}"></label>
+                </div>
+              </td>
+           
+            </tr>
+          
+            {{/each}}
+         
+          </table>
+
+          <table style="border:0">
+            <tr style="background-color: #fff;">
+              <td style="text-align:left">
+                <button type="button" id="preBtn" class="btn btn-primary" ><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span><span id="pre">上一洞</span></button>
+              </td>
+              <td style="text-align:right">
+                <button type="button" id="nextBtn" class="btn btn-primary" ><span id="next">下一洞</span><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
+              </td>
+            </tr>
+         
+          
+          </table>
+        </div>
+       
+        
+      </div>
+      
+     </div>
+  </div>
+</template>
