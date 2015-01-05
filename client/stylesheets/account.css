@@ -1,0 +1,41 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-accounts {
+  max-width: 500px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-accounts .form-accounts-heading,
+.form-accounts .checkbox {
+  margin-bottom: 10px;
+}
+.form-accounts .checkbox {
+  font-weight: normal;
+}
+.form-accounts .form-control {
+  width: 500px;
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-accounts .form-control:focus {
+  z-index: 2;
+}
+.form-accounts input[type="tel"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 2;
+  border-bottom-left-radius: 0;
+}
+.form-accounts input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
