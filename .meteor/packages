@@ -14,6 +14,7 @@ accounts-twitter
 service-configuration
 oauth1
 launch-screen
+accounts-password
 
 # Packages from Atmosphere:
 tmeasday:publish-counts@0.3.1
@@ -25,3 +26,5 @@ mdg:geolocation
 
 # Packages from the app:
 request
+jparker:crypto-base64
+jparker:crypto-md5
