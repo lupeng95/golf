@@ -28,3 +28,4 @@ mdg:geolocation
 request
 jparker:crypto-base64
 jparker:crypto-md5
+http

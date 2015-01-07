@@ -1,7 +1,17 @@
 <template name="profile">
 	<div class="container">
 	      <div class="starter-template">
-	        <h1> profile </h1>
+	       
+	        {{#if userLogin}}
+	        <h4> 用户ID : {{userid}} </h4>
+	        <h4> 昵称 :{{usernick}} </h4>
+	        <h4> 用户名:{{username}} </h4>
+	        <h4> 头像地址:{{avtarurl}} </h4>
+	        {{> logOutButton}}
+	        {{else}}
+	            {{> logInButton}}
+	        {{/if}}
+
 	      </div>
 	</div>
 </template>

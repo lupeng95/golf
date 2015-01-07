@@ -1,13 +1,10 @@
 <template name="signUp">
   <div class="container"> 
-    <form class="form-accounts" role="form" id="register-form" action="sign-in">
-        <h2 class="form-signin-heading" align="center"><span>注册</span></h2>
-        <input type="tel" class="form-control" placeholder="手机号码" id="account-tel" required autofocus>
-        <ul class="nav nav-pills">
-            <input class="form-control" type="number" placeholder="验证码" id="smscode" required>
-            <input class="btn btn-primary" type="button" value="发送验证短信" id="smscode-btn" />
-        </ul>
-        
+    <form class="form-accounts" role="form" id="register-form" >
+        {{#nav title="注册" black=true back=true}}
+          <a class="menu-btn" id="smscode-btn-nav" >下一步</a>
+        {{/nav}}
+        <input type="text" class="form-control" placeholder="昵称" id="nick-name" required autofocus>
         <input class="form-control" type="password" placeholder="密码" id="account-password" required>
         <input class="form-control" type="password" placeholder="重复密码" id="confirm-password" required>
         {{#if errorMessage}}

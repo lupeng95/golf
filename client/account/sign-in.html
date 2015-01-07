@@ -1,13 +1,15 @@
 <template name="signIn">
  <div class="container">
     <form class="form-accounts" role="form" id="login-form" action="action">
-    	<h2 class="form-accounts-heading" align="center"><span>登录</span></h2>
+        {{#nav title="登录" black=true back=false}}
+          <a class="menu-btn" id="smscode-btn-nav" >下一步</a>
+        {{/nav}}
         <input type="tel" class="form-control" placeholder="手机号码" id="account-tel" required autofocus>
         <input type="password" class="form-control"  placeholder="密码"  id="login-password" required>
         {{#if errorMessage}}
           {{>errorPage}}
         {{/if}}
-        <a id="link-forgot-pwd" href="{{pathFor 'reset'}}">密码忘记了?</a>
+        <a id="link-forgot-pwd" href="{{pathFor 'enterTelReset'}}">密码忘记了?</a>
         <button id="login-button" class="btn btn-primary btn-block" type="submit">登录</button>
         <button id="signup-btn" class="btn btn-primary btn-block" type="button">注册</button>
    </form> 
