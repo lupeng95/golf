@@ -14,34 +14,59 @@
       var password = template.find('#account-password').value;
       var confirmPassword = template.find('#confirm-password').value;
       var tel = Session.get(USER_TEL);
-      alert(tel);
+
+      if(!nikeName){
+        Session.set(ERROR_MESSAGE,"请填写昵称");
+        return;
+      }
+      if(nikeName.length<3){
+        Session.set(ERROR_MESSAGE,"昵称太短");
+        return;
+      }
       //check password
       if(!validatePassword(password,confirmPassword)){
         Session.set(ERROR_MESSAGE,"两次密码不一致");
         return;
       }
-      if(!validateSMSPassed){
+      if(!validateSMSPassed()){
         Session.set(ERROR_MESSAGE,"验证码未验证");
         return;
       }
-      if(!tel){
-        Session.set(ERROR_MESSAGE,"手机未验证");
-        return;
-      }
-
+      // if(!tel){
+      //   Session.set(ERROR_MESSAGE,"手机未验证");
+      //   return;
+      // }
+      var user = {password : password, profile : {nick_name: nikeName, avtar_url: 'default_url'}};
+      Meteor.call("createAccount",user,Session.get(SMS_CODE),function (error, result){
+  
+        if(!error && result){
+           Session.set(ERROR_MESSAGE,null);
+           Session.set(USER_TEL,null);
+           Session.set(SMS_CODE,null);
+           Session.set(SMS_VALIDATE,null);
+           Router.go('/sign-in');
+        }else{
+          console.log(error)
+         
+          Session.set(ERROR_MESSAGE,"系统错误");
+          
+         
+         return;
+        }
+      });
       //Create account
-      Accounts.createUser({username : tel.toString(), password : password, profile : {nick_name: nikeName, avtar_url: 'default_url'}},
-        function(err){
-          if (err) {
-            if(err.error === 403){
-              Session.set(ERROR_MESSAGE,"用户已经存在");
-            }
-          } else {
-          }
+      // Accounts.createUser({username : tel.toString(), password : password, profile : {nick_name: nikeName, avtar_url: 'default_url'}},
+      //   function(err){
+      //     if (err) {
+      //       if(err.error === 403){
+      //         Session.set(ERROR_MESSAGE,"用户已经存在");
+      //       }
+      //     } else {
+      //     }
 
-        });
-      Session.set(USER_TEL,null);
-      Router.go('/home');
+      //   });
+
+      //Router.go('/home');
       return false;
     }
   });

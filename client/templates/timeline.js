@@ -1,12 +1,13 @@
 
 var curMatchShowNum = 0;
+var userID;
 
 function getMoreMatch(){
   var increment = 2;
   curMatchShowNum+=increment;
   $("#loadMore").attr("disabled","true")
   $("#loadMore").html("Loading...");
-  Meteor.subscribe('userMatch', Router.current().params._id,curMatchShowNum,function(){
+  Meteor.subscribe('userMatch', userID,curMatchShowNum,function(){
     $("#loadMore").removeAttr("disabled");
     if(matchData.find().count() < curMatchShowNum){
       $("#loadMore").hide();
@@ -21,6 +22,10 @@ function getMoreMatch(){
 
 Template.timeline.created = function() {
   moment.locale('zh-cn');
+  userID = Router.current().params._id;
+  if(!userID){
+    userID = Meteor.userId()
+  }
 
 }
 Template.timeline.rendered = function() {
