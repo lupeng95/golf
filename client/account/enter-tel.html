@@ -1,0 +1,15 @@
+<template name="enterTel">
+  <div class="container">
+    {{#nav title="手机注册" black=true back=true}}
+        <a class="menu-btn" id="smscode-btn-nav" >下一步</a>
+    {{/nav}}
+    <form class="form-accounts" role="form" id="register-form" action="sign-in">
+        <input type="tel" class="form-control" placeholder="手机号码" id="account-tel" required autofocus>
+        {{#if errorMessage}}
+          {{>errorPage}}
+        {{/if}}
+        <input class="btn btn-primary btn-block" type="button" value="发送验证短信" id="smscode-btn" />
+    </form>
+  </div>
+
+</template>

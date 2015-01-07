@@ -1,0 +1,16 @@
+<template name="validateSms">
+  <div class="container"> 
+    <form class="form-accounts" role="form" id="register-form" action="sign-in">
+        {{#nav title="手机验证" black=true back=true}}
+          <a class="menu-btn" id="smscode-btn-nav" >下一步</a>
+        {{/nav}}
+        <input class="form-control" type="tel" placeholder="验证码" id="smscode" required>        
+        {{#if errorMessage}}
+          {{>errorPage}}
+        {{/if}}
+        <a id="link-forgot-pwd" href="{{pathFor 'enterTel'}}">没有收到验证码?</a>
+        <input class="btn btn-primary btn-block" type="submit" id="validate-sms" value="下一步" />
+    </form>
+  </div>
+
+</template>

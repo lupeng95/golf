@@ -39,16 +39,17 @@
 Meteor.methods({
   getSMSCode : function (tel) {
     var accountSid = "7f7911ecdae6fb081187491a466f5c88";
-    var appId = "76dd47144c0c4930a84bca3cdac3dfa8";
+    var appId = "fceadbf8f1a4428eb7139c037b1e8729";
     var authToken = "94c729339ad6d1a7912a6a198d0bc964";
-    var templateId = "1";
-    var smscode = getRandom(tel,9999);
+    var templateId = 2483;
+    var smscode = getRandom(9999);
+    console.log(smscode);
     var templateStr ={
     "templateSMS" :
       {
-        "appId"       : accountSid,
+        "appId"       : appId,
         "param"       : smscode,
-        "templateId"  : 1,
+        "templateId"  : templateId,
         "to"          : tel
        }
     };
@@ -64,9 +65,26 @@ Meteor.methods({
     var url = baseUrl+softVersion+account+func+sigParameter;
     var successSms = false;
     // send smscode to user tel.
-    var result = HTTP.call("POST", url,{data: templateStr, headers: headerStr, timeout: 3000});
+    var result = HTTP.call("POST", url,{data: templateStr, headers: headerStr, timeout: 1000});
+    var status =result.data.resp.respCode;
     //目前是返回状态编码
-    return result.data.resp.respCode;
+    switch(status){
+        case "105122" :
+        console.log("当天发送短信已经达到最大值");
+        break;
+        case "100000" :
+        console.log("金额不为整数");
+        break;
+        case "100001" :
+        console.log("余额不足");
+        break;
+        case "000000" :
+        console.log("发送成功");
+        break;
+    }
+    var smsResult = {"smscode": smscode,"respcode": status};
+    // console.log(smsResult);
+    return smsResult;
     },
   resetUserPassword : function(userId,newPassword){
     Accounts.setPassword(userId,newPassword);

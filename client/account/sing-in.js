@@ -6,24 +6,42 @@
       password = template.find('#login-password').value;
         Meteor.loginWithPassword(tel, password, function(err){
         if (Meteor.user()){
-          Router.go('home');
+          Router.go('/home');
           }
         else{
-          Session.set( "errorMessage", "密码错误或者电话不存在");
+          Session.set(ERROR_MESSAGE, "账号或密码错误!");
+          return;
+        }
+      });
+         return false;
+      },
+      'submit #smscode-btn-nav' : function(event, template){
+      event.preventDefault();
+      Session.set(ERROR_MESSAGE,null);
+      var tel = template.find('#account-tel').value,
+      password = template.find('#login-password').value;
+        Meteor.loginWithPassword(tel, password, function(err){
+        if (Meteor.user()){
+          Router.go('/home');
+          }
+        else{
+          Session.set(ERROR_MESSAGE, "账号或密码错误!");
           return;
         }
       });
          return false;
       },
     'click #signup-btn' : function(event, template){
-      Session.set( "errorMessage",null);
-      Router.go("signUp");
+      Session.set(ERROR_MESSAGE,null);
+      Router.go('/enter-tel');
     }
   });
-Template.signIn.errorMessage = function() {
-  if(Session.get("errorMessage")){
-    return true;
-  }
-return;
-};
 
+  Template.signIn.helpers({
+    errorMessage : function() {
+    if(Session.get(ERROR_MESSAGE)){
+      return true;
+    }
+  return;
+  }
+});

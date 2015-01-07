@@ -5,7 +5,7 @@ body {
 }
 
 .form-accounts {
-  padding: 15px;
+  padding: 60px;
   margin: 0 auto;
 }
 .form-accounts .form-accounts-heading,
@@ -28,6 +28,11 @@ body {
   z-index: 2;
 }
 .form-accounts input[type="tel"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 2;
+  border-bottom-left-radius: 0;
+}
+.form-accounts input[type="text"] {
   margin-bottom: 10px;
   border-bottom-right-radius: 2;
   border-bottom-left-radius: 0;
