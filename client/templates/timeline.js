@@ -1,37 +1,56 @@
-var CITY = "mSelectedCity";
 
-Template.matchperson1.created = function() {
+var curMatchShowNum = 0;
 
-  Session.setDefault(CITY,"北京");
+function getMoreMatch(){
+  var increment = 2;
+  curMatchShowNum+=increment;
+  $("#loadMore").attr("disabled","true")
+  $("#loadMore").html("Loading...");
+  Meteor.subscribe('userMatch', Router.current().params._id,curMatchShowNum,function(){
+    $("#loadMore").removeAttr("disabled");
+    if(matchData.find().count() < curMatchShowNum){
+      $("#loadMore").hide();
+    }else{
+      $("#loadMore").html("更多...");
+    }
+    
+  });
 
 
 }
-Template.matchperson1.rendered = function() {
+
+Template.timeline.created = function() {
+  moment.locale('zh-cn');
+
+}
+Template.timeline.rendered = function() {
+  getMoreMatch();
 
 }
 
-Template.matchperson1.helpers({
-  courtListByCity: function() {
-    var city = Session.get(CITY)
-    return courtsData.find({city:city}, {sort: {index : 1}})
+
+Template.timeline.helpers({
+  getMatch: function() {
+
+    return matchData.find()
   },
+  getTime:function(t){
+    return moment(t).fromNow();
+
+  },
+  getSummary:function(data){
+
+  }
+
  
 })
 
-Template.matchperson1.events({
-   'submit': function(event, template) {
+Template.timeline.events({
+   'click #loadMore': function(event, template) {
       event.preventDefault();
-      //var court = courtsData.findOne({"_id":$("#courtSelect").val()});
-      Router.go("/matchpersoncard/"+$("#courtSelect").val())
+      getMoreMatch();
 
    },
-   'click #caddie':function(event,template){
-      event.preventDefault();
-       Router.go("/matchpersoncardQR/"+$("#courtSelect").val())
-   },
-   'change #citySelect':function(event){
-      event.preventDefault();
-      Session.set(CITY,$("#citySelect").val())
-   }
+  
 
   });

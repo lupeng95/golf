@@ -40,6 +40,8 @@ Meteor.publish('courts', function() {
 });
 
 
-Meteor.publish('userMatch', function(userID) {
-  return matchData.find({userID:userID});
+Meteor.publish('userMatch', function(userId,limit) {
+  return matchData.find({userID:userId},{ limit: limit });
 });
+
+ 

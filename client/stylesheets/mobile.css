@@ -271,10 +271,13 @@ nav.black{
 	padding: 2px;
 }
 
-.smart-timeline-icon-my{
+.bg-color-orange{
 	background: #f8b27c;
 }
 
+.bg-color-greenDark {
+	background-color: #496949!important;
+}
 .smart-timeline-time {
 	float: left;
 	width: 50px;
@@ -289,6 +292,25 @@ nav.black{
 
 .smart-timeline-content small {
 	font-style: italic;
+}
+
+.m-r-sm {
+	margin-right: 10px;
+}
+
+.recordTable{
+	width:100%;
+}
+
+.recordTable td{
+	padding-bottom: 10px;
+}
+.bigFont {
+	color: #d83e14;
+	font-size: 150%;
+	font-weight: bold;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 

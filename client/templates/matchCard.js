@@ -645,7 +645,7 @@ Template.matchcard.events({
     for(var i in card.players){
       if(card.players[i]){
         var p={};
-        p.userId = card.players[i].userId;
+        p.userID = card.players[i].userId;
         p.name = card.players[i].name;
         p.tel = card.players[i].tel;
         p.courtID = card.courtID;
@@ -654,6 +654,7 @@ Template.matchcard.events({
         
         p.record = card.records[i];
         //p.createdAt = new Date();
+        debugger
 
         Meteor.call('addMatch', p, function(error, result) {
           var ret = '比赛结果已储存.'
