@@ -110,7 +110,8 @@ Meteor.methods({
         var sCode = SecCode.findOne(id);
         if(sCode && sCode.verify){
             user.username = sCode.tel;
-            Accounts.createUser(user);
+            var ret = Accounts.createUser(user);
+            console.log(ret);
         }
 
         
@@ -123,4 +124,14 @@ Meteor.methods({
   });
 
 })();
+
+Accounts.validateNewUser(function (user) {
+    var sCode = SecCode.findOne(user.username);
+    if(sCode && sCode.verify){
+            user.username = sCode.tel;
+            return true;
+    }
+
+  throw new Meteor.Error(405, "验证码错误");
+});
 
