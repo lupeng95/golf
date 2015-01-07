@@ -105,18 +105,7 @@ Meteor.methods({
         return ret;
 
     },
-    createAccount:function(user,id){
 
-        var sCode = SecCode.findOne(id);
-        if(sCode && sCode.verify){
-            user.username = sCode.tel;
-            var ret = Accounts.createUser(user);
-            console.log(ret);
-        }
-
-        
-        return true;
-    },
   resetUserPassword : function(userId,newPassword){
     Accounts.setPassword(userId,newPassword);
   }
