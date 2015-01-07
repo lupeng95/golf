@@ -38,3 +38,8 @@ Meteor.publish(null, function() {
 Meteor.publish('courts', function() {
   return courtsData.find();
 });
+
+
+Meteor.publish('userMatch', function(userID) {
+  return matchData.find({userID:userID});
+});
