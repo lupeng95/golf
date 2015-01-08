@@ -1,6 +1,6 @@
 Template.status.helpers({
     userid : function () {
-      return Meteor.user()._id;
+      return Meteor.users()._id;
     },
     usernick : function () {
       return Meteor.user().profile.nick_name;
@@ -9,6 +9,7 @@ Template.status.helpers({
       return Meteor.user().profile.avtar_url;
     },
     username : function () {
+      check(Meteor.user().username);
       return Meteor.user().username;
     },
     fetchUserId : function(phone){
@@ -20,6 +21,7 @@ Template.status.helpers({
     var user =  Meteor.users.find({_id: Meteor.user()._id});
     return user;
     }
+
 	});
 	
 Template.status.events({

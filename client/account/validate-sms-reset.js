@@ -30,11 +30,3 @@ Template.validateSmsReset.events({
     }
   });
 
-  Template.validateSmsReset.helpers({
-    errorMessage : function() {
-    if(Session.get(ERROR_MESSAGE)){
-      return true;
-    }
-  return;
-  }
-});

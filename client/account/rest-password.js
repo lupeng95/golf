@@ -6,7 +6,7 @@ Template.resetPassword.events({
     confirmPassword = template.find('#confirm-password').value;
 
     if(!validateSMSPassed){
-       Session.set(ERROR_MESSAGE,"手机未验证");
+       Session.set(ERROR_MESSAGE,"手机码未验证");
        return;
       }
 
@@ -15,15 +15,10 @@ Template.resetPassword.events({
       Session.set(ERROR_MESSAGE,"两次密码不一致");
       return;
     }
-    alert(Session.get(USER_TEL));
-    //get _id by useranme
-    var user = Meteor.users.find({username: Session.get(USER_TEL)});
-    var userId =user.fetch()[0]._id;
-
     //reset account password
-    Meteor.call("resetUserPassword",userId,password,function (error, result){
+    Meteor.call("resetUserPassword",Session.get(USER_TEL),password,function (error, result){
       if(!error){//这里后面需要增加更多判断，按照状态编码
-       Router.go('/home');
+       Router.go('/sign-in');
       }else{
         Session.set(ERROR_MESSAGE, error);
       }
@@ -33,14 +28,3 @@ Template.resetPassword.events({
   }
 });
 
-Template.enterTelReset.helpers({
-  errorMessage : function() {
-    if(Session.get(ERROR_MESSAGE)){
-      return true;
-    }
-  return;
-  },
-  telNumber : function () {
-      return Session.get(USER_TEL);
-    },
-});
