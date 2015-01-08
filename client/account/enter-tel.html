@@ -1,15 +1,34 @@
 <template name="enterTel">
-  <div class="container">
-    {{#nav title="手机注册" black=true back=true}}
-        <a class="menu-btn" id="smscode-btn-nav" >下一步</a>
-    {{/nav}}
-    <form class="form-accounts" role="form" id="register-form" action="sign-in">
-        <input type="tel" class="form-control" placeholder="手机号码" id="account-tel" required autofocus>
-        {{#if errorMessage}}
-          {{>errorPage}}
-        {{/if}}
-        <input class="btn btn-primary btn-block" type="button" value="发送验证短信" id="smscode-btn" />
-    </form>
+  <div class="page">
+    {{#nav title="注册" black=true back=true}}
+     {{/nav}}
+     <div class="content-scrollable full-screen">
+
+        <div class="well" >
+          <form class="form-accounts form-inline" role="form" id="register-form" action="sign-in" style="padding:0">
+            <div class="row">
+              <div class="col-xs-7 col-sm-7" style="padding-right:0">
+                <input type="tel" class="form-control" id="account-tel" placeholder="手机号码" maxlength="11">
+
+              </div>
+              <div class="col-xs-5 col-sm-5" style="padding-left:10px">
+              <button type="button" class="btn btn-default" id="smsBtn" style="width:100%;padding-left:0;padding-right:0">发送验证</button>
+              </div>
+            </div>
+            
+
+            <input type="tel" class="form-control" placeholder="验证码" id="smscode" >
+            {{#if errorMessage}}
+              {{>errorPage}}
+            {{/if}}
+            <input class="btn btn-primary btn-block" type="button" value="确认验证" id="verifyBtn" disabled/>
+         </form>
+        </div>
+
+     </div>
+
+     
   </div>
+
 
 </template>

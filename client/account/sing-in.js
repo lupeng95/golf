@@ -1,16 +1,16 @@
  Template.signIn.events({
     'submit #login-form' : function(event, template){
       event.preventDefault();
+
       Session.set( "errorMessage",null);
       var tel = template.find('#account-tel').value,
       password = template.find('#login-password').value;
         Meteor.loginWithPassword(tel, password, function(err){
-        if (Meteor.user()){
-          Router.go('/home');
-          }
-        else{
+        if (err){
+         
           Session.set(ERROR_MESSAGE, "账号或密码错误!");
-          return;
+        }else{
+          Router.go('/home');
         }
       });
          return false;

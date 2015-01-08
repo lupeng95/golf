@@ -1,35 +1,31 @@
 <template name="timeline">
   <div class="page match">
-  	{{>nav title='球场选择' black=true back=true}}
+  	{{>nav title='比赛记录' black=true back=true}}
   	 <div  class="content-scrollable">
-      <div class="well well-sm">
+      <div class="well well-sm" style="margin-bottom:0;">
         <div class="smart-timeline">
           <ul class="smart-timeline-list">
             <li>
-              <div class="smart-timeline-icon smart-timeline-icon-my">
+              <div class="smart-timeline-icon bg-color-orange">
                 <span class="glyphicon glyphicon-user" ></span>
               </div>
             
               <div class="smart-timeline-content">
 
-                <p>
-                  <a href="javascript:void(0);"><strong>Trip to Adalaskar</strong></a>
+                
+                <p >
+                  在<strong class="bigFont">2</strong>城市的<strong class="bigFont">3</strong>个球场中进行过<strong class="bigFont">100</strong>次比赛。打出过<strong class="bigFont">2</strong>次小鸟球，<strong class="bigFont">2</strong>次老鹰球和<strong class="bigFont">2</strong>次双鹰球。
                 </p>
-                <p>
-                  Check out my tour to Adalaskar
-                </p>
-                <p>
-                  <a href="javascript:void(0);" class="btn btn-xs btn-primary"><i class="fa fa-file"></i> Read the post</a>
-                </p>
-                <img src="img/superbox/superbox-thumb-4.jpg" alt="img" width="150">
-
+            
+                
+              
                     
                   
               </div>
             </li>
             <li>
-              <div class="smart-timeline-icon">
-                <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+              <div class="smart-timeline-icon bg-color-greenDark">
+                <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
               </div>
             
               <div class="smart-timeline-content">
@@ -43,20 +39,65 @@
                 
                 <div class="well well-sm display-inline">
                   <p>Will you be able to attend the meeting - <strong> 10:00 am</strong> tomorrow?</p>
-                  <button class="btn btn-xs btn-default">Confirm Attendance</button>
+                 
                 </div>    
                       
               </div>
             </li>
+
+            {{#each getMatch}}
+              <li>
+                <div class="smart-timeline-icon">
+                  <span class="glyphicon glyphicon-flag" aria-hidden="true"></span>
+                </div>
+              
+               
+                <div class="smart-timeline-content">
+                  <p> <small>{{getTime createdAt}}</small></p>
+                  <p>
+                    <a href="#"><strong>{{courtName}}</strong></a>
+                  </p>
+
+
+                   <a href="#">
+                   <div class="well well-sm display-inline">
             
-            
+                    <table class="recordTable" >
+                      <tr >
+                        <td>
+                        <button type="button" class="btn btn-danger m-r-sm">{{summary.total}}</button>总杆
+                        </td>                      
+                        <td>
+                        <button type="button" class="btn btn-warning m-r-sm">{{summary.push}}</button>推杆
+                        </td>
+                      </tr>
+                      <tr >
+                        <td>
+                        <button type="button" class="btn btn-success m-r-sm">{{summary.onRate}}</button>上道率
+                        </td>                      
+                        <td>
+                        <button type="button" class="btn btn-info m-r-sm">{{summary.sOnRate}}</button>标on
+                        </td>
+                      </tr>
+                    </table>
+               
+                
+                 
+                  </div>    
+                  </a>
+          
+    
+                        
+                </div>
+              </li>
+            {{/each}}        
            
             <li class="text-center">
-              <a href="javascript:void(0)" class="btn btn-sm btn-default"><i class="fa fa-arrow-down text-muted"></i> LOAD MORE</a>
+              <a href="javascript:void(0)" class="btn btn-sm btn-default" id="loadMore">更多...</a>
             </li>
           </ul>
         </div>
-  	    
+
       </div> <!-- well -->
 	   </div>
   </div>

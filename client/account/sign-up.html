@@ -1,6 +1,26 @@
 <template name="signUp">
-  <div class="container"> 
-    <form class="form-accounts" role="form" id="register-form" >
+  <div class="page">
+    {{#nav title="注册" black=true back=true}}
+     {{/nav}}
+     <div class="content-scrollable full-screen">
+
+        <div class="well" >
+           <form class="form-accounts" role="form" id="register-form" style="padding:0">
+
+        <input type="text" class="form-control" placeholder="昵称" id="nick-name" required >
+        <input class="form-control" type="password" placeholder="密码" id="account-password" required>
+        <input class="form-control" type="password" placeholder="重复密码" id="confirm-password" required>
+        {{#if errorMessage}}
+          {{>errorPage}}
+        {{/if}}
+        <input class="btn btn-primary btn-block" type="submit" id="create-account" value="创建账户" />
+    </form>
+
+        </div>
+
+     </div>
+  </div>
+    <!-- <form class="form-accounts" role="form" id="register-form" >
         {{#nav title="注册" black=true back=true}}
           <a class="menu-btn" id="smscode-btn-nav" >下一步</a>
         {{/nav}}
@@ -11,7 +31,7 @@
           {{>errorPage}}
         {{/if}}
         <input class="btn btn-primary btn-block" type="submit" id="create-account" value="创建账户" />
-    </form>
-  </div>
+    </form> -->
+
 
 </template>

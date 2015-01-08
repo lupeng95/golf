@@ -82,10 +82,30 @@ Meteor.methods({
         console.log("发送成功");
         break;
     }
-    var smsResult = {"smscode": smscode,"respcode": status};
+    //var smsResult = {"smscode": smscode,"respcode": status};
+    var id=0;
+    if(status == "000000"){
+        var ret = {"smscode": smscode,createdAt:new Date,tel:tel,verify:false}
+        id = SecCode.insert(ret)
+    }
     // console.log(smsResult);
+    var smsResult = {"smscode": id,"respcode": status};
     return smsResult;
     },
+    verifySMSCode : function(code,id){
+        var ret={code:-1}
+        var sCode = SecCode.findOne(id);
+        if(sCode){
+            if(code==sCode.smscode){
+                ret.code=0;
+                sCode.verify=true;
+                SecCode.update(id,sCode)
+            }
+        }
+        return ret;
+
+    },
+
   resetUserPassword : function(userId,newPassword){
     Accounts.setPassword(userId,newPassword);
   }
@@ -93,4 +113,14 @@ Meteor.methods({
   });
 
 })();
+
+Accounts.validateNewUser(function (user) {
+    var sCode = SecCode.findOne(user.username);
+    if(sCode && sCode.verify){
+            user.username = sCode.tel;
+            return true;
+    }
+
+  throw new Meteor.Error(405, "验证码错误");
+});
 
