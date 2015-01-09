@@ -47,7 +47,7 @@
              Session.set(USER_TEL,null);
              Session.set(SMS_CODE,null);
              Session.set(SMS_VALIDATE,null);
-            Router.go('/home');
+            Router.go('/');
           }
 
         });
