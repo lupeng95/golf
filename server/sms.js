@@ -36,8 +36,21 @@
     return random;
   };
 
+  var userExist = function(tel){
+    console.log(tel);
+    if(Meteor.users.find({username:tel}).count() == 1){
+      return true;
+    }
+    console.log("用户不存在!");
+    return false;
+  };
+
 Meteor.methods({
-  getSMSCode : function (tel) {
+  getSMSCode : function (tel,exist) {
+    if(exist != userExist(tel)){
+        var smsResult = {"error": true};
+        return smsResult;
+    }
     var accountSid = "7f7911ecdae6fb081187491a466f5c88";
     var appId = "fceadbf8f1a4428eb7139c037b1e8729";
     var authToken = "94c729339ad6d1a7912a6a198d0bc964";
@@ -113,13 +126,6 @@ Meteor.methods({
     var sCode = SecCode.findOne(user.username);
     SecCode.remove({id:sCode.id});
     Accounts.setPassword(userId,newPassword);
-  },
-  userExist : function(tel){
-    console.log(tel);
-    if(Meteor.users.find({username:tel}).count() == 1){
-      return true;
-    }
-    return;
   },
   getUserId : function(tel){
   return Meteor.users.find({username:tel}).fetch()._id;
