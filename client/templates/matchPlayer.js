@@ -27,8 +27,8 @@ Template.matchplayer.events({
    	}else{
    		var user = Meteor.users.findOne({username:tel})
    		if(user){
-	   		if(user.profile.nickname){
-	   			name = user.profile.nickname;
+	   		if(user.profile.nick_name){
+	   			name = user.profile.nick_name;
 	   		}
 	   		card.players[id]={name:name,tel:user.username,userId:user._id}
    		}else{

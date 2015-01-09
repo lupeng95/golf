@@ -1,13 +1,13 @@
 <template name="signIn">
   <div class="page">
-    {{#nav title="登陆" black=true back=true}}
+    {{#nav title="登陆" black=true home=true}}
      {{/nav}}
      <div class="content-scrollable full-screen">
 
         <div class="well" >
           <form class="form-accounts" role="form" id="login-form"  style="padding:0">
            
-            <input type="tel" class="form-control" placeholder="手机号码" id="account-tel" required autofocus>
+            <input type="tel" class="form-control" placeholder="手机号码" id="account-tel" required >
             <input type="password" class="form-control"  placeholder="密码"  id="login-password" required>
             {{#if errorMessage}}
               {{>errorPage}}

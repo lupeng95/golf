@@ -654,7 +654,6 @@ Template.matchcard.events({
         
         p.record = card.records[i];
         //p.createdAt = new Date();
-        debugger
 
         Meteor.call('addMatch', p, function(error, result) {
           var ret = '比赛结果已储存.'

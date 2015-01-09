@@ -1,6 +1,9 @@
 <template name="matchperson2">
   <div class="page match">
-  	{{> nav title='计分卡' black=true back=true}}
+     {{#nav title='计分卡' black=true home=true}}
+     
+        <a class="menu-btn" href="#" id="btn-ok" fn="0">提交&退出</a>
+      {{/nav}}
   	 <div  class="matchpage content-scrollable full-screen">
       <div class="title">
         <table  class="table" style="height:100%;margin:0;text-align:center">
@@ -21,12 +24,19 @@
          <table  class="table ">
 
             {{#each getHoles}}
-            <tr >
-            <td style="width:12%;padding:0;">{{this.ind}}</td>
-            <td style="width:22%;padding:0">{{this.par}}</td>
-            <td style="width:22%;padding:0"><input type="tel" name="no2" maxlength="2"/></td>
-            <td style="width:22%;padding:0"><input type="tel" name="no3" maxlength="2"/></td>
-            <td style="width:22%;padding:0"><input type="checkbox" name="no4" /></td>
+            <tr ind="{{this.ind}}" class="recordItem">
+              <td style="width:12%;padding:0;">{{this.ind}}</td>
+              <td style="width:22%;padding:0">{{this.par}}</td>
+              <td style="width:22%;padding:0"><input type="tel" name="n1" maxlength="2"/></td>
+              <td style="width:22%;padding:0"><input type="tel" name="n2" maxlength="2"/></td>
+              <td style="width:22%;padding:0">
+                <div class="checkbox">
+           
+                    <input type="checkbox" id="checkbox_{{this.ind}}" name="n3" />
+             
+                    <label for="checkbox_{{this.ind}}"></label>
+                </div>
+              </td>
             </tr>
             {{/each}}
 
@@ -39,4 +49,22 @@
       
 	   </div>
   </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-sm" style="margin-top:100px">
+    
+    <div class="modal-content">
+       <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;<span id="msg"></span></h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="confirmBtn">确定</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </template>
