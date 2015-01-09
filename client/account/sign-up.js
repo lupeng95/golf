@@ -32,12 +32,6 @@
         Session.set(ERROR_MESSAGE,"验证码未验证");
         return;
       }
-      // if(!tel){
-      //   Session.set(ERROR_MESSAGE,"手机未验证");
-      //   return;
-      // }
-
-   
 
       //Create account
       Accounts.createUser({username : Session.get(SMS_CODE), password : password, profile : {nick_name: nikeName, avtar_url: 'default_url'}},
@@ -57,18 +51,7 @@
           }
 
         });
-
-      //Router.go('/home');
       return false;
-    }
-  });
-
-Template.signUp.helpers({
-    errorMessage : function() {
-    if(Session.get(ERROR_MESSAGE)){
-      return true;
-    }
-      return;
     }
   });
 })();

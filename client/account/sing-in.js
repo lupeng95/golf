@@ -7,7 +7,6 @@
       password = template.find('#login-password').value;
         Meteor.loginWithPassword(tel, password, function(err){
         if (err){
-         
           Session.set(ERROR_MESSAGE, "账号或密码错误!");
         }else{
           Router.go('/home');
@@ -34,14 +33,9 @@
     'click #signup-btn' : function(event, template){
       Session.set(ERROR_MESSAGE,null);
       Router.go('/enter-tel');
+    },
+    'click #forgot-btn' : function(event, template){
+      Session.set(ERROR_MESSAGE,null);
+      Router.go('/enter-tel-reset');
     }
   });
-
-  Template.signIn.helpers({
-    errorMessage : function() {
-    if(Session.get(ERROR_MESSAGE)){
-      return true;
-    }
-  return;
-  }
-});

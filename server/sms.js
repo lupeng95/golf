@@ -67,6 +67,7 @@ Meteor.methods({
     // send smscode to user tel.
     var result = HTTP.call("POST", url,{data: templateStr, headers: headerStr, timeout: 1000});
     var status =result.data.resp.respCode;
+    console.log(status);
     //目前是返回状态编码
     switch(status){
         case "105122" :
@@ -82,32 +83,46 @@ Meteor.methods({
         console.log("发送成功");
         break;
     }
-    //var smsResult = {"smscode": smscode,"respcode": status};
     var id=0;
     if(status == "000000"){
-        var ret = {"smscode": smscode,createdAt:new Date,tel:tel,verify:false}
-        id = SecCode.insert(ret)
+        var ret = {"smscode": smscode,createdAt:new Date(),tel:tel,verify:false};
+        id = SecCode.insert(ret);
     }
     // console.log(smsResult);
     var smsResult = {"smscode": id,"respcode": status};
     return smsResult;
     },
-    verifySMSCode : function(code,id){
-        var ret={code:-1}
+  verifySMSCode : function(code,id){
+        var ret={code:-1};
         var sCode = SecCode.findOne(id);
         if(sCode){
             if(code==sCode.smscode){
                 ret.code=0;
                 sCode.verify=true;
-                SecCode.update(id,sCode)
+                SecCode.update(id,sCode);
             }
         }
         return ret;
 
     },
-
-  resetUserPassword : function(userId,newPassword){
+  resetUserPassword : function(username,newPassword){
+        //get _id by useranme
+    var user = Meteor.users.find({username: username});
+    var userId =user.fetch()[0]._id;
+    //delete smscode record.
+    var sCode = SecCode.findOne(user.username);
+    SecCode.remove({id:sCode.id});
     Accounts.setPassword(userId,newPassword);
+  },
+  userExist : function(tel){
+    console.log(tel);
+    if(Meteor.users.find({username:tel}).count() == 1){
+      return true;
+    }
+    return;
+  },
+  getUserId : function(tel){
+  return Meteor.users.find({username:tel}).fetch()._id;
   }
 
   });
@@ -117,10 +132,14 @@ Meteor.methods({
 Accounts.validateNewUser(function (user) {
     var sCode = SecCode.findOne(user.username);
     if(sCode && sCode.verify){
-            user.username = sCode.tel;
-            return true;
+        user.username = sCode.tel;
+        console.log(sCode.id);
+        //delete smscode record.
+        SecCode.remove({id:sCode.id});
+        return true;
     }
 
   throw new Meteor.Error(405, "验证码错误");
 });
+
 
