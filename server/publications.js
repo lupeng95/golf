@@ -44,4 +44,14 @@ Meteor.publish('userMatch', function(userId,limit) {
   return matchData.find({userID:userId},{ limit: limit ,sort: {createdAt: -1}});
 });
 
+Meteor.publish('userData',function(tel){
+  return Meteor.users.find({username:tel},{
+    fields:{
+      profile:1,
+      username:1,
+      createdAt:1
+    }
+  });
+});
+
  

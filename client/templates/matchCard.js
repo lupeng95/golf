@@ -524,7 +524,7 @@ Template.matchcard.rendered = function() {
     var ind=parseInt(i)+1;
 
     html+='<tr id="hole" ind="'+(ind)+'" class="h_'+i+'"> \
-            <td style="width:16%;padding:0;height:40px" ind="'+ind+'">'+ind+'('+card.records[0][i].par+')</td> \
+            <td style="width:16%;padding:0;height:40px" ind="'+ind+'">'+ind+'<span class="smallFont">['+card.records[0][i].par+']</span></td> \
             <td style="width:21%;padding:0" ind="'+ind+'">'+p[0]+'</td> \
             <td style="width:21%;padding:0" ind="'+ind+'">'+p[1]+'</td> \
             <td style="width:21%;padding:0" ind="'+ind+'">'+p[2]+'</td> \
@@ -639,7 +639,16 @@ Template.matchcard.events({
     // if(card.finish){
     //   return;
     // }
+     $("#msg").html("提交后将无法修改成绩。确认提交?")
+     $('#myModal').modal({show:true})  
+     return;
+
+    
+
+  },
+  'click #confirmBtn':function(event, template){
     card.finish = 1;
+    $('#myModal').modal('toggle')
     $("#btn-ok").html("上传中");
 
     for(var i in card.players){
@@ -678,7 +687,6 @@ Template.matchcard.events({
 
     $("#btn-ok").html("已结束");
     Session.set(SMC,card);
-
   }
 
 });
