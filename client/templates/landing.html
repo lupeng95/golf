@@ -1,8 +1,8 @@
 <template name="landing">
   <div class="page home">
-  {{ loggingIn }}
-  {{#if currentUser}}
-    <h3>您已经登陆了.</h3>
+  
+  {{#if userLogin}}
+    {{> home}}
   {{else}}
     <h3>您还没有登陆.</h3>
     {{> logInButton}}
