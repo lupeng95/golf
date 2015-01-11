@@ -19,6 +19,9 @@ Template.profile.helpers({
 		profile : function(){
 		var user =	Meteor.users.find({_id: Meteor.user()._id});
 		return user;
+		},
+		noLoginUser:function(){
+			Router.go("/sign-in")
 		}
 	});
 	
@@ -27,6 +30,7 @@ Template.profile.events({
       event.preventDefault();
      Meteor.logout(function (error, result){
         if(!error){//这里后面需要增加更多判断，按照状态编码
+        	Router.go("/")
           return true;
         }else{
           Session.set(ERROR_MESSAGE, "登出失败!");

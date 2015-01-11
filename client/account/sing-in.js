@@ -9,7 +9,14 @@
         if (err){
           Session.set(ERROR_MESSAGE, "账号或密码错误!");
         }else{
-          Router.go('/');
+          var path = Session.get("TargetUrl")
+
+          if(path){
+            Session.set("TargetUrl",false)
+            Router.go(path)
+          }else{
+            Router.go('/');
+          }
         }
       });
          return false;
@@ -21,7 +28,15 @@
       password = template.find('#login-password').value;
         Meteor.loginWithPassword(tel, password, function(err){
         if (Meteor.user()){
-          Router.go('/');
+          var path = Session.get("TargetUrl")
+
+          if(path){
+            Session.set("TargetUrl",false)
+            Router.go(path)
+          }else{
+            Router.go('/');
+          }
+          
           }
         else{
           Session.set(ERROR_MESSAGE, "账号或密码错误!");

@@ -1,6 +1,6 @@
 <template name="timeline">
   <div class="page match">
-  	{{>nav title='比赛记录' black=true back=true}}
+  	{{>nav title='比赛记录' black=true back=false}}
   	 <div  class="content-scrollable">
       <div class="well well-sm" style="margin-bottom:0;">
         <div class="smart-timeline">
@@ -29,18 +29,41 @@
               </div>
             
               <div class="smart-timeline-content">
-                <p> <small>1小时前</small></p>
                 <p>
-                  <a href="#"><strong>北京人济高尔夫球场</strong></a>
+                  <a href="#"><strong>最近5场比赛指标</strong></a>
                 </p>
+<!--                 <p>
+                  <span id="sparkline0" width="50px">loading...</span>
+                  <span>总杆</span>
+                </p>
+
+                 <p>
+                  <span id="sparkline1" width="50px">loading...</span>
+                  <span>推杆</span>
+                </p> -->
+
                 <p>
-                  <strong>Meeting invite for "GENERAL GNU" [<a href="javascript:void(0);"><i>Go to my calendar</i></a>]</strong>
+                  <table width="100%">
+                    <tr>
+                      <td style="width:50%;padding:2px;text-align:center">
+                        <div id="flot0" class="well" style="width:100%;height:80px"></div>
+                        <span>总杆</span>
+                      </td>
+                      <td style="width:50%;padding:2px;text-align:center">
+                        <div id="flot1" class="well" style="width:100%;height:80px"></div>
+                        <span>推杆</span>
+                      </td>
+                    </tr>
+                  </table>
+                  
+                  
                 </p>
+               <!--  <p>
+                  <div id="flot1" class="well" style="width:200px;height:100px"></div>
+                   <span>推杆</span>
+                </p> -->
                 
-                <div class="well well-sm display-inline">
-                  <p>Will you be able to attend the meeting - <strong> 10:00 am</strong> tomorrow?</p>
                  
-                </div>    
                       
               </div>
             </li>
@@ -79,6 +102,14 @@
                         <button type="button" class="btn btn-info m-r-sm">{{summary.sOnRate}}</button>标on
                         </td>
                       </tr>
+                      {{#if  valid}}
+                      {{else}}
+                      <tr>
+                        <td colspan="4">
+                          <p class="small warnForData">以上数据非您本人输入。您可以：<br><button class="btn btn-success" style="padding:0;font-size: 95%;" mid="{{_id}}" id="verifyBtn">确认数据</button> 或 <a href="#" id="delBtn" mid="{{_id}}">删除</a></p>
+                        </td>
+                      </tr>
+                      {{/if}}
                     </table>
                
                 

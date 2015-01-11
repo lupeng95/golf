@@ -296,6 +296,7 @@ nav.black{
 
 .m-r-sm {
 	margin-right: 10px;
+	min-width: 54px;
 }
 
 .recordTable{
@@ -316,6 +317,17 @@ nav.black{
 .smallFont{
 	color:#666;
 
+}
+
+.warnForData{
+	color:#666;
+}
+
+.smallBtn{
+	  padding: 1px 5px;
+  font-size: 12px;
+  line-height: 1.5;
+  border-radius: 3px;
 }
 
 

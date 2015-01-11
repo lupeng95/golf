@@ -25,6 +25,14 @@ function CountDown(){
       $("#verifyBtn").removeAttr("disabled");
       $('#smscode').focus();
       Session.set(USER_TEL,tel);
+
+      count = 60;
+      countdownHandler = setInterval(CountDown, 1000);
+      $("#smsBtn").attr("disabled","true");
+      $("#smsBtn").html("发送(60)");
+
+
+
       Meteor.call("getSMSCode",tel,false,function (error, result){
         if(result.error){
            Session.set(ERROR_MESSAGE, "手机号码已注册!");
@@ -34,10 +42,7 @@ function CountDown(){
         if(!error && result.respcode === "000000"){//这里后面需要增加更多判断，按照状态编码
           Session.set(SMS_CODE,result.smscode);
           Session.set(ERROR_MESSAGE,null);//empty errormessage for next page
-          count = 60;
-          countdownHandler = setInterval(CountDown, 1000);
-          $("#smsBtn").attr("disabled","true");
-          $("#smsBtn").html("发送(60)");
+       
         }else{
           Session.set(ERROR_MESSAGE, "send failed!");//增加状态编码判断后应该不会到这里来，除非服务器有问题.
          return;

@@ -41,7 +41,12 @@ Meteor.publish('courts', function() {
 
 
 Meteor.publish('userMatch', function(userId,limit) {
-  return matchData.find({userID:userId},{ limit: limit ,sort: {createdAt: -1}});
+
+  var cond={userID:userId}
+  if(userId!=this.userId){
+    cond.valid = 1;
+  }
+  return matchData.find(cond,{ limit: limit ,sort: {createdAt: -1}});
 });
 
 Meteor.publish('userData',function(tel){
