@@ -20,12 +20,9 @@ Template.profile.helpers({
 		var user =	Meteor.users.find({_id: Meteor.user()._id});
 		return user;
 		},
-<<<<<<< HEAD
-=======
 		noLoginUser:function(){
-			Router.go("/sign-in")
+			Router.go("/sign-in");
 		}
->>>>>>> 81b732e5abeae271949e807f092f7aaf16db92a3
 	});
 	
 Template.profile.events({
@@ -33,7 +30,7 @@ Template.profile.events({
       event.preventDefault();
      Meteor.logout(function (error, result){
         if(!error){//这里后面需要增加更多判断，按照状态编码
-        	Router.go("/")
+          Router.go("/");
           return true;
         }else{
           Session.set(ERROR_MESSAGE, "登出失败!");
@@ -42,7 +39,7 @@ Template.profile.events({
          Session.set(USER_TEL,tel);
       });
     },
-    'click img-inc': function () {
-      Router.go('avatar-n');
+    'click #change-avatar': function () {
+    Router.go('avatar');
     }
 });

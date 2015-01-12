@@ -1,4 +1,4 @@
-<template name="profixle">
+<template name="profxile">
 	<div class="container">
 	      <div class="starter-template">
 	        {{#if userLogin}}
@@ -11,32 +11,33 @@
 	        	{{noLoginUser}}
 	            <!-- {{> logInButton}} -->
 	        {{/if}}
-
-	      </div>
-	</div>
+</div>
+</div>
 </template>
 
 <template name="profile">
 <div class="page">
 	{{#nav title="用户信息" black=true back=true}}
 	 {{/nav}}
+	 {{#if userLogin}}
 	 <div class="content-scrollable full-screen">
 	    <div class="well" >
 			<div class="row">
-				
-				<div class="col-sm-3 profile-pic">
-					<img src="{{ image }}" />
-					<button type="button" class="btn btn-default" id="img-inc" style="width:100%;padding-left:0;padding-right:0">修改头像</button>
-				</div>
+				<a href="#" id="change-avatar">
+					<div class="col-sm-3 profile-pic">
+						<img src="{{ userImage }}" />
+					</div>
+			    </a>
+
 				<div class="col-sm-6">
-					<h1>John <span class="semi-bold">Doe</span>
+					<h4> 昵称: <span class="semi-bold"> {{ nickName }} </span>
 					<br>
-					<small> CEO, SmartAdmin</small></h1>
+					<small>联系方式:</small></h4>
 
 					<ul class="list-unstyled">
 						<li>
 							<p class="text-muted">
-								<i class="fa fa-phone"></i>&nbsp;&nbsp;(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>
+								<i class="fa fa-phone"></i><span class="txt-color-darken"> {{userPhoneNumber}} </span>
 							</p>
 						</li>
 						<li>
@@ -57,19 +58,21 @@
 					</ul>
 					<br>
 					<p class="font-md">
-						<i>A little about me...</i>
+						<i>自我介绍</i>
 					</p>
 					<p>
-						Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
-						cumque nihil impedit quo minus id quod maxime placeat facere
+						需要更新选项
 					</p>
-					<br>
-					<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
-					<br>
-					<br>
+					
 				</div>
 			</div>
 		</div>
 	</div>
+	{{else}}
+	    {{noLoginUser}}
+	            <!-- {{> logInButton}} -->
+	{{/if}}
 </div>
+
 </template>
+

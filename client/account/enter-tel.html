@@ -3,7 +3,6 @@
     {{#nav title="注册" black=true back=true}}
      {{/nav}}
      <div class="content-scrollable full-screen">
-
         <div class="well" >
           <form class="form-accounts form-inline" role="form" id="register-form" action="sign-in" style="padding:0">
             <div class="row">
@@ -14,8 +13,6 @@
               <button type="button" class="btn btn-default" id="smsBtn" style="width:100%;padding-left:0;padding-right:0">发送验证</button>
               </div>
             </div>
-            
-
             <input type="tel" class="form-control" placeholder="验证码" id="smscode" >
             {{#if errorMessage}}
               {{>errorPage}}
