@@ -19,7 +19,7 @@ Template.profile.helpers({
 		profile : function(){
 		var user =	Meteor.users.find({_id: Meteor.user()._id});
 		return user;
-		}
+		},
 	});
 	
 Template.profile.events({
@@ -34,5 +34,8 @@ Template.profile.events({
         }
          Session.set(USER_TEL,tel);
       });
+    },
+    'click img-inc': function () {
+      Router.go('avatar-n');
     }
 });

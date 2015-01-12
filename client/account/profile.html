@@ -1,4 +1,4 @@
-<template name="profile">
+<template name="profixle">
 	<div class="container">
 	      <div class="starter-template">
 	        {{#if userLogin}}
@@ -13,4 +13,62 @@
 
 	      </div>
 	</div>
+</template>
+
+<template name="profile">
+<div class="page">
+	{{#nav title="用户信息" black=true back=true}}
+	 {{/nav}}
+	 <div class="content-scrollable full-screen">
+	    <div class="well" >
+			<div class="row">
+				
+				<div class="col-sm-3 profile-pic">
+					<img src="{{ image }}" />
+					<button type="button" class="btn btn-default" id="img-inc" style="width:100%;padding-left:0;padding-right:0">修改头像</button>
+				</div>
+				<div class="col-sm-6">
+					<h1>John <span class="semi-bold">Doe</span>
+					<br>
+					<small> CEO, SmartAdmin</small></h1>
+
+					<ul class="list-unstyled">
+						<li>
+							<p class="text-muted">
+								<i class="fa fa-phone"></i>&nbsp;&nbsp;(<span class="txt-color-darken">313</span>) <span class="txt-color-darken">464</span> - <span class="txt-color-darken">6473</span>
+							</p>
+						</li>
+						<li>
+							<p class="text-muted">
+								<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">ceo@smartadmin.com</a>
+							</p>
+						</li>
+						<li>
+							<p class="text-muted">
+								<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">john12</span>
+							</p>
+						</li>
+						<li>
+							<p class="text-muted">
+								<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
+							</p>
+						</li>
+					</ul>
+					<br>
+					<p class="font-md">
+						<i>A little about me...</i>
+					</p>
+					<p>
+						Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio
+						cumque nihil impedit quo minus id quod maxime placeat facere
+					</p>
+					<br>
+					<a href="javascript:void(0);" class="btn btn-default btn-xs"><i class="fa fa-envelope-o"></i> Send Message</a>
+					<br>
+					<br>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </template>
