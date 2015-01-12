@@ -134,6 +134,7 @@ Template.appBody.helpers({
 
 Template.appBody.events({
   'click .js-menu': function(event) {
+    nextInitiator = 'back';  //added to change direction
     event.stopImmediatePropagation();
     event.preventDefault();
     Router.go("/")

@@ -3,12 +3,13 @@
 	      <div class="starter-template">
 	        {{#if userLogin}}
 	        <h4> 用户ID : {{userid}} </h4>
-	        <h4> 昵称 :{{usernick}} </h4>
+	        <h4> 用户名 :{{usernick}} </h4>
 	        <h4> 用户名:{{username}} </h4>
 	        <h4> 头像地址:{{avtarurl}} </h4>
 	        {{> logOutButton}}
 	        {{else}}
-	            {{> logInButton}}
+	        	{{noLoginUser}}
+	            <!-- {{> logInButton}} -->
 	        {{/if}}
 
 	      </div>

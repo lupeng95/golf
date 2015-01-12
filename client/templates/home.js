@@ -18,5 +18,8 @@ Template.home.helpers({
   
   latestNews: function() {
     return News.latest();
+  },
+  getRecordPath:function(){
+    return "/timeline/"+Meteor.userId()
   }
 });

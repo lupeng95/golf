@@ -17,7 +17,7 @@
           </tr>
  
              <tr >
-                <th style="width:16%;padding:0;height:30px;">洞(杆)</th>
+                <th style="width:16%;padding:0;height:30px;">洞<span style="color:#ccc">[par]</span></th>
                 {{#each getPlayers}}
                 <th style="width:21%;padding:0">{{this}}</th>
                 {{/each}}
@@ -43,4 +43,21 @@
 	   </div>
   </div>
   {{getMatchResult}}
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm" style="margin-top:100px">
+      
+      <div class="modal-content">
+         <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;<span id="msg"></span></h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="confirmBtn">确定</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
 </template>

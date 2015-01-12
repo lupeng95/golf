@@ -124,7 +124,7 @@ Meteor.methods({
     var userId =user.fetch()[0]._id;
     //delete smscode record.
     var sCode = SecCode.findOne(user.username);
-    SecCode.remove({id:sCode.id});
+    SecCode.remove({_id:sCode._id});
     Accounts.setPassword(userId,newPassword);
   },
   getUserId : function(tel){
@@ -139,9 +139,9 @@ Accounts.validateNewUser(function (user) {
     var sCode = SecCode.findOne(user.username);
     if(sCode && sCode.verify){
         user.username = sCode.tel;
-        console.log(sCode.id);
+        console.log(sCode._id);
         //delete smscode record.
-        SecCode.remove({id:sCode.id});
+        SecCode.remove({_id:sCode._id});
         return true;
     }
 
