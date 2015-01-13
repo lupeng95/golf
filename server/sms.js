@@ -120,10 +120,10 @@ Meteor.methods({
     },
   resetUserPassword : function(username,newPassword){
         //get _id by useranme
-    var user = Meteor.users.find({username: username});
+    var user = Meteor.users.find({username:username});
     var userId =user.fetch()[0]._id;
     //delete smscode record.
-    var sCode = SecCode.findOne(user.username);
+    var sCode = SecCode.findOne({tel:username});
     SecCode.remove({_id:sCode._id});
     Accounts.setPassword(userId,newPassword);
   },
@@ -136,15 +136,13 @@ Meteor.methods({
 })();
 
 Accounts.validateNewUser(function (user) {
-    var sCode = SecCode.findOne(user.username);
+    var sCode = SecCode.findOne({_id:user.username});
     if(sCode && sCode.verify){
         user.username = sCode.tel;
-        console.log(sCode._id);
         //delete smscode record.
         SecCode.remove({_id:sCode._id});
         return true;
     }
-
   throw new Meteor.Error(405, "验证码错误");
 });
 

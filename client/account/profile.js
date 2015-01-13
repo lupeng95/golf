@@ -40,6 +40,6 @@ Template.profile.events({
       });
     },
     'click #change-avatar': function () {
-    Router.go('avatar');
+    Router.go('/avatar');
     }
 });

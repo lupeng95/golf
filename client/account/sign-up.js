@@ -13,7 +13,6 @@
       var nikeName = template.find('#nick-name').value;
       var password = template.find('#account-password').value;
       var confirmPassword = template.find('#confirm-password').value;
-      var tel = Session.get(USER_TEL);
       
       if(!nikeName){
         Session.set(ERROR_MESSAGE,"请填写昵称");
@@ -41,15 +40,18 @@
           if (err) {
             if(err.error === 403){
               Session.set(ERROR_MESSAGE,"用户已经存在");
+              return;
             }else{
               Session.set(ERROR_MESSAGE,err.reason);
+              return;
             }
           } else {
              Session.set(ERROR_MESSAGE,null);
              Session.set(USER_TEL,null);
              Session.set(SMS_CODE,null);
              Session.set(SMS_VALIDATE,null);
-            Router.go('/');
+             Router.go('/');
+             return true;
           }
 
         });

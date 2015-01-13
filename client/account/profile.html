@@ -1,20 +1,3 @@
-<template name="profxile">
-	<div class="container">
-	      <div class="starter-template">
-	        {{#if userLogin}}
-	        <h4> 用户ID : {{userid}} </h4>
-	        <h4> 用户名 :{{usernick}} </h4>
-	        <h4> 用户名:{{username}} </h4>
-	        <h4> 头像地址:{{avtarurl}} </h4>
-	        {{> logOutButton}}
-	        {{else}}
-	        	{{noLoginUser}}
-	            <!-- {{> logInButton}} -->
-	        {{/if}}
-</div>
-</div>
-</template>
-
 <template name="profile">
 <div class="page">
 	{{#nav title="用户信息" black=true back=true}}
@@ -28,7 +11,7 @@
 						<img src="{{ userImage }}" />
 					</div>
 			    </a>
-
+{{> logOutButton}}
 				<div class="col-sm-6">
 					<h4> 昵称: <span class="semi-bold"> {{ nickName }} </span>
 					<br>
@@ -68,11 +51,7 @@
 			</div>
 		</div>
 	</div>
-	{{else}}
-	    {{noLoginUser}}
-	            <!-- {{> logInButton}} -->
 	{{/if}}
 </div>
-
 </template>
 
