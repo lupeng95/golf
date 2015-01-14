@@ -33,8 +33,6 @@ Meteor.publish(null, function() {
   });
 })
 
-
-
 Meteor.publish('courts', function() {
   return courtsData.find();
 });

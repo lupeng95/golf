@@ -10,6 +10,7 @@ Template.logOutButton.events({
           return false;
         }
          Session.set(USER_TEL,null);
+         Router.go('/sign-in');
       });
     }
 });

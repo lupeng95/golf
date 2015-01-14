@@ -19,6 +19,7 @@ Template.resetPassword.events({
     Meteor.call("resetUserPassword",Session.get(USER_TEL),password,function (error, result){
       if(!error){//这里后面需要增加更多判断，按照状态编码
        Router.go('/sign-in');
+       return;
       }else{
         Session.set(ERROR_MESSAGE, error);
       }

@@ -1,17 +1,54 @@
 <template name="profile">
-	<div class="container">
-	      <div class="starter-template">
-	        {{#if userLogin}}
-	        <h4> 用户ID : {{userid}} </h4>
-	        <h4> 用户名 :{{usernick}} </h4>
-	        <h4> 用户名:{{username}} </h4>
-	        <h4> 头像地址:{{avtarurl}} </h4>
-	        {{> logOutButton}}
-	        {{else}}
-	        	{{noLoginUser}}
-	            <!-- {{> logInButton}} -->
-	        {{/if}}
+<div class="page">
+	{{#nav title="用户信息" black=true back=true}}
+	 {{/nav}}
+	 {{#if userLogin}}
+	 <div class="content-scrollable full-screen">
+	    <div class="well" >
+	    	{{> editYourAvatarModalBody}}
+			<div class="row">
+				<div class="col-sm-6">
+					<h4> 昵称: <span class="semi-bold"> {{ nickName }} </span>
+					<br>
+					<small>联系方式:</small></h4>
 
-	      </div>
+					<ul class="list-unstyled">
+						<li>
+							<p class="text-muted">
+								<i class="fa fa-phone"></i><span class="txt-color-darken"> {{userPhoneNumber}} </span>
+							</p>
+						</li>
+						<li>
+							<p class="text-muted">
+								<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">ceo@smartadmin.com</a>
+							</p>
+						</li>
+						<li>
+							<p class="text-muted">
+								<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">john12</span>
+							</p>
+						</li>
+						<li>
+							<p class="text-muted">
+								<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
+							</p>
+						</li>
+					</ul>
+					<br>
+					<p class="font-md">
+						<i>自我介绍</i>
+					</p>
+					<p>
+						需要更新选项
+					</p>
+					<p>
+					    {{> logOutButton}}
+				    </p>
+				</div>
+			</div>
+		</div>
 	</div>
+	{{/if}}
+</div>
 </template>
+

@@ -21,7 +21,7 @@ Template.profile.helpers({
 		return user;
 		},
 		noLoginUser:function(){
-			Router.go("/sign-in")
+			Router.go("/sign-in");
 		}
 	});
 	
@@ -30,7 +30,7 @@ Template.profile.events({
       event.preventDefault();
      Meteor.logout(function (error, result){
         if(!error){//这里后面需要增加更多判断，按照状态编码
-        	Router.go("/")
+          Router.go("/");
           return true;
         }else{
           Session.set(ERROR_MESSAGE, "登出失败!");
@@ -38,5 +38,8 @@ Template.profile.events({
         }
          Session.set(USER_TEL,tel);
       });
+    },
+    'click #change-avatar': function () {
+    Router.go('/avatar');
     }
 });
