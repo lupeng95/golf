@@ -23,50 +23,66 @@
                   
               </div>
             </li>
-            <li>
-              <div class="smart-timeline-icon bg-color-greenDark">
-                <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
-              </div>
-            
-              <div class="smart-timeline-content">
-                <p>
-                  <a href="#"><strong>最近5场比赛指标</strong></a>
-                </p>
-<!--                 <p>
-                  <span id="sparkline0" width="50px">loading...</span>
-                  <span>总杆</span>
-                </p>
 
-                 <p>
-                  <span id="sparkline1" width="50px">loading...</span>
-                  <span>推杆</span>
-                </p> -->
+            {{#if isShowLine}}
 
-                <p>
-                  <table width="100%">
-                    <tr>
-                      <td style="width:50%;padding:2px;text-align:center">
-                        <div id="flot0" class="well" style="width:100%;height:80px"></div>
-                        <span>总杆</span>
-                      </td>
-                      <td style="width:50%;padding:2px;text-align:center">
-                        <div id="flot1" class="well" style="width:100%;height:80px"></div>
-                        <span>推杆</span>
-                      </td>
-                    </tr>
-                  </table>
+              <li>
+                <div class="smart-timeline-icon bg-color-greenDark">
+                  <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+                </div>
+
+
+
+              
+                <div class="smart-timeline-content">
+                  <p>
+                    <a href="#"><strong>最近5场比赛指标</strong></a>
+                  </p>
+
+                  <p>
+                    <table width="100%">
+                      <tr>
+                        <td style="width:50%;padding:2px;text-align:center">
+                          <div id="flot_total" class="well" style="width:100%;height:80px;margin-bottom:10px"></div>
+                          <p>总杆</p>
+                          {{drawLine "total"}}
+                        </td>
+                        <td style="width:50%;padding:2px;text-align:center">
+                          <div id="flot_push" class="well" style="width:100%;height:80px;margin-bottom:10px"></div>
+                          <p>推杆</p>
+                          {{drawLine "push"}}
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td style="width:50%;padding:2px;text-align:center">
+                          <div id="flot_onRate" class="well" style="width:100%;height:80px;margin-bottom:10px"></div>
+                          <p>上道率</p>
+                          {{drawLine "onRate"}}
+                        </td>
+                        <td style="width:50%;padding:2px;text-align:center">
+                          <div id="flot_sOnRate" class="well" style="width:100%;height:80px;margin-bottom:10px"></div>
+                          <p>标on</p>
+                          {{drawLine "sOnRate"}}
+                        </td>
+                      </tr>
+                    </table>
+
+                    <p class="text-right" style="margin-right:10px"><a href="\mystatus">更多>></a></p>
+                    
+                    
+                  </p>
+                 <!--  <p>
+                    <div id="flot1" class="well" style="width:200px;height:100px"></div>
+                     <span>推杆</span>
+                  </p> -->
                   
-                  
-                </p>
-               <!--  <p>
-                  <div id="flot1" class="well" style="width:200px;height:100px"></div>
-                   <span>推杆</span>
-                </p> -->
-                
-                 
-                      
-              </div>
-            </li>
+                   
+                        
+                </div>
+              </li>
+
+              {{/if}}
 
             {{#each getMatch}}
               <li>

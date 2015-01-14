@@ -330,6 +330,16 @@ nav.black{
   border-radius: 3px;
 }
 
+.ui-btn-active{
+background-color: #5cb85c;
+border-color: #4cae4c;
+color: #fff;
+}
+
+.ui-navbar a{
+	color: #333;
+}
+
 
 
 

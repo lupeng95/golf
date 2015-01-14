@@ -101,18 +101,12 @@ Template.timeline.helpers({
 
   },
   isShowLine:function(){
-    if(userID == Meteor.userId()){
-      return true
-    }
     return false
   },
   drawLine:function(type){
-
     var dd = matchData.find({},{ limit: 5} ).fetch();
 
-
-    if(dd.length>0){
-
+    if(dd){
       var options = {
         series: {
             lines: { show: true ,fill:true,zero:false},
@@ -129,22 +123,18 @@ Template.timeline.helpers({
         myData[0].data.push([i,dd[i].summary[type]]);
       }
 
-      if($("#flot_"+type)){
-        var p = $.plot($("#flot_"+type), myData, options)
+      var p = $.plot($("#flot_"+type), myData, options)
 
-        $.each(p.getData()[0].data, function(i, el){
-          var o = p.pointOffset({x: el[0], y: el[1]});
-          $('<div class="data-point-label">' + el[1] + '</div>').css( {
-            position: 'absolute',
-            left: o.left -5,
-            top: o.top + 5,
-            display: 'none'
-          }).appendTo(p.getPlaceholder()).fadeIn('slow');
+      $.each(p.getData()[0].data, function(i, el){
+        var o = p.pointOffset({x: el[0], y: el[1]});
+        $('<div class="data-point-label">' + el[1] + '</div>').css( {
+          position: 'absolute',
+          left: o.left -5,
+          top: o.top + 5,
+          display: 'none'
+        }).appendTo(p.getPlaceholder()).fadeIn('slow');
 
-        });
-      }
-
-        
+      });
 
     }
     
