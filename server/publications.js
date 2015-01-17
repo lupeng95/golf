@@ -44,7 +44,17 @@ Meteor.publish('userMatch', function(userId,limit) {
   if(userId!=this.userId){
     cond.valid = 1;
   }
+  //Meteor._sleepForMs(3000);
+
   return matchData.find(cond,{ limit: limit ,sort: {createdAt: -1}});
+});
+
+Meteor.publish('match', function(id) {
+
+
+  //Meteor._sleepForMs(3000);
+
+  return matchData.find(id);
 });
 
 Meteor.publish('userData',function(tel){

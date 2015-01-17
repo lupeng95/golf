@@ -2,111 +2,48 @@
 var curMatchShowNum = 0;
 var userID;
 
+var sDLI = "DRAWLINEINDEX";
+var loading = true
+
 function getMoreMatch(){
-  var increment = 5;
+  var increment = 30;
   curMatchShowNum+=increment;
-  $("#loadMore").attr("disabled","true")
-  $("#loadMore").html("Loading...");
   Meteor.subscribe('userMatch', userID,curMatchShowNum,function(){
-    $("#loadMore").removeAttr("disabled");
-    if(matchData.find().count() < curMatchShowNum){
-      $("#loadMore").hide();
-    }else{
-      $("#loadMore").html("更多...");
-    }
+
+    $(".spinner-container").hide()
+    $("#picTable").show()
+    loading = false;
+    //drawLine();
     
+
   });
 
-
 }
 
-Template.timeline.created = function() {
-  moment.locale('zh-cn');
-  userID = Router.current().params._id;
-  if(!userID){
-    userID = Meteor.userId()
-  }
+function getMatchNum(){
+   var ind = Session.get(sDLI);
+    var num = 10;
+    switch(ind){
+      case 0:
+        num = 4;
+        break;
+      case 1:
+        num = 6;
+        break;
+      case 2:
+        num = 7;
+        break;
+    }
 
-}
-Template.timeline.rendered = function() {
-  getMoreMatch();
-  // var myvalues = [72,75,76,80,75]
-
-  //  $("#sparkline0").sparkline([72,75,76,80,75 ], {
-  //   type: 'line',
-  //   width: '100px',
-  //   enableTagOptions: true,
-  //   height: '60px'});
-  //  $("#sparkline1").sparkline([75,85,76,80,78 ], {
-  //   type: 'line',
-  //   width: '100px',
-  //   enableTagOptions: true,
-  //   height: '60px'});
-
-// var options = {
-//     series: {
-//         lines: { show: true ,fill:true,zero:false},
-//         points: { show: true },
-//     },
-//     xaxis:{ show: false },
-//     yaxis:{ show: false },
-//     grid:{show:true,borderColor:"#f5f5f5"}
-// };
-
-
-// var myData = [ { label: "", data: [ [0, 72], [1, 75], [2, 76] , [3, 80] , [4, 75] ] }]
-
-//    var p = $.plot($("#flot0"), myData, options)
-
-//    $.each(p.getData()[0].data, function(i, el){
-//       var o = p.pointOffset({x: el[0], y: el[1]});
-//       $('<div class="data-point-label">' + el[1] + '</div>').css( {
-//         position: 'absolute',
-//         left: o.left -5,
-//         top: o.top + 5,
-//         display: 'none'
-//       }).appendTo(p.getPlaceholder()).fadeIn('slow');
-
-//     });
-
-
-//    p = $.plot($("#flot1"), myData, options)
-
-//    $.each(p.getData()[0].data, function(i, el){
-//       var o = p.pointOffset({x: el[0], y: el[1]});
-//       $('<div class="data-point-label">' + el[1] + '</div>').css( {
-//         position: 'absolute',
-//         left: o.left -5 ,
-//         top: o.top + 5,
-//         display: 'none'
-//       }).appendTo(p.getPlaceholder()).fadeIn('slow');
-
-//     });
-
-
-
+    return num
 }
 
+function drawLine(type){
+   var num = getMatchNum();
 
-Template.timeline.helpers({
-  getMatch: function() {
+    var dd = matchData.find({},{ limit: num} ).fetch();
 
-    return matchData.find()
-  },
-  getTime:function(t){
-    return moment(t).fromNow();
-
-  },
-  getSummary:function(data){
-
-  },
-  isShowLine:function(){
-    return false
-  },
-  drawLine:function(type){
-    var dd = matchData.find({},{ limit: 5} ).fetch();
-
-    if(dd){
+    if(dd.length>0 && $("#flot_"+type).length>0){
       var options = {
         series: {
             lines: { show: true ,fill:true,zero:false},
@@ -119,9 +56,13 @@ Template.timeline.helpers({
 
 
       var myData = [ { label: "", data: [ ] }]
+      //for(var i=dd.length-1;i>=0;i--){
+      var len = dd.length;
       for (var i in dd){
-        myData[0].data.push([i,dd[i].summary[type]]);
+        len--
+        myData[0].data.push([len,dd[i].summary[type]]);
       }
+
 
       var p = $.plot($("#flot_"+type), myData, options)
 
@@ -137,78 +78,117 @@ Template.timeline.helpers({
       });
 
     }
+}
+
+
+
+Template.mystatus.created = function() {
+  moment.locale('zh-cn');
+  userID = Meteor.userId()
+  loading = true
+  Session.set(sDLI,0)
+
+}
+Template.mystatus.rendered = function() {
+  getMoreMatch();
+  console.log($("#flot_total").width())
+  drawLine("total")
+  drawLine("push")
+  drawLine("onRate")
+  drawLine("sOnRate")
+
+}
+
+
+Template.mystatus.helpers({
+ 
+  getTime:function(t){
+    return moment(t).fromNow();
+
+  },
+  startTime:function(){
+
+   var num = getMatchNum();
+
+    var dd = matchData.find({},{ limit: num} ).fetch();
+    if(dd.length>0){
+      
+      return moment(dd[dd.length-1].createdAt).format("MM-DD-YY")
+    }
+    return ""
+
+  },
+  endTime:function(){
+
+   var num = getMatchNum();
+
+    var dd = matchData.find({},{ limit: num} ).fetch();
+    if(dd.length>0){
+      return moment(dd[0].createdAt).format("MM-DD-YY")
+    }
+    return ""
+
+  },
+  drawLine:function(type){
+
+      drawLine(type)
+   
     
   },
 
  
 })
 
-Template.timeline.events({
-   'click #loadMore': function(event, template) {
+
+
+
+
+
+Template.mystatus.events({
+   'click #btn10': function(event, template) {
       event.preventDefault();
-      if(!Meteor.userId()){
-        Session.set("TargetUrl",window.location.pathname)
-        Router.go("/sign-in")
+      if (loading) return
+      var i = Session.get(sDLI);
+      var cur = 0;
+      if (i == cur){
         return;
       }
-      getMoreMatch();
-
-   },
-   'click #verifyBtn':function(event, template){
-      event.preventDefault();
-      var id = $(event.currentTarget).attr("mid")
-
-      var match = matchData.findOne(id);
-      if (match){
-        match.valid = 1;
-
-        Meteor.call('updateMatch', match, function(error, result) {
-
-          var ret = '比赛结果已确认.'
-          if (error) {
-            alert(error.reason);
-          } else {
-            Template.appBody.addNotification({
-              action: '确定',
-              title: ret,
-              callback: function() {
-
-              }
-            });
-          }
-        });
-      }
-
+      $(".ui-navbar li").eq(i).find("a").eq(0).removeClass("ui-btn-active");
+      Session.set(sDLI,cur);
+      $(".ui-navbar li").eq(cur).find("a").eq(0).addClass("ui-btn-active");
       
 
    },
-   'click #delBtn':function(event, template){
+   'click #btn20': function(event, template) {
       event.preventDefault();
-
-      var id = $(event.currentTarget).attr("mid")
-
-      var match = matchData.findOne(id);
-      if (match){
-        match.valid = 1;
-
-        Meteor.call('delMatch', id, function(error, result) {
-
-          var ret = '比赛结果已删除.'
-          if (error) {
-            alert(error.reason);
-          } else {
-            Template.appBody.addNotification({
-              action: '确定',
-              title: ret,
-              callback: function() {
-
-              }
-            });
-          }
-        });
+      if (loading) return
+      var i = Session.get(sDLI);
+      var cur = 1;
+      if (i == cur){
+        return;
       }
+      $(".ui-navbar li").eq(i).find("a").eq(0).removeClass("ui-btn-active");
+      Session.set(sDLI,cur);
+      $(".ui-navbar li").eq(cur).find("a").eq(0).addClass("ui-btn-active");
+      
 
-   }
+   },
+   'click #btn30': function(event, template) {
+      event.preventDefault();
+      if (loading) return
+      var i = Session.get(sDLI);
+      var cur = 2;
+      if (i == cur){
+        return;
+      }
+      $(".ui-navbar li").eq(i).find("a").eq(0).removeClass("ui-btn-active");
+      Session.set(sDLI,cur);
+      $(".ui-navbar li").eq(cur).find("a").eq(0).addClass("ui-btn-active");
+      
+
+   },
+
+
   
 
 });

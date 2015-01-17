@@ -314,6 +314,13 @@ nav.black{
 	margin-right: 5px;
 }
 
+.bigFont2 {
+
+	font-size: 120%;
+	font-weight: bold;
+	margin: 5px;
+}
+
 .smallFont{
 	color:#666;
 
@@ -338,6 +345,13 @@ color: #fff;
 
 .ui-navbar a{
 	color: #333;
+}
+
+.spinner-container{
+	position: absolute;
+
+	z-index: 1;
+
 }
 
 

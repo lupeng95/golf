@@ -9,6 +9,7 @@ function getMoreMatch(){
   $("#loadMore").html("Loading...");
   Meteor.subscribe('userMatch', userID,curMatchShowNum,function(){
     $("#loadMore").removeAttr("disabled");
+  
     if(matchData.find().count() < curMatchShowNum){
       $("#loadMore").hide();
     }else{
@@ -17,6 +18,51 @@ function getMoreMatch(){
     
   });
 
+
+}
+
+function drawLine(type){
+  var dd = matchData.find({},{ limit: 5} ).fetch();
+
+
+    if(dd.length>0){
+
+      var options = {
+        series: {
+            lines: { show: true ,fill:true,zero:false},
+            points: { show: true },
+        },
+        xaxis:{ show: false },
+        yaxis:{ show: false },
+        grid:{show:true,borderColor:"#f5f5f5"}
+      };
+
+
+      var myData = [ { label: "", data: [ ] }]
+      var len = dd.length;
+      for (var i in dd){
+        len--
+        myData[0].data.push([len,dd[i].summary[type]]);
+      }
+
+      if($("#flot1_"+type).length>0){
+        var p = $.plot($("#flot1_"+type), myData, options)
+
+        $.each(p.getData()[0].data, function(i, el){
+          var o = p.pointOffset({x: el[0], y: el[1]});
+          $('<div class="data-point-label">' + el[1] + '</div>').css( {
+            position: 'absolute',
+            left: o.left -5,
+            top: o.top + 5,
+            display: 'none'
+          }).appendTo(p.getPlaceholder()).fadeIn('slow');
+
+        });
+      }
+
+        
+
+    }
 
 }
 
@@ -30,6 +76,13 @@ Template.timeline.created = function() {
 }
 Template.timeline.rendered = function() {
   getMoreMatch();
+
+
+  drawLine("total")
+  drawLine("push")
+  drawLine("onRate")
+  drawLine("sOnRate")
+
   // var myvalues = [72,75,76,80,75]
 
   //  $("#sparkline0").sparkline([72,75,76,80,75 ], {
@@ -108,45 +161,7 @@ Template.timeline.helpers({
   },
   drawLine:function(type){
 
-    var dd = matchData.find({},{ limit: 5} ).fetch();
-
-
-    if(dd.length>0){
-
-      var options = {
-        series: {
-            lines: { show: true ,fill:true,zero:false},
-            points: { show: true },
-        },
-        xaxis:{ show: false },
-        yaxis:{ show: false },
-        grid:{show:true,borderColor:"#f5f5f5"}
-      };
-
-
-      var myData = [ { label: "", data: [ ] }]
-      for (var i in dd){
-        myData[0].data.push([i,dd[i].summary[type]]);
-      }
-
-      if($("#flot_"+type)){
-        var p = $.plot($("#flot_"+type), myData, options)
-
-        $.each(p.getData()[0].data, function(i, el){
-          var o = p.pointOffset({x: el[0], y: el[1]});
-          $('<div class="data-point-label">' + el[1] + '</div>').css( {
-            position: 'absolute',
-            left: o.left -5,
-            top: o.top + 5,
-            display: 'none'
-          }).appendTo(p.getPlaceholder()).fadeIn('slow');
-
-        });
-      }
-
-        
-
-    }
+    drawLine(type)
     
   },
 
