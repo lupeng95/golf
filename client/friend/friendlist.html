@@ -1,0 +1,39 @@
+<template name="friendlist">
+  <div class="page match">
+    {{#nav title='好友列表' subtext=getRule black=true back=false}}
+     
+        <a class="menu-btn" href="{{pathFor 'friendadd'}}" id="btn-ok">添加</a>
+      {{/nav}}
+  	 <div  class="content-scrollable full-screen">
+       
+         <table  class="table friendList" >
+          {{#each this}}
+          <a href="/userinfo/{{fID}}">
+           <tr >
+            
+              <td class="icon" >
+                <img src="{{getAvator fAvator}}" class="profile-img-small"> 
+              </td>
+              <td width="100%">
+                <p class="bigFont2">{{fName}}</p>
+              </td>
+              <td class="right">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              </td>
+            
+          </tr>
+          </a>
+            
+          {{/each}}
+
+         
+        </table>
+
+        {{showMSG}}
+
+      
+	   </div>
+  </div>
+
+
+</template>

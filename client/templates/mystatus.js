@@ -41,7 +41,7 @@ function getMatchNum(){
 function drawLine(type){
    var num = getMatchNum();
 
-    var dd = matchData.find({},{ limit: num} ).fetch();
+    var dd = matchData.find({userID:userID},{ limit: num} ).fetch();
 
     if(dd.length>0 && $("#flot_"+type).length>0){
       var options = {

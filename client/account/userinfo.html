@@ -1,0 +1,182 @@
+<template name="userinfo">
+  {{#with getUser}}
+  <div class="page match">
+    {{#nav title=profile.nick_name black=true back=true}}
+     
+        <!-- <a class="menu-btn" id="btn-ok" disabled>load..</a> -->
+        {{checkFriend}}
+    {{/nav}}
+  	 <div  class="content-scrollable full-screen" style="background-color: #f5f5f5;">
+ 
+
+    
+         <table  class="table userInfo" >
+          <tr class="info">
+            <td class="left" >
+              <img src="{{getAvator profile.avtar_url}}" class="profile-img"> 
+            </td>
+            <td >
+              <p class="bigFont2">{{profile.nick_name}}</p>
+            </td>
+          </tr>
+
+          {{#with getRecord _id}}
+          <tr class="blank">
+          </tr>
+
+          <tr class="info">
+            <td class="left">
+              <p>最近比赛</p>
+            </td>
+            <td >
+               <a href="/timeline/friend/{{userID}}">
+                 
+                   <div class="display-inline" style="margin:10px 0">
+                    <p>
+                    <a href="#"><strong>{{courtName}}</strong></a>
+                  </p>
+                  <br>
+                    <table class="recordTable" style="text-align:left">
+                      <tr >
+                        <td>
+                        <button type="button" class="btn btn-danger m-r-sm" style="margin-right:2px">{{summary.total}}</button>总杆
+                        </td>                      
+                        <td>
+                        <button type="button" class="btn btn-warning m-r-sm" style="margin-right:2px">{{summary.push}}</button>推杆
+                        </td>
+                        <td rowspan="2">
+                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        </td>
+                      </tr>
+                      <tr >
+                        <td>
+                        <button type="button" class="btn btn-success m-r-sm" style="margin-right:2px">{{summary.onRate}}</button>上道率
+                        </td>                      
+                        <td>
+                        <button type="button" class="btn btn-info m-r-sm" style="margin-right:2px">{{summary.sOnRate}}</button>标on
+                        </td>
+                      </tr>
+                     
+                    </table>
+               
+                
+                 
+                  </div>    
+                  </a>
+              
+            </td>
+          </tr>
+          {{/with}}
+
+          <tr class="blank">
+          </tr>
+
+          <tr class="info">
+            <td colspan="2">
+              <table class="info-table" style="width:100%">
+                <tr>
+                  <td class="left" >           
+                    <p>职业</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+                <tr >
+                  <td class="left" >
+                    <p>公司</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+
+          <tr class="blank">
+          </tr>
+
+          <tr class="info">
+            <td colspan="2">
+              <table class="info-table" style="width:100%">
+                <tr>
+                  <td class="left" >           
+                    <p>一号木</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+                <tr >
+                  <td class="left" >
+                    <p>球道木</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+                <tr >
+                  <td class="left" >
+                    <p>铁木杆</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+                <tr >
+                  <td class="left" >
+                    <p>铁杆组</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+                <tr >
+                  <td class="left" >
+                    <p>挖起杆</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+                <tr >
+                  <td class="left" >
+                    <p>推杆</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+                <tr >
+                  <td class="left" >
+                    <p>高尔夫鞋</p>
+                  </td>
+                  <td class="right">
+                   
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="blank">
+          </tr>
+          
+          
+          
+
+         
+        </table>
+         
+       
+
+      
+	   </div>
+  </div>
+
+ 
+{{/with}}
+
+</template>

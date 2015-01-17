@@ -10,7 +10,7 @@ function getMoreMatch(){
   Meteor.subscribe('userMatch', userID,curMatchShowNum,function(){
     $("#loadMore").removeAttr("disabled");
   
-    if(matchData.find().count() < curMatchShowNum){
+    if(matchData.find({userID:userID}).count() < curMatchShowNum){
       $("#loadMore").hide();
     }else{
       $("#loadMore").html("更多...");
@@ -144,7 +144,7 @@ Template.timeline.rendered = function() {
 Template.timeline.helpers({
   getMatch: function() {
 
-    return matchData.find()
+    return matchData.find({userID:userID},{ sort: {createdAt: -1}})
   },
   getTime:function(t){
     return moment(t).fromNow();
@@ -164,6 +164,13 @@ Template.timeline.helpers({
     drawLine(type)
     
   },
+  canBack:function(){
+    if(Router.current().params._type){
+      return true;
+    }
+
+    return false;
+  }
 
  
 })

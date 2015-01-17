@@ -1,6 +1,10 @@
 <template name="timeline">
   <div class="page match">
+    {{#if canBack}}
+    {{>nav title='比赛记录' black=true back=true}}
+    {{else}}
   	{{>nav title='比赛记录' black=true back=false}}
+    {{/if}}
   	 <div  class="content-scrollable">
       <div class="well well-sm" style="margin-bottom:0;">
         <div class="smart-timeline">
@@ -14,7 +18,7 @@
 
                 
                 <p >
-                  在<strong class="bigFont">2</strong>城市的<strong class="bigFont">3</strong>个球场中进行过<strong class="bigFont">100</strong>次比赛。打出过<strong class="bigFont">2</strong>次小鸟球，<strong class="bigFont">2</strong>次老鹰球和<strong class="bigFont">2</strong>次双鹰球。
+                  在<strong class="bigFont">2</strong>城市的<strong class="bigFont">3</strong>个球场中进行过<strong class="bigFont">100</strong>次比赛。打出过<strong class="bigFont">2</strong>次小鸟球，<strong class="bigFont">2</strong>次老鹰球和<strong class="bigFont">2</strong>次信天翁。
                 </p>
             
                 
