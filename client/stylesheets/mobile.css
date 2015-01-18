@@ -451,6 +451,10 @@ color: #fff;
 
 }
 
+.modal-dialog{
+	z-index: 1045;
+}
+
 
 
 

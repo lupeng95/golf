@@ -726,7 +726,7 @@ html.ui-nosvg .ui-btn.ui-checkbox-on:after {
 /* Globals */
 /* Font
 -----------------------------------------------------------------------------------------------------------*/
-html {
+/*html {
 	font-size: 100%;
 }
 body,
@@ -737,8 +737,8 @@ button,
 .ui-btn {
 	font-size: 1em;
 	line-height: 1.3;
-	font-family: sans-serif /*{global-font-family}*/;
-}
+	font-family: sans-serif ;
+}*/
 legend,
 .ui-input-text input,
 .ui-input-search input {
@@ -1721,14 +1721,14 @@ button.ui-btn-icon-notext,
 .ui-page-pre-in {
 	opacity: 0;
 }
-.in {
+/*.in {
 	-webkit-animation-timing-function: ease-out;
 	-webkit-animation-duration: 350ms;
 	-moz-animation-timing-function: ease-out;
 	-moz-animation-duration: 350ms;
 	animation-timing-function: ease-out;
 	animation-duration: 350ms;
-}
+}*/
 .out {
 	-webkit-animation-timing-function: ease-in;
 	-webkit-animation-duration: 225ms;
@@ -1761,7 +1761,7 @@ button.ui-btn-icon-notext,
     from { opacity: 1; }
     to { opacity: 0; }
 }
-.fade.out {
+/*.fade.out {
 	opacity: 0;
 	-webkit-animation-duration: 125ms;
 	-webkit-animation-name: fadeout;
@@ -1778,7 +1778,7 @@ button.ui-btn-icon-notext,
 	-moz-animation-name: fadein;
 	animation-duration: 225ms;
 	animation-name: fadein;
-}
+}*/
 .pop {
 	-webkit-transform-origin: 50% 50%;
 	-moz-transform-origin: 50% 50%;
