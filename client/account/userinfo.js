@@ -73,6 +73,20 @@ Template.userinfo.events({
 
 
   },
+  'click #equipBtn':function(event, template) {
+    event.preventDefault(); 
+    var stat = $(event.currentTarget).attr("stat");
+    if(stat==1){
+    	$("#equipBtnText").html('展开&nbsp;<span class="glyphicon glyphicon-chevron-down" ></span>')
+    	$(".equipItem").hide();
+    	$(event.currentTarget).attr("stat","0");
+    }else{
+    	$("#equipBtnText").html('收起&nbsp;<span class="glyphicon glyphicon-chevron-up" ></span>')
+    	$(".equipItem").show();
+    	$(event.currentTarget).attr("stat","1");
+    }
+
+  },
  
 
 });

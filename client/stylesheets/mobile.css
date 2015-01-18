@@ -381,6 +381,7 @@ color: #fff;
 .userInfo  .left p{
 	margin:10px 15px;
 	font-size: 16px;
+	color:#666;
 }
 
 .userInfo  .right{
@@ -453,6 +454,10 @@ color: #fff;
 
 .modal-dialog{
 	z-index: 1045;
+}
+
+.equipItem{
+	display:none;
 }
 
 
