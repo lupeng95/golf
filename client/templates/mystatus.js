@@ -83,7 +83,6 @@ function drawLine(type){
 
 
 Template.mystatus.created = function() {
-  moment.locale('zh-cn');
   userID = Meteor.userId()
   loading = true
   Session.set(sDLI,0)
@@ -102,10 +101,7 @@ Template.mystatus.rendered = function() {
 
 Template.mystatus.helpers({
  
-  getTime:function(t){
-    return moment(t).fromNow();
 
-  },
   startTime:function(){
 
    var num = getMatchNum();

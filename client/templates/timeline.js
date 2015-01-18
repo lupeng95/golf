@@ -67,7 +67,6 @@ function drawLine(type){
 }
 
 Template.timeline.created = function() {
-  moment.locale('zh-cn');
   userID = Router.current().params._id;
   if(!userID){
     userID = Meteor.userId()
@@ -146,10 +145,7 @@ Template.timeline.helpers({
 
     return matchData.find({userID:userID},{ sort: {createdAt: -1}})
   },
-  getTime:function(t){
-    return moment(t).fromNow();
 
-  },
   getSummary:function(data){
 
   },
