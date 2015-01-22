@@ -48,7 +48,17 @@ Meteor.publish('userMatch', function(userId,limit) {
   if(userId!=this.userId){
     cond.valid = 1;
   }
+  //Meteor._sleepForMs(3000);
+
   return matchData.find(cond,{ limit: limit ,sort: {createdAt: -1}});
+});
+
+Meteor.publish('match', function(id) {
+
+
+  //Meteor._sleepForMs(3000);
+
+  return matchData.find(id);
 });
 
 Meteor.publish('userData',function(tel){
@@ -61,4 +71,21 @@ Meteor.publish('userData',function(tel){
   });
 });
 
+Meteor.publish('getUser',function(id){
+  return Meteor.users.find({_id:id},{
+    fields:{
+      profile:1,
+      username:1,
+      createdAt:1
+    }
+  });
+});
+
+Meteor.publish('myFriend', function(id) {
+  return friendData.find({fID:id,myID:this.userId});
+});
+
+Meteor.publish('myFriendList', function() {
+  return friendData.find({myID:this.userId});
+});
  

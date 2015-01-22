@@ -52,6 +52,10 @@ Meteor.startup(function () {
   }, CONNECTION_ISSUE_TIMEOUT);
 });
 
+Template.appBody.created = function(){
+  moment.locale('zh-cn');
+}
+
 Template.appBody.rendered = function() {
   this.find("#content-container")._uihooks = {
     insertElement: function(node, next) {

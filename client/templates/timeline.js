@@ -9,7 +9,8 @@ function getMoreMatch(){
   $("#loadMore").html("Loading...");
   Meteor.subscribe('userMatch', userID,curMatchShowNum,function(){
     $("#loadMore").removeAttr("disabled");
-    if(matchData.find().count() < curMatchShowNum){
+  
+    if(matchData.find({userID:userID}).count() < curMatchShowNum){
       $("#loadMore").hide();
     }else{
       $("#loadMore").html("更多...");
@@ -20,8 +21,52 @@ function getMoreMatch(){
 
 }
 
+function drawLine(type){
+  var dd = matchData.find({},{ limit: 5} ).fetch();
+
+
+    if(dd.length>0){
+
+      var options = {
+        series: {
+            lines: { show: true ,fill:true,zero:false},
+            points: { show: true },
+        },
+        xaxis:{ show: false },
+        yaxis:{ show: false },
+        grid:{show:true,borderColor:"#f5f5f5"}
+      };
+
+
+      var myData = [ { label: "", data: [ ] }]
+      var len = dd.length;
+      for (var i in dd){
+        len--
+        myData[0].data.push([len,dd[i].summary[type]]);
+      }
+
+      if($("#flot1_"+type).length>0){
+        var p = $.plot($("#flot1_"+type), myData, options)
+
+        $.each(p.getData()[0].data, function(i, el){
+          var o = p.pointOffset({x: el[0], y: el[1]});
+          $('<div class="data-point-label">' + el[1] + '</div>').css( {
+            position: 'absolute',
+            left: o.left -5,
+            top: o.top + 5,
+            display: 'none'
+          }).appendTo(p.getPlaceholder()).fadeIn('slow');
+
+        });
+      }
+
+        
+
+    }
+
+}
+
 Template.timeline.created = function() {
-  moment.locale('zh-cn');
   userID = Router.current().params._id;
   if(!userID){
     userID = Meteor.userId()
@@ -30,6 +75,13 @@ Template.timeline.created = function() {
 }
 Template.timeline.rendered = function() {
   getMoreMatch();
+
+
+  drawLine("total")
+  drawLine("push")
+  drawLine("onRate")
+  drawLine("sOnRate")
+
   // var myvalues = [72,75,76,80,75]
 
   //  $("#sparkline0").sparkline([72,75,76,80,75 ], {
@@ -43,44 +95,45 @@ Template.timeline.rendered = function() {
   //   enableTagOptions: true,
   //   height: '60px'});
 
-var options = {
-    series: {
-        lines: { show: true ,fill:true,zero:false},
-        points: { show: true },
-    },
-    xaxis:{ show: false },
-    yaxis:{ show: false },
-    grid:{show:true,borderColor:"#f5f5f5"}
-};
-
-var myData = [ { label: "", data: [ [0, 72], [1, 75], [2, 76] , [3, 80] , [4, 75] ] }]
-
-   var p = $.plot($("#flot0"), myData, options)
-
-   $.each(p.getData()[0].data, function(i, el){
-      var o = p.pointOffset({x: el[0], y: el[1]});
-      $('<div class="data-point-label">' + el[1] + '</div>').css( {
-        position: 'absolute',
-        left: o.left -5,
-        top: o.top + 5,
-        display: 'none'
-      }).appendTo(p.getPlaceholder()).fadeIn('slow');
-
-    });
+// var options = {
+//     series: {
+//         lines: { show: true ,fill:true,zero:false},
+//         points: { show: true },
+//     },
+//     xaxis:{ show: false },
+//     yaxis:{ show: false },
+//     grid:{show:true,borderColor:"#f5f5f5"}
+// };
 
 
-   p = $.plot($("#flot1"), myData, options)
+// var myData = [ { label: "", data: [ [0, 72], [1, 75], [2, 76] , [3, 80] , [4, 75] ] }]
 
-   $.each(p.getData()[0].data, function(i, el){
-      var o = p.pointOffset({x: el[0], y: el[1]});
-      $('<div class="data-point-label">' + el[1] + '</div>').css( {
-        position: 'absolute',
-        left: o.left -5 ,
-        top: o.top + 5,
-        display: 'none'
-      }).appendTo(p.getPlaceholder()).fadeIn('slow');
+//    var p = $.plot($("#flot0"), myData, options)
 
-    });
+//    $.each(p.getData()[0].data, function(i, el){
+//       var o = p.pointOffset({x: el[0], y: el[1]});
+//       $('<div class="data-point-label">' + el[1] + '</div>').css( {
+//         position: 'absolute',
+//         left: o.left -5,
+//         top: o.top + 5,
+//         display: 'none'
+//       }).appendTo(p.getPlaceholder()).fadeIn('slow');
+
+//     });
+
+
+//    p = $.plot($("#flot1"), myData, options)
+
+//    $.each(p.getData()[0].data, function(i, el){
+//       var o = p.pointOffset({x: el[0], y: el[1]});
+//       $('<div class="data-point-label">' + el[1] + '</div>').css( {
+//         position: 'absolute',
+//         left: o.left -5 ,
+//         top: o.top + 5,
+//         display: 'none'
+//       }).appendTo(p.getPlaceholder()).fadeIn('slow');
+
+//     });
 
 
 
@@ -90,14 +143,29 @@ var myData = [ { label: "", data: [ [0, 72], [1, 75], [2, 76] , [3, 80] , [4, 75
 Template.timeline.helpers({
   getMatch: function() {
 
-    return matchData.find()
+    return matchData.find({userID:userID},{ sort: {createdAt: -1}})
   },
-  getTime:function(t){
-    return moment(t).fromNow();
 
-  },
   getSummary:function(data){
 
+  },
+  isShowLine:function(){
+    if(userID == Meteor.userId()){
+      return true
+    }
+    return false
+  },
+  drawLine:function(type){
+
+    drawLine(type)
+    
+  },
+  canBack:function(){
+    if(Router.current().params._type){
+      return true;
+    }
+
+    return false;
   }
 
  

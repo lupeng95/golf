@@ -18,7 +18,7 @@
         Session.set(ERROR_MESSAGE,"请填写昵称");
         return;
       }
-      if(nikeName.length<3){
+      if(nikeName.length<2){
         Session.set(ERROR_MESSAGE,"昵称太短");
         return;
       }

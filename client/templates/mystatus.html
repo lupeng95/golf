@@ -1,0 +1,118 @@
+<template name="mystatus">
+  <div class="page match">
+  	{{>nav title='技术统计' black=true back=true}}
+    {{> spinner}}
+  	 <div  class="content-scrollable" style="padding:20px;margin-bottom:60px">
+
+
+      
+
+         <p>
+                    <table width="100%" id="picTable" >
+                      <tr>
+                        <td style="width:100%;padding:2px;text-align:center">
+                          <div id="flot_total" class="well" style="width:100%;height:180px;margin-bottom:10px"></div>
+                          <div>
+                            <table width="100%">
+                              <tr>
+                                <td style="text-align:left;margin-left:10px">
+                                  {{startTime}}
+                                </td>
+                                <td style="text-align:right">
+                                  {{endTime}}
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                          <p class="bigFont2" >总杆</p>
+                          {{drawLine "total"}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width:100%;padding:2px;text-align:center">
+                          <div id="flot_push" class="well" style="width:100%;height:180px;margin-bottom:10px"></div>
+                          <div>
+                            <table width="100%">
+                              <tr>
+                                <td style="text-align:left;margin-left:10px">
+                                  {{startTime}}
+                                </td>
+                                <td style="text-align:right">
+                                  {{endTime}}
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                          <p class="bigFont2">推杆</p>
+                          {{drawLine "push"}}
+                          
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td style="width:100%;padding:2px;text-align:center">
+                          <div id="flot_onRate" class="well" style="width:100%;height:180px;margin-bottom:10px"></div>
+                          <div>
+                            <table width="100%">
+                              <tr>
+                                <td style="text-align:left;margin-left:10px">
+                                  {{startTime}}
+                                </td>
+                                <td style="text-align:right">
+                                  {{endTime}}
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                          <p class="bigFont2">上道率</p>
+                          {{drawLine "onRate"}}
+                          
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="width:100%;padding:2px;text-align:center">
+                          <div id="flot_sOnRate" class="well" style="width:100%;height:180px;margin-bottom:10px"></div>
+                          <div>
+                            <table width="100%">
+                              <tr>
+                                <td style="text-align:left;margin-left:10px">
+                                  {{startTime}}
+                                </td>
+                                <td style="text-align:right">
+                                  {{endTime}}
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                          <p class="bigFont2">标on</p>
+                          {{drawLine "sOnRate"}}
+                        </td>
+                      </tr>
+                    </table>
+
+                    
+                    
+          </p>
+      
+      
+     
+
+	   </div>
+
+      <div data-role="footer" role="contentinfo" class="ui-footer ui-bar-inherit ui-footer-fixed slideup">
+          <div data-role="navbar" class="ui-navbar" role="navigation">
+            <ul class="ui-grid-b">
+               <li class="ui-block-b"><a href="#" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top ui-btn-active" id="btn10">最近10场</a></li>
+              <li class="ui-block-b"><a href="#" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top" id="btn20">最近20场</a></li>
+             <li class="ui-block-b"><a href="#" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top" id="btn30">最近30场</a></li>
+            </ul>
+          </div><!-- /navbar -->
+      </div>
+  </div>
+</template>
+
+
+<template name="mystatusdraw">
+
+
+</template>

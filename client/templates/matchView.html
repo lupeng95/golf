@@ -1,0 +1,63 @@
+<template name="matchview">
+  <div class="page match">
+     {{#nav title='计分卡' black=true back=true}}
+     
+      {{/nav}}
+  	 <div  class="matchpage content-scrollable full-screen">
+      <div class="title">
+        <table  class="table" style="height:100%;margin:0;text-align:center">
+          <thead style="height:100%">
+             <tr >
+                <th style="width:12%;padding:0;height:30px;">球洞</th>
+                <th style="width:22%;padding:0">标准杆</th>
+                <th style="width:22%;padding:0">杆数</th>
+                <th style="width:22%;padding:0">推杆数</th>
+                <th style="width:22%;padding:0">开球上道</th>
+              </tr>
+          </thead>
+         
+        </table>
+      </div>
+
+      <div class="card content-scrollable">
+         <table  class="table ">
+
+            {{#each getRecord}}
+            <tr ind="{{this.ind}}" class="recordItem" style="height:40px">
+              <td style="width:12%;padding:0;">{{this.ind}}</td>
+              <td style="width:22%;padding:0">{{this.par}}</td>
+              <td style="width:22%;padding:0">{{this.total}}</td>
+              <td style="width:22%;padding:0">{{this.put}}</td>
+              <td style="width:22%;padding:0">
+                {{#if this.on}}
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                {{/if}}
+              </td>
+            </tr>
+            {{/each}}
+
+            {{#with getTotal}}
+             <tr  style="background-color: #f8b27c;height:40px"> 
+            <td style="width:12%;padding:0;" >总杆</td> 
+            <td style="width:22%;padding:0" >{{par}}</td> 
+            <td style="width:22%;padding:0" >{{total}}</td> 
+            <td style="width:22%;padding:0" >{{put}}</td> 
+            <td style="width:22%;padding:0" ></td> 
+            </tr> 
+            {{/with}}
+
+
+         
+        </table>
+
+       
+        
+      </div>
+      
+	   </div>
+  </div>
+
+
+
+
+</template>

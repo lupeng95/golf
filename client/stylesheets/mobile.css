@@ -216,6 +216,16 @@ nav.black{
   background-color: #5cb85c;
 
 }
+.menu-btn.disabled,
+.menu-btn[disabled]{
+  pointer-events: none;
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  opacity: .65;
+}
+
 .win{
 	background-color: #99cc99;
 }
@@ -314,6 +324,13 @@ nav.black{
 	margin-right: 5px;
 }
 
+.bigFont2 {
+
+	font-size: 120%;
+	font-weight: bold;
+	margin: 5px;
+}
+
 .smallFont{
 	color:#666;
 
@@ -329,6 +346,120 @@ nav.black{
   line-height: 1.5;
   border-radius: 3px;
 }
+
+.ui-btn-active{
+background-color: #5cb85c;
+border-color: #4cae4c;
+color: #fff;
+}
+
+.ui-navbar a{
+	color: #333;
+}
+
+.spinner-container{
+	position: absolute;
+
+	z-index: 1;
+
+}
+
+.userInfo .info{
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	background-color: #fff;
+}
+.userInfo  .left{
+	width:94px;
+	text-align: right;
+}
+.userInfo .blank{
+	border: 0;
+	height:15px;
+}
+.userInfo  .left p{
+	margin:10px 15px;
+	font-size: 16px;
+	color:#666;
+}
+
+.userInfo  .right{
+	text-align: left;
+	border-bottom: 1px solid #f5f5f5;
+}
+
+
+.info-table {
+	width: :100%;
+}
+
+.info-table tr:last-child .right{
+	border: 0;
+}
+
+
+/*.userInfo tr{
+	border: 1px solid #ccc;
+}
+.userInfo td{
+	border: 1px solid #ccc;
+}*/
+.profile-img{
+	border: 1px solid #ccc;
+	width:64px;
+	height:64px;
+	margin:10px 15px;
+	border-radius: 50%;
+-moz-border-radius: 50%;
+-webkit-border-radius: 50%;
+}
+
+.profile-img-small{
+	width:52px;
+	height:52px;
+
+}
+
+/*.friendList{
+	position: relative;
+}
+.friendList .list{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}*/
+
+
+.friendList tr{
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	background-color: #fff;
+
+}
+
+
+.friendList .icon{
+	padding:10px 20px;
+	width:92px;
+
+}
+.friendList .right{
+	padding-right:15px;
+	padding-left:15px;
+	width:30px;
+	border-left: 1px solid #ccc;
+
+}
+
+.modal-dialog{
+	z-index: 1045;
+}
+
+.equipItem{
+	display:none;
+}
+
 
 
 

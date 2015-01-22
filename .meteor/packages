@@ -10,7 +10,6 @@ less
 email
 jquery-waypoints
 fastclick
-accounts-twitter
 service-configuration
 oauth1
 launch-screen
@@ -30,5 +29,10 @@ jparker:crypto-base64
 jparker:crypto-md5
 http
 momentjs:moment
+<<<<<<< HEAD
 cfs:standard-packages
 cfs:filesystem
+=======
+sacha:spin
+particle4dev:upload-avatar
+>>>>>>> 1c66092b483d4b386c47202b7caa0671a5a4e7b9
