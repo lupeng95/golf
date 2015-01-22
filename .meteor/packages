@@ -30,4 +30,5 @@ jparker:crypto-base64
 jparker:crypto-md5
 http
 momentjs:moment
-particle4dev:upload-avatar
+cfs:standard-packages
+cfs:filesystem

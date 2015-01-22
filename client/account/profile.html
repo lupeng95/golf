@@ -5,7 +5,9 @@
 	 {{#if userLogin}}
 	 <div class="content-scrollable full-screen">
 	    <div class="well" >
-	    	{{> editYourAvatarModalBody}}
+	    	<a id="change-avatar">
+	    	   <img src= "{{userImage userId}}" />
+	        </a>
 			<div class="row">
 				<div class="col-sm-6">
 					<h4> 昵称: <span class="semi-bold"> {{ nickName }} </span>
