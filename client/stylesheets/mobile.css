@@ -331,6 +331,7 @@ nav.black{
 	margin: 5px;
 }
 
+
 .smallFont{
 	color:#666;
 
@@ -451,6 +452,13 @@ color: #fff;
 	border-left: 1px solid #ccc;
 
 }
+.friendList .tel{
+	padding: 0;
+	border-left: 1px solid #ccc;
+}
+.friendList .tel a{
+	width:30px;
+}
 
 .modal-dialog{
 	z-index: 1045;
@@ -460,7 +468,32 @@ color: #fff;
 	display:none;
 }
 
+.rankList tr{
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	background-color: #fff;
+	text-align: center
 
+}
+.rankList .order{
+	width:30px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.rankList .icon{
+	padding:10px;
+	width:92px;
+}
+.rankList .name{
+	text-align: left;
+}
+
+.rankList .right{	
+	width:80px;
+	color:#d83e14;
+	font-weight: bold;
+}
 
 
 

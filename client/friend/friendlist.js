@@ -24,16 +24,30 @@ Template.friendlist.helpers({
     }
    
  },
+ getRank:function(uid){
+  var m = parseInt(moment().format("M"))-1;
+  var rank = rankData[m].findOne({userID:uid});
+  var aTotal = 0;
+  if(rank){
+    aTotal = rank['aTotal']
+  }
+  return "本月平均总杆:"+aTotal;
+ }
 
  
 })
 
 Template.friendlist.events({
-  'click #hole':function(event, template) {
-    event.preventDefault(); 
+  'click #tel':function(event, template) {
+    //event.preventDefault(); 
 
 
   },
+  'click #friendLink':function(event, template) {
+    event.preventDefault(); 
+    var uid = $(event.currentTarget).parent().attr("uid");
+    Router.go("/userinfo/"+uid);
+  }
  
 
 });
