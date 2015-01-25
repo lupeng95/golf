@@ -1,54 +1,366 @@
 <template name="profile">
 <div class="page">
-	{{#nav title="用户信息" black=true back=true}}
+	{{#nav title="个人信息" black=true back=true}}
 	 {{/nav}}
-	 {{#if userLogin}}
 	 <div class="content-scrollable full-screen">
-	    <div class="well" >
-	    	{{> editYourAvatarModalBody}}
-			<div class="row">
-				<div class="col-sm-6">
-					<h4> 昵称: <span class="semi-bold"> {{ nickName }} </span>
-					<br>
-					<small>联系方式:</small></h4>
+     <div class="well" >
+	 <div class="row">
+	 {{#with getProfile}}
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <a id="change-avatar">
+            <img src="{{getUserAvatar userId}}" class="img-circle" alt="avatar">
+          </a>
+        </div>
+      </div>
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        {{#if errorMessage}}
+            {{>errorPage}}
+        {{else}}
+            <div class="alert alert-info alert-dismissable">
+              <a class="panel-close close" data-dismiss="alert"></a> 
+              <i class="fa fa-coffee"></i>
+              <strong>点击头像更换照片.</strong>
+             </div>
+        {{/if}}
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+             <label class="col-lg-3 control-label">用户名:</label>
+           <div class="col-lg-8">
+              <input id="nick-name" class="form-control" type="text" value="{{nick_name}}" maxlength="10" required="required"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">性别:</label>
+            <div class="col-lg-8">
+              <select id="sel-sex" class="form-control">
+                <option value="0">保密</option>
+				        <option value="1">男</option>
+				        <option value="2">女</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">情感状态:</label>
+            <div class="col-lg-8">
+              <select id="sel-status" class="form-control">
+                <option value="0">保密</option>
+        				<option value="1">未婚</option>
+				        <option value="2">已婚</option>
+              </select>
+            </div>
+          </div>
+           <div class="form-group">
+            <label class="col-lg-3 control-label">球龄(年):</label>
+            <div class="col-lg-8">
+              <input id="ball-age" class="form-control" type="number" min="0" max="50" value="{{ball_age}}">
+            </div>
+          </div>
+           <div class="form-group">
+            <label class="col-lg-3 control-label">职位:</label>
+            <div class="col-lg-8">
+               <select id="sel-position" class="form-control">
+                  <option value="0">未知</option> 
+        				  <option value="1">主管</option>
+        				  <option value="2">经理</option>
+        				  <option value="3">总监</option>
+        				  <option value="4">副总裁</option>
+        				  <option value="5">总裁</option>
+        				  <option value="6">首席执行官</option>
+        				  <option value="7">董事长</option>
+                  <option value="8">职员</option>
+              </select>
+            </div>
+          </div>
+		  <div class="form-group">
+            <label class="col-lg-3 control-label">所属行业:</label>
+            <div class="col-lg-8">
+                <select id="sel-profession" class="form-control">
+                  <option value="0">未知</option>
+        				  <option value="1">金融</option>
+        				  <option value="2">互联网/IT</option>
+        				  <option value="3">商务服务</option>
+        				  <option value="4">贸易</option>
+        				  <option value="5">交通/运输</option>
+        				  <option value="6">文化/传媒/娱乐/体育</option>
+        				  <option value="7">政府</option>
+                  <option value="8">房地产</option>
+        				  <option value="9">其他</option>
+                </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">公司:</label>
+            <div class="col-lg-8">
+              <input id="company" placeholder="公司名称" size="50" class="form-control" type="text" value="{{company}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">简介:</label>
+            <div class="col-lg-8">
+	            <textarea id="description" placeholder="介绍下自己" class="form-control" rows="3" size="300" value="{{des}}" ></textarea>
+            </div>
+          </div>
+        <div class="form-group">
+         <table  class="table userInfo" >
+          <tr class="info">
+            <td colspan="2">
+              <table class="info-table" style="width:100%">
+                <tr id="equipBtn" stat="0">     
+                  <td class="left" >           
+                    <p>装备</p>
+                  </td>
+                  <td class="right">
+                    <p class="text-right" style="margin-right:20px" id="equipBtnText">展开&nbsp;<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span></p>
+                  </td>
+                </tr>
+                <tr class="equipItem">
+                  <td class="left" > 
+                    <p>一号木</p>
+                  </td>
+                  <td class="right">
+                   	<select id="sel-driver" class="form-control">
+                      <option value="0">未知</option>
+                      <option value="1">TaylorMade</option>
+                      <option value="2">Titlelist</option>
+                      <option value="3">Callaway</option>
+                      <option value="4">Honma</option>
+                      <option value="5">Mizuno</option>
+                      <option value="6">XXIO</option>
+                      <option value="7">Nike</option>
+                      <option value="8">Srixon</option>
+                      <option value="9">PING</option>
+                      <option value="10">Cleveland</option>
+                      <option value="11">Adams</option>
+                      <option value="12">Maruman</option>
+                      <option value="13">Wilson</option>
+                      <option value="14">MacGregor</option>
+                      <option value="15">KATANA SWORD</option>
+                      <option value="16">KASCO</option>
+                      <option value="17">Nickent</option>
+                      <option value="18">YONEX</option>
+                      <option value="19">George Spirits</option>
+                      <option value="20">Cobra</option>
+                      <option value="21">GIII</option>
+                      <option value="22">PRGR</option>
+                      <option value="23">DUNLOP</option>
+                      <option value="24">EPON</option>
+                      <option value="25">Tourstage</option>
+                      <option value="26">WILLIAMS</option>
+      		          </select>
+                  </td>
+                </tr>
+                <tr class="equipItem">
+                  <td class="left" >
+                    <p>球道木</p>
+                  </td>
+                  <td class="right">
+                    <select id="sel-fairway-wood" class="form-control">
+                      <option value="0">未知</option>
+                      <option value="1">TaylorMade</option>
+                      <option value="2">Titlelist</option>
+                      <option value="3">Callaway</option>
+                      <option value="4">Honma</option>
+                      <option value="5">Mizuno</option>
+                      <option value="6">XXIO</option>
+                      <option value="7">Cleveland</option>
+                      <option value="8">Nike</option>
+                      <option value="9">Adams</option>
+                      <option value="10">Maruman</option>
+                      <option value="11">Srixon</option>
+                      <option value="12">PING</option>
+                      <option value="13">Wilson</option>
+                      <option value="14">MacGregor</option>
+                      <option value="15">KATANA SWORD</option>
+                      <option value="16">YONEX</option>
+                      <option value="17">Nickent</option>
+                      <option value="18">George Spirits</option>
+                      <option value="19">Cobra</option>
+                      <option value="20">KASCO</option>
+                      <option value="21">GIII</option>
+                      <option value="22">PRGR</option>
+                      <option value="23">DUNLOP</option>
+                      <option value="24">EPON</option>
+                      <option value="25">Tourstage</option>
+                      <option value="26">WILLIAMS</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="equipItem">
+                  <td class="left" >
+                    <p>铁木杆</p>
+                  </td>
+                  <td class="right">
+                    <select id="sel-hybrid" class="form-control">
+                      <option value="0">未知</option>
+                      <option value="1">TaylorMade</option>
+                      <option value="2">Titlelist</option>
+                      <option value="3">Callaway</option>
+                      <option value="4">Honma</option>
+                      <option value="5">Mizuno</option>
+                      <option value="6">XXIO</option>
+                      <option value="7">Nike</option>
+                      <option value="8">Adams</option>
+                      <option value="9">Srixon</option>
+                      <option value="10">PING</option>
+                      <option value="11">MacGregor</option>
+                      <option value="12">Yamaha</option>
+                      <option value="13">KASCO</option>
+                      <option value="14">GIII</option>
+                      <option value="15">Tourstage</option>
+                      <option value="16">PRGR</option>
+                      <option value="17">EPON</option>
+                      <option value="18">Nickent</option>
+                      <option value="19">WILLIAMS</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="equipItem">
+                  <td class="left" >
+                    <p>铁杆组</p>
+                  </td>
+                  <td class="right">
+                    <select id="sel-irons" class="form-control">
+                    <option value="0">未知</option>
+                    <option value="1">TaylorMade</option>
+                    <option value="2">Titlelist</option>
+                    <option value="3">Callaway</option>
+                    <option value="4">Honma</option>
+                    <option value="5">Mizuno</option>
+                    <option value="6">XXIO</option>
+                    <option value="7">Maruman</option>
+                    <option value="8">PING</option>
+                    <option value="9">Adams</option>
+                    <option value="10">Nike</option>
+                    <option value="11">Srixon</option>
+                    <option value="12">MacGregor</option>
+                    <option value="13">Wilson</option>
+                    <option value="14">Cleveland</option>
+                    <option value="15">Yamaha</option>
+                    <option value="16">KASCO</option>
+                    <option value="17">GIII</option>
+                    <option value="18">Tourstage</option>
+                    <option value="19">PRGR</option>
+                    <option value="20">EPON</option>
+                    <option value="21">Scrach</option>
+                    <option value="22">Nickent</option>
+                    <option value="23">WILLIAMS</option>
+                    <option value="24">YONEX</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr class="equipItem">
+                  <td class="left" >
+                    <p>挖起杆</p>
+                  </td>
+                  <td class="right">
+                   <select id="sel-wedges" class="form-control">
+                    <option value="0">未知</option>
+                    <option value="1">Titlelist</option>
+                    <option value="2">TaylorMade</option>
+                    <option value="3">Cleveland</option>
+                    <option value="4">Callaway</option>
+                    <option value="5">Honma</option>
+                    <option value="6">Mizuno</option>
+                    <option value="7">XXIO</option>
+                    <option value="8">Maruman</option>
+                    <option value="9">Nike</option>
+                    <option value="10">PING</option>
+                    <option value="11">Adams</option>
+                    <option value="12">S-Yard</option>
+                    <option value="13">Srixon</option>
+                    <option value="14">Cobra</option>
+                    <option value="15">Wilson</option>
+                    <option value="16">MacGregor</option>
+                    <option value="17">Tourstage</option>
+                    <option value="18">PRGR</option>
+                    <option value="19">EPON</option>
+                    <option value="20">Scrach</option>
+                    <option value="21">KASCO</option>
+                    <option value="22">Nickent</option>
+                    <option value="23">WILLIAMS</option>
+                    <option value="24">YONEX</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr class="equipItem">
+                  <td class="left" >
+                    <p>推杆</p>
+                  </td>
+                  <td class="right">
+                   <select id="sel-putter" class="form-control">
+                    <option value="0">未知</option>
+                    <option value="1">TaylorMade</option>
+                    <option value="2">Titlelist</option>
+                    <option value="3">PING</option>
+                    <option value="4">Odyssey</option>
+                    <option value="5">Honma</option>
+                    <option value="6">Mizuno</option>
+                    <option value="7">XXIO</option>
+                    <option value="8">Nike</option>
+                    <option value="9">Yes!</option>
+                    <option value="10">Cleveland</option>
+                    <option value="11">Adams</option>
+                    <option value="12">MacGregor</option>
+                    <option value="13">Bettinardi</option>
+                    <option value="14">Maruman</option>
+                    <option value="15">Cobra</option>
+                    <option value="16">Wilson</option>
+                    <option value="17">Srixon</option>
+                    <option value="18">S-Yard</option>
+                    <option value="19">Tourstage</option>
+                    <option value="20">PRGR</option>
+                    <option value="21">EPON</option>
+                    <option value="22">Scrach</option>
+                    <option value="23">KASCO</option>
+                    <option value="24">WILLIAMS</option>
+                    <option value="25">YONEX</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr class="equipItem">
+                  <td class="left" >
+                    <p>高尔夫鞋</p>
+                  </td>
+                  <td class="right">
+                    <select id="sel-shoe" class="form-control">
+                      <option value="0">未知</option>
+                      <option value="1">FOOTJOY</option>
+                      <option value="2">Adidas</option>
+                      <option value="3">Nike</option>
+                      <option value="4">ECCO</option>
+                      <option value="5">Mizuno</option>
+                      <option value="6">ECCO</option>
+                      <option value="7">Adidas</option>
+                      <option value="8">YONEX </option>
+                      <option value="9">DUNLOP</option>
+                      <option value="10">TRAX</option>
+                      <option value="11">Oakley</option>
+                      <option value="12">NUMBER</option>
+                      <option value="13">TRUE linkswear</option>
+                      <option value="14">Nike</option>
+                      <option value="15">Mizuno</option>
+                      <option value="16">昕风采</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        </div>
 
-					<ul class="list-unstyled">
-						<li>
-							<p class="text-muted">
-								<i class="fa fa-phone"></i><span class="txt-color-darken"> {{userPhoneNumber}} </span>
-							</p>
-						</li>
-						<li>
-							<p class="text-muted">
-								<i class="fa fa-envelope"></i>&nbsp;&nbsp;<a href="mailto:simmons@smartadmin">ceo@smartadmin.com</a>
-							</p>
-						</li>
-						<li>
-							<p class="text-muted">
-								<i class="fa fa-skype"></i>&nbsp;&nbsp;<span class="txt-color-darken">john12</span>
-							</p>
-						</li>
-						<li>
-							<p class="text-muted">
-								<i class="fa fa-calendar"></i>&nbsp;&nbsp;<span class="txt-color-darken">Free after <a href="javascript:void(0);" rel="tooltip" title="" data-placement="top" data-original-title="Create an Appointment">4:30 PM</a></span>
-							</p>
-						</li>
-					</ul>
-					<br>
-					<p class="font-md">
-						<i>自我介绍</i>
-					</p>
-					<p>
-						需要更新选项
-					</p>
-					<p>
-					    {{> logOutButton}}
-				    </p>
-				</div>
-			</div>
-		</div>
-	</div>
-	{{/if}}
+        {{> updateButton}}
+        {{> logOutButton}}
+
+     </form>
+    </div>
+     {{/with}}
+   </div>
+    </div>
+   </div>
 </div>
 </template>
 

@@ -1,5 +1,7 @@
 (function(){
 
+  test_sms = true;
+  
   var getDate = function(){
     var pad = function(number){
       if ( number.valueOf ( ) < 10 ) {
@@ -78,10 +80,19 @@ Meteor.methods({
     var url = baseUrl+softVersion+account+func+sigParameter;
     var successSms = false;
     // send smscode to user tel.
+    var status = '';
+    if(test_sms === true){
+        result = { statusCode: 200, data: { resp: { respCode: '000000', templateSMS: [Object] } } };
+        status = result.data.resp.respCode;
+        console.log("for testing");
+    }
+    else
+    {
     var result = HTTP.call("POST", url,{data: templateStr, headers: headerStr, timeout: 1000});
-    var status =result.data.resp.respCode;
+    status = result.data.resp.respCode;
     console.log(status);
-    //目前是返回状态编码
+    }
+       //目前是返回状态编码
     switch(status){
         case "105122" :
         console.log("当天发送短信已经达到最大值");
