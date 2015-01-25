@@ -45,34 +45,11 @@ Template.profile.events({
     },
     'click #change-avatar': function () {
        Router.go('/avatar');
-    },
-    'click #update-profile': function () {
-      var nick_name=$("#nick-name").val();
-      var ball_age=$("#ball-age").val();
-      var sex = $("#sel-sex").val();
-      var status = $("#sel-status").val();
-      var position = $("#sel-position").val();
-      var profession = $("#sel-profession").val();
-      var company = $("#company").val();
-      var des = $("#description").val();
-      var driver = $("#sel-driver").val();
-      var fairway_wood = $("#sel-fairway-wood").val();
-      var hybrid = $("#sel-hybrid").val();
-      var irons = $("#sel-hybrid").val();
-      var wedges = $("#sel-wedges").val();
-      var putter = $("#sel-putter").val();
-      var shoe = $("#sel-shoe").val();
-     Meteor.users.update({_id: Meteor.userId()},
-      {$set: {'profile.nick_name': nick_name, 'profile.sex': sex, 'profile.status': status,
-              'profile.ball_age': ball_age, 'profile.position': position, 'profile.profession': profession,
-              'profile.company': company,'profile.des': des,'profile.driver': driver,
-              'profile.fairway_wood':fairway_wood, 'profile.hybrid':hybrid,
-              'profile.irons':irons, 'profile.wedges': wedges, 'profile.putter': putter,'profile.shoe':shoe}});
-
     }
 });
 
 Template.profile.rendered = function(){
+  Session.set(ERROR_MESSAGE, '');
   var profile = Meteor.user().profile;
   var sex = profile.sex;
   var status = profile.status;

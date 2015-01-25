@@ -16,16 +16,20 @@
       </div>
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
-        <div class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert"></a> 
-          <i class="fa fa-coffee"></i>
-           <strong>点击头像更换照片.</strong>
-        </div>
+        {{#if errorMessage}}
+            {{>errorPage}}
+        {{else}}
+            <div class="alert alert-info alert-dismissable">
+              <a class="panel-close close" data-dismiss="alert"></a> 
+              <i class="fa fa-coffee"></i>
+              <strong>点击头像更换照片.</strong>
+             </div>
+        {{/if}}
         <form class="form-horizontal" role="form">
           <div class="form-group">
              <label class="col-lg-3 control-label">用户名:</label>
            <div class="col-lg-8">
-              <input id="nick-name" class="form-control" type="text" value="{{nick_name}}">
+              <input id="nick-name" class="form-control" type="text" value="{{nick_name}}" maxlength="10" required="required"/>
             </div>
           </div>
           <div class="form-group">
@@ -90,13 +94,13 @@
           <div class="form-group">
             <label class="col-lg-3 control-label">公司:</label>
             <div class="col-lg-8">
-              <input id="company" class="form-control" type="text" value="{{company}}">
+              <input id="company" placeholder="公司名称" size="50" class="form-control" type="text" value="{{company}}">
             </div>
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">简介:</label>
             <div class="col-lg-8">
-	            <textarea id="description" class="form-control" rows="3" value="{{des}}" ></textarea>
+	            <textarea id="description" placeholder="介绍下自己" class="form-control" rows="3" size="300" value="{{des}}" ></textarea>
             </div>
           </div>
         <div class="form-group">
@@ -347,14 +351,10 @@
           </tr>
         </table>
         </div>
-          <div class="form-group">
-            <div class="col-md-8">
-              <input type="button" id="update-profile" class="btn btn-primary btn-block" value="更新">
-            </div>
-             <div class="col-md-8">
-             {{> logOutButton}}
-            </div>
-         </div>
+
+        {{> updateButton}}
+        {{> logOutButton}}
+
      </form>
     </div>
      {{/with}}
