@@ -1,0 +1,56 @@
+<template name="rank">
+  <div class="page match">
+    {{#nav title='排行榜' subtext=getMonth black=true back=false}}
+     
+      {{/nav}}
+      <div  class="content-scrollable full-screen" style="padding:0;margin-bottom:60px">
+        
+         <table  class="table rankList" >
+          {{#each getList}}
+          <!-- <a href="/userinfo/{{fID}}"> -->
+           <tr >
+              <td class="order">
+                {{getOrder}}
+              </td>
+            
+              <td class="icon" >
+                <img src="{{getAvatar avatar}}" class="profile-img-small"> 
+              </td>
+              <td  class="name">
+                <p class="bigFont2">{{username}}</p>
+              </td>
+              
+              <td class="right" >
+                {{getItem this}}
+              </td>
+            
+          </tr>
+          <!-- </a> -->
+          {{else}}
+            <!-- {{> spinner}} -->
+            暂时没有排名
+            
+          {{/each}}
+
+         
+        </table>
+
+        {{showMSG}}
+
+      
+	   </div>
+
+        <div data-role="footer" role="contentinfo" class="ui-footer ui-bar-inherit ui-footer-fixed slideup">
+          <div data-role="navbar" class="ui-navbar" role="navigation">
+            <ul class="ui-grid-c">
+               <li class="ui-block-c"><a href="/rank/0" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 0}}" id="btn10">总杆</a></li>
+              <li class="ui-block-c"><a href="/rank/1" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 1}}" id="btn20">推杆</a></li>
+             <li class="ui-block-c"><a href="/rank/2" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 2}}" id="btn30">上道率</a></li>
+             <li class="ui-block-c"><a href="/rank/3" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 3}}" id="btn30">标on</a></li>
+            </ul>
+          </div><!-- /navbar -->
+      </div>
+  </div>
+
+
+</template>

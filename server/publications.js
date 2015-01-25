@@ -88,4 +88,19 @@ Meteor.publish('myFriend', function(id) {
 Meteor.publish('myFriendList', function() {
   return friendData.find({myID:this.userId});
 });
+
+Meteor.publish('friendRanklist',function(){
+  if(this.userId){
+    var friendlist = friendData.find({myID:this.userId},{fields:{fID:1}}).fetch()
+    var fidList = _.pluck(friendlist,'fID');
+    
+    //console.log(friendlist.fetch())
+    var m = parseInt(moment().format("M"))-1;
+    var y = parseInt(moment().format("YYYY"));
+
+    var cond={year:y,userID:{$in:fidList}};
+    return rankData[m].find(cond);
+  }
+
+})
  
