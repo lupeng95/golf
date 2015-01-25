@@ -1,0 +1,41 @@
+<template name="editYourAvatarModal">
+    <div class="page">
+    {{#nav title="更新头像" black=true back=true}}
+     {{/nav}}
+     <div class="content-scrollable full-screen">
+        <div class="well" >
+        <div class="modal-body">
+                    {{> editYourAvatarModalBody}}
+                </div>
+        </div>   
+    </div>
+     </div>
+</template>
+
+<template name="editYourAvatarModalBody">
+    <div class="row">
+        <div class="col-md-9">
+            <img id="realImage"  class="img-responsive" src="" alt="" />
+
+            <span id="avatarChooseFile" class="btn btn-default btn-file">
+               选择照片 <input  name="avatarFile" accept="image/*" type="file">
+            </span>
+            <input class="btn btn-primary hide" type="button" id="changeAvatarButton" value="更新头像" />
+        </div>
+        <div class="jc_coords hide">
+            <label>X1 <input type="text" size="4" id="x" name="x"></label>
+            <label>Y1 <input type="text" size="4" id="y" name="y"></label>
+            <label>X2 <input type="text" size="4" id="x2" name="x2"></label>
+            <label>Y2 <input type="text" size="4" id="y2" name="y2"></label>
+            <label>W <input type="text" size="4" id="w" name="w"></label>
+            <label>H <input type="text" size="4" id="h" name="h"></label>
+        </div>
+    <div id="exif" class="exif" style="display:none;">
+    <h2>Exif meta data</h2>
+    <p id="thumbnail" class="thumbnail" style="display:none;"></p>
+    <table></table>
+</div>
+    </div>
+
+
+</template>
