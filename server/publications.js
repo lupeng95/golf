@@ -99,4 +99,8 @@ Meteor.publish('friendRanklist',function(){
   }
 
 })
+
+Meteor.publish('status', function(uid) {
+  return statData.find({userID:uid});
+});
  

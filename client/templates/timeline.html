@@ -15,10 +15,14 @@
               </div>
             
               <div class="smart-timeline-content">
-
-                
                 <p >
-                  在<strong class="bigFont">2</strong>城市的<strong class="bigFont">3</strong>个球场中进行过<strong class="bigFont">100</strong>次比赛。打出过<strong class="bigFont">2</strong>次小鸟球，<strong class="bigFont">2</strong>次老鹰球和<strong class="bigFont">2</strong>次信天翁。
+                {{#with getStatus}}
+                
+                  在<strong class="bigFont">{{city}}</strong>城市的<strong class="bigFont">{{court}}</strong>个球场中进行过<strong class="bigFont">{{match}}</strong>次比赛。平均总杆<strong class="bigFont">{{total}}</strong>。打出过<strong class="bigFont">{{birdie}}</strong>次小鸟球，<strong class="bigFont">{{eagle}}</strong>次老鹰球和<strong class="bigFont">{{dEagle}}</strong>次信天翁。
+                {{else}}
+                  还没有任何的比赛记录。
+                
+                {{/with}}
                 </p>
             
                 

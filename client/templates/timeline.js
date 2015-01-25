@@ -166,6 +166,12 @@ Template.timeline.helpers({
     }
 
     return false;
+  },
+  getStatus:function(){
+    var status = statData.findOne({userID:userID})
+    if(status){
+      return status;
+    }
   }
 
  
