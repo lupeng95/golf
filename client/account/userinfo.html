@@ -6,14 +6,11 @@
         <!-- <a class="menu-btn" id="btn-ok" disabled>load..</a> -->
         {{checkFriend}}
     {{/nav}}
-  	 <div  class="content-scrollable full-screen" style="background-color: #f5f5f5;">
- 
-
-    
+  	 <div  class="content-scrollable full-screen" style="background-color: #f5f5f5;">    
          <table  class="table userInfo" >
           <tr class="info">
             <td class="left" >
-              <img src="{{getAvator profile.avtar_url}}" class="profile-img"> 
+              <img src="{{getUserAvatar _id}}" class="profile-img"> 
             </td>
             <td >
               <p class="bigFont2">{{profile.nick_name}}</p><p class="smallFont" style="margin-left:5px">G&G号:100000</p>
@@ -63,13 +60,8 @@
                       </tr>
                      
                     </table>
-
-               
-                
-                 
                   </div>    
-                  </a>
-              
+                  </a>      
             </td>
           </tr>
           {{/with}}
@@ -85,7 +77,7 @@
                     <p>性别</p>
                   </td>
                   <td class="right">
-                    保密
+                    {{profile.sex}}
                   </td>
                 </tr>
                  <tr>
