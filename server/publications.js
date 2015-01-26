@@ -104,6 +104,19 @@ Meteor.publish('friendRanklist',function(){
 
 })
 
+Meteor.publish('friendStatuslist',function(){
+  if(this.userId){
+    var friendlist = friendData.find({myID:this.userId},{fields:{fID:1}}).fetch()
+    var fidList = _.pluck(friendlist,'fID');
+    
+
+
+    var cond={userID:{$in:fidList}};
+    return last5Data.find(cond);
+  }
+
+})
+
 Meteor.publish('status', function(uid) {
   return statData.find({userID:uid});
 });

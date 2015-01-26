@@ -24,14 +24,16 @@ Template.friendlist.helpers({
     }
    
  },
- getRank:function(uid){
-  var m = parseInt(moment().format("M"))-1;
-  var rank = rankData[m].findOne({userID:uid});
+ getStatus:function(uid){
+  //var m = parseInt(moment().format("M"))-1;
+  var status = last5Data.findOne({userID:uid});
   var aTotal = 0;
-  if(rank){
-    aTotal = rank['aTotal']
+  var aPut = 0;
+  if(status){
+    aTotal = status['total']
+    aPut = status['push']
   }
-  return "本月平均总杆:"+aTotal;
+  return "总杆:"+aTotal+" 推杆:"+aPut;
  }
 
  
