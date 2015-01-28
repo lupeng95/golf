@@ -19,7 +19,7 @@ heightAvatar = 128;
 Meteor.subscribe('images');
 
 Template.editYourAvatarModalBody.events({
-    "change input[name=avatarFile]": function(evt, tmpl){
+    'change input[name=avatarFile]': function(evt, tmpl){
         evt.preventDefault();
         $('#changeAvatarButton').removeClass('hide');
         $('#avatarChooseFile').addClass('hide');
@@ -31,6 +31,21 @@ Template.editYourAvatarModalBody.events({
                 }
                 else {
                     loadImagefile(tmpl, file.result);
+                    var w = screen.width;
+                    var h = screen.height;
+                    if(w>h){
+                        w =h;
+                    }
+                    $(function(){
+                    $('#realImage').Jcrop({
+                        onChange: showCoords,
+                        onSelect: showCoords,
+                        aspectRatio: 1,
+                        setSelect: [ 0, 0, w, w ],
+                        allowResize: false,
+                        allowSelect: false
+                    });
+    });
                     // processChangeAvatar(tmpl);
                 }
             });
@@ -106,13 +121,6 @@ function showCoords(c)
 
 function loadImagefile(tmp, src){
     $(tmp.find('#realImage')).attr('src', src);
-    $(function(){
-        $('#realImage').Jcrop({
-            onChange: showCoords,
-            onSelect: showCoords,
-            aspectRatio: 1
-        });
-    });
     // $(tmp.find('#preview img')).attr('src', src);
 };
 
