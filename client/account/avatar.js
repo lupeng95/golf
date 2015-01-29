@@ -12,44 +12,47 @@ realImage,
 displayImage,
 jcrop_api,
 isShowCropAndButton = false;
-
+var options = {canvas: true};
 var widthAvatar = 128,
 heightAvatar = 128;
-
+var tempcanvas= null;
+var options_orientation = 1;
 Meteor.subscribe('images');
 
 Template.editYourAvatarModalBody.events({
     'change input[name=avatarFile]': function(evt, tmpl){
         evt.preventDefault();
+        $('#realImage').attr('src','');
         $('#changeAvatarButton').removeClass('hide');
         $('#avatarChooseFile').addClass('hide');
-        var input = tmpl.find('input[name=avatarFile]');
-        if(input.files && input.files[0]){
-            FileReaderObject.previewImage(input.files[0], function(err, file){
-                if (err){
-                    console.log(err);
-                }
-                else {
-                    loadImagefile(tmpl, file.result);
-                    var w = screen.width;
-                    var h = screen.height;
-                    if(w>h){
-                        w =h;
-                    }
-                    $(function(){
-                    $('#realImage').Jcrop({
-                        onChange: showCoords,
-                        onSelect: showCoords,
-                        aspectRatio: 1,
-                        setSelect: [ 0, 0, w, w ],
-                        allowResize: false,
-                        allowSelect: false
-                    });
-    });
-                    // processChangeAvatar(tmpl);
+        e = evt.originalEvent;
+        var target = e.dataTransfer || e.target,
+            file = target && target.files && target.files[0];
+            if (!file) {
+                return;
+            }
+            loadImage.parseMetaData(file, function (data) {
+                if (data.exif) {
+                    options_orientation = data.exif.get('Orientation');
                 }
             });
-        }
+            tempcanvas = '';
+            tempcanvas = loadImage(file,options);
+             $('#realImage').attr('src', tempcanvas.src);
+            var w = screen.width;
+            var h = screen.height;
+            if(w>h){
+                w =h;
+            }
+            w = w * 0.6;
+            $('#realImage').Jcrop({
+                    onChange: showCoords,
+                    onSelect: showCoords,
+                    aspectRatio: 1,
+                    setSelect: [ 0, 0, w, w ],
+                    allowResize: false,
+                    allowSelect: false
+                });
     },
     'click #changeAvatarButton': function(evt, tmp){
         evt.preventDefault();
@@ -63,15 +66,10 @@ Template.editYourAvatarModalBody.events({
 var processChangeAvatar = function(tmp,userId){
 
         var realImage= tmp.find('#realImage');
-        // alert(canvas.toDataURL().length);
-        var canvas = document.createElement("canvas");
-        canvas.width = 128;
-        canvas.height =128;
-        // orgWidth = document.querySelector('img').naturalWidth;
         scale = $('#realImage').width();
         orgWidth = document.querySelector('img').naturalWidth;
         scaleXY = orgWidth/$('#realImage').width();
-        var scedimg = loadImage.scale(realImage, {
+        var scedimg = loadImage.scale(tempcanvas, {
                 left: $('#x').val()*scaleXY,
                 top: $('#y').val()*scaleXY,
                 sourceWidth: $('#w').val()*scaleXY,
@@ -79,10 +77,9 @@ var processChangeAvatar = function(tmp,userId){
                 maxWidth: 128,
                 maxHeight: 128,
                 crop: true,
+                orientation: options_orientation
             });
-        ctx = canvas.getContext("2d");
-        ctx.drawImage(scedimg,0,0,128,128);
-        var avatarFile = new FS.File(canvas.toDataURL("image/png"));
+        var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
         avatarFile.name('');
         avatarFile.key = userId;
         //try find existed image
@@ -113,8 +110,6 @@ function showCoords(c)
 {
     $('#x').val(c.x);
     $('#y').val(c.y);
-    $('#x2').val(c.x2);
-    $('#y2').val(c.y2);
     $('#w').val(c.w);
     $('#h').val(c.h);
 };
