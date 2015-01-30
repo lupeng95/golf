@@ -1,4 +1,5 @@
 var SMC = "sMatchCard";
+var SHOLE = "sStartHole"
 
 var card = {};
 
@@ -123,6 +124,7 @@ Template.matchcaddie.events({
 
       card.records = records;
       Session.set(SMC,card);
+      Session.set(SHOLE,-1);
       
       console.log(card)
       
