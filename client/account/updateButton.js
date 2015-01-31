@@ -2,8 +2,8 @@
 Template.updateButton.events({
  'click #update-profile': function () {
       var nick_name=$("#nick-name").val();
-      if(nick_name.length < 3){
-        Session.set(ERROR_MESSAGE, "用户名不能少于3个字");
+      if(nick_name.length < 2){
+        Session.set(ERROR_MESSAGE, "用户名不能少于2个字");
         return;
       }
       var ball_age=$("#ball-age").val();
