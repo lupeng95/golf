@@ -12,11 +12,10 @@ realImage,
 displayImage,
 jcrop_api,
 isShowCropAndButton = false;
-var options = {canvas: true};
+var options = {canvas: true, maxWidth: 500, maxHeight: 600};
 var widthAvatar = 128,
 heightAvatar = 128;
-var tempcanvas= null;
-var options_orientation = 1;
+var tempcanvas, options_orientation = 6; //太神奇了，如果不设置成六，第一次的default value 就是1 ...
 Meteor.subscribe('images');
 
 Template.editYourAvatarModalBody.events({
@@ -27,32 +26,32 @@ Template.editYourAvatarModalBody.events({
         $('#avatarChooseFile').addClass('hide');
         e = evt.originalEvent;
         var target = e.dataTransfer || e.target,
-            file = target && target.files && target.files[0];
-            if (!file) {
-                return;
+        file = target && target.files && target.files[0];
+        if (!file) {
+            return;
+        }
+        loadImage.parseMetaData(file, function (data) {
+            if (data.exif) {
+                options_orientation = data.exif.get('Orientation');
             }
-            loadImage.parseMetaData(file, function (data) {
-                if (data.exif) {
-                    options_orientation = data.exif.get('Orientation');
-                }
+        });
+        tempcanvas = loadImage(file, function(img){
+        $('#realImage').attr('src', img.toDataURL());
+        var w = screen.width;
+        var h = screen.height;
+        if(w>h){
+            w =h;
+        }
+        w = w * 0.6;
+        $('#realImage').Jcrop({
+                onChange: showCoords,
+                onSelect: showCoords,
+                aspectRatio: 1,
+                setSelect: [ 0, 0, w, w ],
+                allowResize: false,
+                allowSelect: false
             });
-            tempcanvas = '';
-            tempcanvas = loadImage(file,options);
-             $('#realImage').attr('src', tempcanvas.src);
-            var w = screen.width;
-            var h = screen.height;
-            if(w>h){
-                w =h;
-            }
-            w = w * 0.6;
-            $('#realImage').Jcrop({
-                    onChange: showCoords,
-                    onSelect: showCoords,
-                    aspectRatio: 1,
-                    setSelect: [ 0, 0, w, w ],
-                    allowResize: false,
-                    allowSelect: false
-                });
+        },{orientation: options_orientation, maxHeight:1000, maxWidth: 1000});
     },
     'click #changeAvatarButton': function(evt, tmp){
         evt.preventDefault();
@@ -66,24 +65,22 @@ Template.editYourAvatarModalBody.events({
 var processChangeAvatar = function(tmp,userId){
 
         var realImage= tmp.find('#realImage');
-        scale = $('#realImage').width();
         orgWidth = document.querySelector('img').naturalWidth;
-        scaleXY = orgWidth/$('#realImage').width();
-        var scedimg = loadImage.scale(tempcanvas, {
-                left: $('#x').val()*scaleXY,
-                top: $('#y').val()*scaleXY,
-                sourceWidth: $('#w').val()*scaleXY,
-                sourceHeight: $('#h').val()*scaleXY,
+        scale = orgWidth/$('#realImage').width();
+        var scedimg = loadImage.scale(realImage, {
+                left: $('#x').val()*scale,
+                top: $('#y').val()*scale,
+                sourceWidth: $('#w').val()*scale,
+                sourceHeight: $('#h').val()*scale,
                 maxWidth: 128,
                 maxHeight: 128,
                 crop: true,
-                orientation: options_orientation
             });
         var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
         avatarFile.name('');
         avatarFile.key = userId;
         //try find existed image
-        var existedAvatar = Images.findOne({key: userId});
+        var existedAvatar = Images.find({key: userId});
 
         if(!existedAvatar){ // create new
            Images.insert(avatarFile, function (err, fileObj) {
@@ -118,4 +115,12 @@ function loadImagefile(tmp, src){
     $(tmp.find('#realImage')).attr('src', src);
     // $(tmp.find('#preview img')).attr('src', src);
 };
+
+Template.profile.rendered = function(){
+
+
+
+};
+
+
 
