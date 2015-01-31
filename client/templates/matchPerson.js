@@ -2,7 +2,7 @@ var CITY = "mSelectedCity";
 
 Template.matchperson1.created = function() {
 
-  Session.setDefault(CITY,"北京");
+  Session.set(CITY,"北京");
 
 
 }

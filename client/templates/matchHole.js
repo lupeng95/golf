@@ -1,4 +1,5 @@
 var SMC = "sMatchCard";
+var SHOLE = "sStartHole"
 //var RC ="sRecordCard";
 var card;
 var ANIMATION_DURATION = 300;
@@ -60,6 +61,7 @@ Template.matchhole.created = function() {
   curPage = Router.current().params._id-1;
   card = Session.get(SMC);
   totalPage = card.records[0].length;
+  
   // Session.set(RC+"0",curPage)
   // Session.set(RC+"1",curPage)
 
@@ -251,7 +253,9 @@ Template.matchhole.helpers({
    getHoleRecord0:function(){
 
       //var hole = Session.get(RC+"0");
+      console.log(1)
       var hole = curPage;
+      console.log(hole)
       
       var players = [];
       for (var i in card.players){
@@ -268,6 +272,8 @@ Template.matchhole.helpers({
 
       //var hole = Session.get(RC+"1");
       var hole = curPage;
+      console.log(1)
+      console.log(hole)
       
       var players = [];
       for (var i in card.players){
@@ -307,12 +313,30 @@ Template.matchhole.events({
   'keyup input[type=tel]':function(event, template) {
     var v = $(event.target).val();
     var num = parseInt(v);
-    if(v.length ==2 || (num>1 && num<10)){
-      var ind = $('.activeSection input[type=tel]').index(event.target) + 1;
-      if(ind < $('.activeSection input[type=tel]').length){
-        $('.activeSection input[type=tel]').eq(ind).focus()
+
+    if($(event.target).attr("name") == "total"){
+      if(v.length ==2 || (num>1 && num<10)){
+        var start = Session.get(SHOLE);
+        if(start == -1){
+          Session.set(SHOLE,curPage);
+          
+        }
+        var ind = $('.activeSection input[type=tel]').index(event.target) + 1;
+        if(ind < $('.activeSection input[type=tel]').length){
+          $('.activeSection input[type=tel]').eq(ind).focus()
+        }
       }
     }
+
+    if($(event.target).attr("name") == "put"){
+      if(v.length ==1 ){
+        var ind = $('.activeSection input[type=tel]').index(event.target) + 1;
+        if(ind < $('.activeSection input[type=tel]').length){
+          $('.activeSection input[type=tel]').eq(ind).focus()
+        }
+      }
+    }
+    
   },
   'click input[type=checkbox]':function(event, template) {
     var ind = $('.activeSection input').index(event.target) + 1;

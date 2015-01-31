@@ -1,6 +1,6 @@
 (function(){
 
-  test_sms = true;
+  test_sms = false;
   
   var getDate = function(){
     var pad = function(number){

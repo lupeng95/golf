@@ -1,4 +1,5 @@
 var SMC = "sMatchCard";
+var SHOLE = "sStartHole"
 var card;
 
 function formatInttoStr(i){
@@ -99,9 +100,39 @@ function rule2(){
     }
 }
 
-function rule3(){
+function rule3(){  //斗地主
 
-  var records = card.records;
+  var start = Session.get(SHOLE);
+  if (start==-1){
+    start = 0;
+  }
+
+  var records = [];
+  records[0] = _.rest(card.records[0],start);
+  records[0] = records[0].concat(_.first(card.records[0],start));
+
+  records[1] = _.rest(card.records[1],start);
+  records[1] = records[1].concat(_.first(card.records[1],start));
+
+  records[2] = _.rest(card.records[2],start);
+  records[2] = records[2].concat(_.first(card.records[2],start));
+
+  records[3] = _.rest(card.records[3],start);
+  records[3] = records[3].concat(_.first(card.records[3],start));
+
+  var len = records[0].length;
+  
+
+  //var records = card.records;
+
+  function getRealOrder(ord){
+    var dd = parseInt(ord) + start;
+    if (dd >= len){
+      dd=dd-len;
+    }
+
+    return dd
+  }
 
   function compare(p1,p2,hole){
     for(var i=hole-1;i>=0;i--){
@@ -114,6 +145,7 @@ function rule3(){
     return 1;
   }
   function getTeam(hole){
+    hole = parseInt(hole)
     if(hole==0){
       return [0,1,2]
     }else{
@@ -175,8 +207,10 @@ function rule3(){
   }
 
   function drawTeam(hole,team){
-    $(".h_"+hole+" td").eq(team[0]+1).addClass("win");
-    $(".h_"+hole+" td").eq(team[1]+1).addClass("win");
+
+    var h = getRealOrder(hole)
+    $(".h_"+h+" td").eq(team[0]+1).addClass("win");
+    $(".h_"+h+" td").eq(team[1]+1).addClass("win");
 
   }
 
@@ -215,9 +249,9 @@ function rule3(){
 
     }
 
-    $(".h_"+i+" td").eq(team[0]+1).append("("+formatInttoStr(p[team[0]])+")")
-    $(".h_"+i+" td").eq(team[1]+1).append("("+formatInttoStr(p[team[1]])+")")
-    $(".h_"+i+" td").eq(team[2]+1).append("("+formatInttoStr(p[team[2]])+")")
+    $(".h_"+getRealOrder(i)+" td").eq(team[0]+1).append("("+formatInttoStr(p[team[0]])+")")
+    $(".h_"+getRealOrder(i)+" td").eq(team[1]+1).append("("+formatInttoStr(p[team[1]])+")")
+    $(".h_"+getRealOrder(i)+" td").eq(team[2]+1).append("("+formatInttoStr(p[team[2]])+")")
 
 
 
@@ -245,7 +279,40 @@ function rule3(){
 
 function rule4(){  //拉斯
 
-  var records = card.records;
+  var start = Session.get(SHOLE);
+  if (start==-1){
+    start = 0;
+  }
+  
+  var records = [];
+  records[0] = _.rest(card.records[0],start);
+  records[0]=records[0].concat(_.first(card.records[0],start));
+
+  records[1] = _.rest(card.records[1],start);
+  records[1] = records[1].concat(_.first(card.records[1],start));
+
+  records[2] = _.rest(card.records[2],start);
+  records[2] = records[2].concat(_.first(card.records[2],start));
+
+  records[3] = _.rest(card.records[3],start);
+  records[3] = records[3].concat(_.first(card.records[3],start));
+
+  var len = records[0].length;
+  
+
+  //var records = card.records;
+
+  function getRealOrder(ord){
+    
+    var dd = parseInt(ord) + start;
+    if (dd >= len){
+      dd=dd-len;
+    }
+
+    return dd
+  }
+
+
 
 
   function compare(p1,p2,hole){
@@ -347,8 +414,10 @@ function rule4(){  //拉斯
   }
 
   function drawTeam(hole,team){
-    $(".h_"+hole+" td").eq(team[0]+1).addClass("win");
-    $(".h_"+hole+" td").eq(team[1]+1).addClass("win");
+    
+    var h = getRealOrder(hole)
+    $(".h_"+h+" td").eq(team[0]+1).addClass("win");
+    $(".h_"+h+" td").eq(team[1]+1).addClass("win");
 
   }
 
@@ -465,14 +534,14 @@ function rule4(){  //拉斯
 
     if((p0+p1)==(p2+p3)){  //rou
       bonus++;
-      $(".h_"+i+" td").eq(0).addClass("bonus");
+      $(".h_"+getRealOrder(i)+" td").eq(0).addClass("bonus");
     }
 
-    $(".h_"+i+" td").eq(0).append("<sup>"+bonus+"</sup>")
-    $(".h_"+i+" td").eq(team[0]+1).append("("+formatInttoStr(p[team[0]])+")")
-    $(".h_"+i+" td").eq(team[1]+1).append("("+formatInttoStr(p[team[1]])+")")
-    $(".h_"+i+" td").eq(team[2]+1).append("("+formatInttoStr(p[team[2]])+")")
-    $(".h_"+i+" td").eq(team[3]+1).append("("+formatInttoStr(p[team[3]])+")")
+    $(".h_"+getRealOrder(i)+" td").eq(0).append("<sup>"+bonus+"</sup>")
+    $(".h_"+getRealOrder(i)+" td").eq(team[0]+1).append("("+formatInttoStr(p[team[0]])+")")
+    $(".h_"+getRealOrder(i)+" td").eq(team[1]+1).append("("+formatInttoStr(p[team[1]])+")")
+    $(".h_"+getRealOrder(i)+" td").eq(team[2]+1).append("("+formatInttoStr(p[team[2]])+")")
+    $(".h_"+getRealOrder(i)+" td").eq(team[3]+1).append("("+formatInttoStr(p[team[3]])+")")
 
 
 
