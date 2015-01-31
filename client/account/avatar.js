@@ -15,7 +15,7 @@ isShowCropAndButton = false;
 var options = {canvas: true, maxWidth: 500, maxHeight: 600};
 var widthAvatar = 128,
 heightAvatar = 128;
-var tempcanvas, options_orientation = 6; //太神奇了，如果不设置成六，第一次的default value 就是1 ...
+var tempcanvas, options_orientation; //太神奇了，如果不设置成六，第一次的default value 就是1 ...
 Meteor.subscribe('images');
 
 Template.editYourAvatarModalBody.events({
@@ -23,7 +23,10 @@ Template.editYourAvatarModalBody.events({
         evt.preventDefault();
         $('#realImage').attr('src','');
         $('#changeAvatarButton').removeClass('hide');
+        $('#changeAvatarDirection').removeClass('hide');
         $('#avatarChooseFile').addClass('hide');
+
+
         e = evt.originalEvent;
         var target = e.dataTransfer || e.target,
         file = target && target.files && target.files[0];
@@ -34,7 +37,7 @@ Template.editYourAvatarModalBody.events({
             if (data.exif) {
                 options_orientation = data.exif.get('Orientation');
             }
-        });
+       
         tempcanvas = loadImage(file, function(img){
         $('#realImage').attr('src', img.toDataURL());
         var w = screen.width;
@@ -52,6 +55,8 @@ Template.editYourAvatarModalBody.events({
                 allowSelect: false
             });
         },{orientation: options_orientation, maxHeight:1000, maxWidth: 1000});
+
+         });
     },
     'click #changeAvatarButton': function(evt, tmp){
         evt.preventDefault();
@@ -80,9 +85,10 @@ var processChangeAvatar = function(tmp,userId){
         avatarFile.name('');
         avatarFile.key = userId;
         //try find existed image
+        //因为没找到事务的方式，所以要doublecheck是不是只保留一条头像数据
         var existedAvatar = Images.find({key: userId});
 
-        if(!existedAvatar){ // create new
+        if(existedAvatar.count() == 0){ // create new
            Images.insert(avatarFile, function (err, fileObj) {
                if(err){
                 alert(err);
@@ -95,7 +101,10 @@ var processChangeAvatar = function(tmp,userId){
                if(err){
                 alert(err);
                }else{//after added new avatar , delete old one.
-                  Images.remove({ _id: existedAvatar._id });
+                  var avatars= existedAvatar.fetch();
+                  for(var i = 0 , ln = existedAvatar.count()-1 ; i< ln ; i++ ){
+                     Images.remove({_id: avatars[i]._id});
+                  }
                   Router.go('/profile');
                }
             });
