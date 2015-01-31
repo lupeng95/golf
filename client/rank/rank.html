@@ -1,6 +1,6 @@
 <template name="rank">
   <div class="page match">
-    {{#nav title='排行榜' subtext=getMonth black=true back=false}}
+    {{#nav title=getMonth  black=true back=false}}
      
       {{/nav}}
       <div  class="content-scrollable full-screen" style="padding:0;margin-bottom:60px">
@@ -8,13 +8,13 @@
          <table  class="table rankList" >
           {{#each getList}}
           <!-- <a href="/userinfo/{{fID}}"> -->
-           <tr >
+           <tr id="item" uid="{{userID}}">
               <td class="order">
-                {{getOrder}}
+                {{ind}}
               </td>
             
               <td class="icon" >
-                <img src="{{getAvatar avatar}}" class="profile-img-small"> 
+                <img src="{{getUserAvatar userID}}" class="profile-img-small"> 
               </td>
               <td  class="name">
                 <p class="bigFont2">{{username}}</p>
@@ -46,7 +46,7 @@
                <li class="ui-block-c"><a href="/rank/0" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 0}}" id="btn10">总杆</a></li>
               <li class="ui-block-c"><a href="/rank/1" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 1}}" id="btn20">推杆</a></li>
              <li class="ui-block-c"><a href="/rank/2" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 2}}" id="btn30">上道率</a></li>
-             <li class="ui-block-c"><a href="/rank/3" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 3}}" id="btn30">标on</a></li>
+             <li class="ui-block-c"><a href="/rank/3" data-icon="star" class="ui-link ui-btn ui-icon-star ui-btn-icon-top {{isActive 3}}" id="btn30">标on率</a></li>
             </ul>
           </div><!-- /navbar -->
       </div>

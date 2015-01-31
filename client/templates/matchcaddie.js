@@ -24,6 +24,23 @@ Template.matchcaddie.created = function() {
 }
 
 Template.matchcaddie.rendered = function() {
+  
+  $(".spinner-container").hide()
+  if(Router.current().params._id){
+    $(".spinner-container").show()
+    var tel = Router.current().params._tel;
+    Meteor.subscribe('userData', tel,function(){
+      $(".spinner-container").hide()
+      var user = Meteor.users.findOne({username:tel})
+      if(user){
+        var  name = user.profile.nick_name;      
+        card.players[0]={name:name,tel:user.username,userId:user._id}
+        Session.set(SMC,card);
+      }
+    })
+    
+  }
+  
   card.rule=0;
 }
 

@@ -23,15 +23,17 @@ function isFinish(){
       ret = false;
       return false;
     }
+    debugger
 
     v = val.querySelectorAll("input")[1].value;
     n = parseInt(v);
-    if(n){
-      record[i].put = n
-    }else{
-      ret = false;
-      return false;
-    }
+    record[i].put = n
+    // if(n){    //put can be 0
+    //   record[i].put = n
+    // }else{
+    //   ret = false;
+    //   return false;
+    // }
 
     record[i].on = val.querySelectorAll("input")[2].checked
 
@@ -137,13 +139,28 @@ Template.matchperson2.events({
   'keyup input[type=tel]':function(event, template) {
     var v = $(event.target).val();
     var num = parseInt(v);
-    if(v.length ==2 || (num>1 && num<10)){
-      var ind = $('input[type=tel]').index(event.target) + 1;
-      if(ind < $('input[type=tel]').length){
-        $('input[type=tel]').eq(ind).focus()
-      }
+    if($(event.target).attr("name") == "n1"){
+      if(v.length ==2 || (num>1 && num<10)){
+        var ind = $('input[type=tel]').index(event.target) + 1;
+        if(ind < $('input[type=tel]').length){
+          $('input[type=tel]').eq(ind).focus()
+        }
 
+      }
     }
+
+    if($(event.target).attr("name") == "n2"){
+      if(v.length >0){
+        var ind = $('input[type=tel]').index(event.target) + 1;
+        if(ind < $('input[type=tel]').length){
+          $('input[type=tel]').eq(ind).focus()
+        }
+
+      }
+    }
+    
+
+
   }
 
 });

@@ -193,8 +193,10 @@ Template.timeline.events({
       var id = $(event.currentTarget).attr("mid")
 
       var match = matchData.findOne(id);
+      
       if (match){
         match.valid = 1;
+        $(event.currentTarget).parent().html("处理中...")
 
         Meteor.call('updateMatch', match, function(error, result) {
 

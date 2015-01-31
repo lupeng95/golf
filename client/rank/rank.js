@@ -1,6 +1,6 @@
 var order = 0;
 Template.rank.created = function() {
- 
+  order = 0;
 }
 Template.rank.rendered = function() {
  
@@ -10,7 +10,12 @@ Template.rank.rendered = function() {
 Template.rank.helpers({
  getList:function(){
     order = 0;
-    return this;
+    var data = this.fetch();  
+    for (var i=0;i<data.length;i++){
+      data[i].ind=i+1;
+    }
+    
+    return data;
  },
  getOrder:function(){
   order++;
@@ -22,7 +27,7 @@ Template.rank.helpers({
     return obj[ind[i]]
  },
  getMonth:function(){
-  return moment().format("M")+"月";
+  return moment().format("M")+"月排行榜";
  },
  isActive:function(o){
   var i = parseInt(Router.current().params._type)
@@ -36,8 +41,11 @@ Template.rank.helpers({
 })
 
 Template.rank.events({
-  'click #tel':function(event, template) {
-    //event.preventDefault(); 
+  'click #item':function(event, template) {
+    event.preventDefault(); 
+  
+    var uid = $(event.currentTarget).attr("uid");
+    Router.go("/userinfo/"+uid);
 
 
   }

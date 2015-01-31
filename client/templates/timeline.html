@@ -112,18 +112,19 @@
                     <table class="recordTable" >
                       <tr >
                         <td>
-                        <button type="button" class="btn btn-danger m-r-sm">{{summary.total}}</button>总杆
-                        </td>                      
+                        <button type="button" class="btn btn-danger m-r-sm1" style="">{{summary.total}}</button>总杆
+                        </td>  
                         <td>
-                        <button type="button" class="btn btn-warning m-r-sm">{{summary.push}}</button>推杆
-                        </td>
+                        <button type="button" class="btn btn-success m-r-sm1" style="margin-left:10px">{{summary.onRate}}%</button>上道率
+                        </td>                        
+                        
                       </tr>
                       <tr >
                         <td>
-                        <button type="button" class="btn btn-success m-r-sm">{{summary.onRate}}</button>上道率
-                        </td>                      
+                        <button type="button" class="btn btn-warning m-r-sm1">{{summary.push}}</button>推杆
+                        </td>           
                         <td>
-                        <button type="button" class="btn btn-info m-r-sm">{{summary.sOnRate}}</button>标on
+                        <button type="button" class="btn btn-info m-r-sm1" style="margin-left:10px">{{summary.sOnRate}}%</button>标on率
                         </td>
                       </tr>
                       {{#if  valid}}

@@ -495,5 +495,9 @@ color: #fff;
 	font-weight: bold;
 }
 
+.m-r-sm1 {
+	margin-right: 0;
+	min-width: 70px;
+}
 
 
