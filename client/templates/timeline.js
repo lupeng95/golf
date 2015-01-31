@@ -188,6 +188,12 @@ Template.timeline.events({
       getMoreMatch();
 
    },
+   'click #match5': function(event, template) {
+      event.preventDefault();
+      Router.go("/mystatus")
+        
+
+   },
    'click #verifyBtn':function(event, template){
       event.preventDefault();
       var id = $(event.currentTarget).attr("mid")
