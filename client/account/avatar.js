@@ -38,16 +38,14 @@ Template.editYourAvatarModalBody.events({
             }
        
         tempcanvas = loadImage(file, function(img){
-            debugger
-            var temp = img.toDataURL();
-        $('#realImage').attr('src', temp);
-        var w = screen.width;
-        var h = screen.height;
-        if(w>h){
-            w =h;
-        }
-        w = w * 0.6;
-        $('#realImage').Jcrop({
+            $('#realImage').attr('src', img.toDataURL());
+            var w = screen.width;
+            var h = screen.height;
+            if(w>h){
+                w =h;
+            }
+            w = w * 0.6;
+            $('#realImage').Jcrop({
                 onChange: showCoords,
                 onSelect: showCoords,
                 aspectRatio: 1,
