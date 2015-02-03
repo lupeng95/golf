@@ -26,9 +26,6 @@ Template.editYourAvatarModalBody.events({
         $('#changeAvatarDirection').removeClass('hide');
         $('#avatarChooseFile').addClass('hide');
 
-        var width = $("#picDiv").width();
-        var height = 500;
-
 
         e = evt.originalEvent;
         var target = e.dataTransfer || e.target,
@@ -43,14 +40,14 @@ Template.editYourAvatarModalBody.events({
 
     
         tempcanvas = loadImage(file, function(img){
-        $('#realImage').attr('src', img.toDataURL());
-        var w = screen.width;
-        var h = screen.height;
-        if(w>h){
-            w =h;
-        }
-        w = w * 0.6;
-        $('#realImage').Jcrop({
+            $('#realImage').attr('src', img.toDataURL());
+            var w = screen.width;
+            var h = screen.height;
+            if(w>h){
+                w =h;
+            }
+            w = w * 0.6;
+            $('#realImage').Jcrop({
                 onChange: showCoords,
                 onSelect: showCoords,
                 aspectRatio: 1,
@@ -59,6 +56,8 @@ Template.editYourAvatarModalBody.events({
                 allowSelect: false
             });
         },{orientation: options_orientation, maxHeight:500, maxWidth: $("#picDiv").width(),canvas: true});
+
+
 
          });
     },

@@ -32,3 +32,4 @@ momentjs:moment
 cfs:standard-packages
 cfs:filesystem
 sacha:spin
+jquery
