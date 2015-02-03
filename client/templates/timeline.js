@@ -170,6 +170,8 @@ Template.timeline.helpers({
   getStatus:function(){
     var status = statData.findOne({userID:userID})
     if(status){
+      
+      status.aTotal = parseInt(status.total/status.match)
       return status;
     }
   }

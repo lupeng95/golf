@@ -26,6 +26,9 @@ Template.editYourAvatarModalBody.events({
         $('#changeAvatarDirection').removeClass('hide');
         $('#avatarChooseFile').addClass('hide');
 
+        var width = $("#picDiv").width();
+        var height = 500;
+
 
         e = evt.originalEvent;
         var target = e.dataTransfer || e.target,
@@ -37,7 +40,8 @@ Template.editYourAvatarModalBody.events({
             if (data.exif) {
                 options_orientation = data.exif.get('Orientation');
             }
-       
+
+    
         tempcanvas = loadImage(file, function(img){
         $('#realImage').attr('src', img.toDataURL());
         var w = screen.width;
@@ -54,7 +58,7 @@ Template.editYourAvatarModalBody.events({
                 allowResize: false,
                 allowSelect: false
             });
-        },{orientation: options_orientation, maxHeight:1000, maxWidth: 1000});
+        },{orientation: options_orientation, maxHeight:500, maxWidth: $("#picDiv").width(),canvas: true});
 
          });
     },
