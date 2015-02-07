@@ -24,7 +24,11 @@ Template.rank.helpers({
  getItem:function(obj){
     var ind=['aTotal','aPush','aOn','aSon'];
     var i = parseInt(Router.current().params._type)
-    return obj[ind[i]]
+    var ret = obj[ind[i]];
+    if (i==2 || i==3){
+      ret+="%"
+    }
+    return ret
  },
  getMonth:function(){
   return moment().format("M")+"月排行榜";

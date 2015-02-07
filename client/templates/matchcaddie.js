@@ -24,6 +24,21 @@ Template.matchcaddie.created = function() {
 }
 
 Template.matchcaddie.rendered = function() {
+
+  
+  var cc = amplify.store("card")
+  if(cc){
+    if(confirm("是否继续上次未完成的计分？")){
+      Session.set(SMC,cc);
+      Router.go("/matchcard")
+      return;
+    }else{
+      Session.set(SMC,false);
+    }
+    
+
+
+  }
   
   $(".spinner-container").hide()
   if(Router.current().params._id){

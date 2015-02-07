@@ -54,6 +54,8 @@ function storeCurPage(){
       card.records[item.attr("player")][curPage].on =vals[i].checked
     }
 
+    amplify.store("card",card)
+
 
 }
 
@@ -61,6 +63,7 @@ Template.matchhole.created = function() {
   curPage = Router.current().params._id-1;
   card = Session.get(SMC);
   totalPage = card.records[0].length;
+
   
   // Session.set(RC+"0",curPage)
   // Session.set(RC+"1",curPage)

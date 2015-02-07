@@ -70,6 +70,57 @@ Template.editYourAvatarModalBody.events({
 /**
  * FUNCTION CLASS DEFINE
  */
+
+function dataURItoBlob(dataURI, dataTYPE) {
+
+  var blob;
+  var str = atob(dataURI.split(',')[1]), array = [];
+
+  for(var i = 0; i < str.length; i++) array.push(str.charCodeAt(i));
+
+ //var array = new Uint8Array(array);
+ var array = new Int8Array(array);
+ try {
+    // blob = new Blob([array], {type: dataTYPE});
+     var bb = new BlobBuilder();
+        bb.append([array]);
+        blob = bb.getBlob(dataTYPE);
+
+} catch(e) {
+     window.BlobBuilder = window.BlobBuilder || 
+                         window.WebKitBlobBuilder || 
+                         window.MozBlobBuilder || 
+                         window.MSBlobBuilder;
+    if(e.name == 'TypeError' && window.BlobBuilder){
+       
+        var bb = new BlobBuilder();
+        bb.append([array]);
+        blob = bb.getBlob(dataTYPE);
+    }
+    else if(e.name == "InvalidStateError"){
+        // InvalidStateError (tested on FF13 WinXP)
+   
+        blob = new Blob( [array.buffer], {type : dataTYPE});
+    }
+    else{
+        alert(e)
+        // We're screwed, blob constructor unsupported entirely  
+         alert("No Way!!."); 
+    }
+
+    // if (window.BlobBuilder){
+    //     blob = new BlobBuilder();
+    //     blob.append(new Uint8Array(array));
+    //     blob = blob.getBlob();
+    // } else {
+    //     alert("No Blob or BlobBuilder constructor.");
+    // }
+}
+
+    return blob;
+  //return new Blob([new Uint8Array(array)], {type: dataTYPE});
+}
+
 var processChangeAvatar = function(tmp,userId){
 
         var realImage= tmp.find('#realImage');
@@ -84,7 +135,21 @@ var processChangeAvatar = function(tmp,userId){
                 maxHeight: 128,
                 crop: true,
             });
-        var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
+        //alert(typeof Blob !== "undefined")
+        //alert(typeof ArrayBuffer !== "undefined")
+
+        var imgSrc = scedimg.toDataURL("image/png");
+        //alert(imgSrc)
+
+
+        //if (imgSrc.slice(0, 5) === "data:") {
+              var type = imgSrc.slice(5, imgSrc.indexOf(';'));
+              var blob = dataURItoBlob(imgSrc, type);
+        //}
+      
+        var avatarFile = new FS.File(blob);
+    
+        //var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
         avatarFile.name('');
         avatarFile.key = userId;
         //try find existed image

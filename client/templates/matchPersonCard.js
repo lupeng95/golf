@@ -23,7 +23,7 @@ function isFinish(){
       ret = false;
       return false;
     }
-    debugger
+    
 
     v = val.querySelectorAll("input")[1].value;
     n = parseInt(v);

@@ -566,6 +566,7 @@ function rule4(){  //拉斯
 
 Template.matchcard.created = function() {
   card = Session.get(SMC);
+
 }
 Template.matchcard.rendered = function() {
   //$(".matchpage .card  input").eq(0).focus()
@@ -738,6 +739,7 @@ Template.matchcard.events({
           if (error) {
             alert(error.reason);
           } else {
+            amplify.store("card",false); // clear local storage
             Template.appBody.addNotification({
               action: '确定',
               title: ret,
