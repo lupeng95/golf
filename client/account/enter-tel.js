@@ -31,8 +31,6 @@ function CountDown(){
       $("#smsBtn").attr("disabled","true");
       $("#smsBtn").html("发送(60)");
 
-
-
       Meteor.call("getSMSCode",tel,false,function (error, result){
         if(result.error){
            Session.set(ERROR_MESSAGE, "手机号码已注册!");
