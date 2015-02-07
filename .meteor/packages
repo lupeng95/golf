@@ -34,3 +34,4 @@ cfs:filesystem
 sacha:spin
 jquery
 peerlibrary:directcollection
+gwendall:body-events
