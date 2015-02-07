@@ -1,13 +1,14 @@
-Meteor.publish('bookmarkCounts', function() {
-  return BookmarkCounts.find();
-});
+
 
 Meteor.publish('news', function() {
   return News.find({}, {sort: {date: -1}, limit: 1});
 });
 
 Meteor.publish('images', function() {
-  return Images.find();
+  return Images.find({},{
+      _id:1,
+      key:1
+  });
 });
 
 
@@ -41,7 +42,7 @@ Meteor.publish('userData',function(tel){
   return Meteor.users.find({username:tel},{
     fields:{
       profile:1,
-      username:1,
+      key:1,
       createdAt:1
     }
   });

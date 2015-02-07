@@ -12,11 +12,11 @@ realImage,
 displayImage,
 jcrop_api,
 isShowCropAndButton = false;
-var options = {canvas: true, maxWidth: 500, maxHeight: 600};
 var widthAvatar = 128,
 heightAvatar = 128;
-var tempcanvas, options_orientation; //太神奇了，如果不设置成六，第一次的default value 就是1 ...
+var tempcanvas, options_orientation;
 Meteor.subscribe('images');
+// FS.debug = true;
 
 Template.editYourAvatarModalBody.events({
     'change input[name=avatarFile]': function(evt, tmpl){
@@ -25,8 +25,6 @@ Template.editYourAvatarModalBody.events({
         $('#changeAvatarButton').removeClass('hide');
         $('#changeAvatarDirection').removeClass('hide');
         $('#avatarChooseFile').addClass('hide');
-
-
         e = evt.originalEvent;
         var target = e.dataTransfer || e.target,
         file = target && target.files && target.files[0];
@@ -56,10 +54,7 @@ Template.editYourAvatarModalBody.events({
                 allowSelect: false
             });
         },{orientation: options_orientation, maxHeight:500, maxWidth: $("#picDiv").width(),canvas: true});
-
-
-
-         });
+      });
     },
     'click #changeAvatarButton': function(evt, tmp){
         evt.preventDefault();
@@ -135,27 +130,31 @@ var processChangeAvatar = function(tmp,userId){
                 maxHeight: 128,
                 crop: true,
             });
+
         //alert(typeof Blob !== "undefined")
         //alert(typeof ArrayBuffer !== "undefined")
 
-        var imgSrc = scedimg.toDataURL("image/png");
-        //alert(imgSrc)
+        // var imgSrc = scedimg.toDataURL("image/png");
+        // //alert(imgSrc)
 
 
-        //if (imgSrc.slice(0, 5) === "data:") {
-              var type = imgSrc.slice(5, imgSrc.indexOf(';'));
-              var blob = dataURItoBlob(imgSrc, type);
-        //}
+        // //if (imgSrc.slice(0, 5) === "data:") {
+        //       var type = imgSrc.slice(5, imgSrc.indexOf(';'));
+        //       var blob = dataURItoBlob(imgSrc, type);
+        // //}
       
-        var avatarFile = new FS.File(blob);
+        // var avatarFile = new FS.File(blob);
     
         //var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
+
+        var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
+        // alert(avatarFile.data.blob.size);
+
         avatarFile.name('');
         avatarFile.key = userId;
         //try find existed image
         //因为没找到事务的方式，所以要doublecheck是不是只保留一条头像数据
         var existedAvatar = Images.find({key: userId});
-
         if(existedAvatar.count() == 0){ // create new
            Images.insert(avatarFile, function (err, fileObj) {
                if(err){
@@ -190,7 +189,6 @@ function showCoords(c)
 
 function loadImagefile(tmp, src){
     $(tmp.find('#realImage')).attr('src', src);
-    // $(tmp.find('#preview img')).attr('src', src);
 };
 
 Template.profile.rendered = function(){

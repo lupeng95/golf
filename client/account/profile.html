@@ -7,13 +7,18 @@
 	 <div class="row">
 	 {{#with getProfile}}
       <!-- left column -->
-      <div class="col-md-3">
-        <div class="text-center">
-          <a id="change-avatar">
-            <img src="{{getUserAvatar userId}}" class="img-circle" alt="avatar">
-          </a>
-        </div>
-      </div>
+      <table  class="table userInfo" >
+          <tr class="info">
+            <td class="left" >
+              <a id="change-avatar">
+                <img src="{{getUserAvatar userId}}" class="profile-img" alt="">
+              </a>
+            </td>
+            <td >
+              <p class="bigFont2">{{nick_name}}</p><p class="smallFont" style="margin-left:5px">G&G号: {{ggn}} </p>
+            </td>
+          </tr>
+        </table>
       <!-- edit form column -->
       <div class="col-md-9 personal-info">
         {{#if errorMessage}}
@@ -25,6 +30,7 @@
               <strong>点击头像更换照片.</strong>
              </div>
         {{/if}}
+        
         <form class="form-horizontal" role="form">
           <div class="form-group">
              <label class="col-lg-3 control-label">用户名:</label>
@@ -55,7 +61,7 @@
            <div class="form-group">
             <label class="col-lg-3 control-label">球龄(年):</label>
             <div class="col-lg-8">
-              <input id="ball-age" class="form-control" type="number" min="0" max="50" value="{{ball_age}}">
+              <input id="ball-age" class="form-control" type="text" min="0" max="50" value="{{calBallAge ball_age}}" >
             </div>
           </div>
            <div class="form-group">

@@ -13,7 +13,7 @@
               <img src="{{getUserAvatar _id}}" class="profile-img"> 
             </td>
             <td >
-              <p class="bigFont2">{{profile.nick_name}}</p><p class="smallFont" style="margin-left:5px">G&G号:100000</p>
+              <p class="bigFont2">{{profile.nick_name}}</p><p class="smallFont" style="margin-left:5px">G&G号: {{profile.ggn}} </p>
             </td>
           </tr>
 
@@ -93,7 +93,7 @@
                     <p>球龄</p>
                   </td>
                   <td class="right">
-                    {{profile.ball_age}}
+                    {{calBallAge profile.ball_age}}
                   </td>
                 </tr>
                 <tr>
