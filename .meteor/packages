@@ -33,9 +33,7 @@ cfs:standard-packages
 cfs:filesystem
 sacha:spin
 jquery
-<<<<<<< HEAD
 amplify
-=======
 peerlibrary:directcollection
 gwendall:body-events
->>>>>>> 9aca2f1df1263bdcdb1c5b3bf689ad3949d82f80
+
