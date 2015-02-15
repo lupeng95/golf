@@ -52,7 +52,7 @@ function drawLine(type){
           var o = p.pointOffset({x: el[0], y: el[1]});
           $('<div class="data-point-label">' + el[1] + '</div>').css( {
             position: 'absolute',
-            left: o.left -5,
+            left: o.left -10,
             top: o.top + 5,
             display: 'none'
           }).appendTo(p.getPlaceholder()).fadeIn('slow');

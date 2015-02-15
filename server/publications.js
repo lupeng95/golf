@@ -39,8 +39,10 @@ Meteor.publish('match', function(id) {
 });
 
 Meteor.publish('userData',function(tel){
+
   return Meteor.users.find({username:tel},{
     fields:{
+      username:1,
       profile:1,
       key:1,
       createdAt:1
