@@ -33,7 +33,7 @@ Template.matchcaddie.rendered = function() {
       Router.go("/matchcard")
       return;
     }else{
-      Session.set(SMC,false);
+      amplify.store("card",false)
     }
     
 

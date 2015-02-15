@@ -75,12 +75,15 @@ function rule2(){
       }
       var min=Math.min.apply(null, rr)
       if (min >0){
-        for (var k=0;k<num ;k++){
-          if (min == rr[k]){
-            p[k]++;
-            $(".h_"+i+" td").eq(k+1).addClass("win")
-          }
+        if(rr[0]!=rr[1]){ //比洞最多2人
+          for (var k=0;k<num ;k++){
+            if (min == rr[k]){
+              p[k]++;
+              $(".h_"+i+" td").eq(k+1).addClass("win")
+            }
+          } 
         }
+        
       }
       
     } 
