@@ -130,6 +130,9 @@ var processChangeAvatar = function(tmp,userId){
                 maxHeight: 128,
                 crop: true,
             });
+        if(scedimg instanceof HTMLCanvasElement ){
+            alert("is HTMLCanvasElement object");
+        }
 
         //alert(typeof Blob !== "undefined")
         //alert(typeof ArrayBuffer !== "undefined")
@@ -146,36 +149,37 @@ var processChangeAvatar = function(tmp,userId){
         // var avatarFile = new FS.File(blob);
     
         //var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
-
-        var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
-        // alert(avatarFile.data.blob.size);
-
-        avatarFile.name('');
-        avatarFile.key = userId;
-        //try find existed image
-        //因为没找到事务的方式，所以要doublecheck是不是只保留一条头像数据
-        var existedAvatar = Images.find({key: userId});
-        if(existedAvatar.count() == 0){ // create new
-           Images.insert(avatarFile, function (err, fileObj) {
-               if(err){
-                alert(err);
-               }else{
-                Router.go('/profile');
-               }
-           });
-        }else{
-           Images.insert(avatarFile, function (err, fileObj) {
-               if(err){
-                alert(err);
-               }else{//after added new avatar , delete old one.
-                  var avatars= existedAvatar.fetch();
-                  for(var i = 0 , ln = existedAvatar.count()-1 ; i< ln ; i++ ){
-                     Images.remove({_id: avatars[i]._id});
-                  }
-                  Router.go('/profile');
-               }
-            });
-        }
+        scedimg.toBlob(
+              function(blob){
+                var avatarFile = new FS.File(blob);
+                alert(avatarFile.data.blob.size);
+                avatarFile.name('');
+                avatarFile.key = userId;
+                //try find existed image
+                //因为没找到事务的方式，所以要doublecheck是不是只保留一条头像数据
+                var existedAvatar = Images.find({key: userId});
+                if(existedAvatar.count() == 0){// create new
+                   Images.insert(avatarFile, function (err, fileObj) {
+                       if(err){
+                        alert(err);
+                       }else{
+                        Router.go('/profile');
+                       }
+                   });
+                }else{
+                   Images.insert(avatarFile, function (err, fileObj) {
+                       if(err){
+                        alert(err);
+                       }else{//after added new avatar , delete old one.
+                          var avatars= existedAvatar.fetch();
+                          for(var i = 0 , ln = existedAvatar.count()-1 ; i< ln ; i++ ){
+                             Images.remove({_id: avatars[i]._id});
+                          }
+                          Router.go('/profile');
+                       }
+                    });
+                }
+              },'image/jpeg');
 
 };
 
