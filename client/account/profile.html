@@ -64,36 +64,40 @@
               <input id="ball-age" class="form-control" type="text" min="0" max="50" value="{{calBallAge ball_age}}" >
             </div>
           </div>
-           <div class="form-group">
-            <label class="col-lg-3 control-label">职位:</label>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">会籍:</label>
             <div class="col-lg-8">
                <select id="sel-position" class="form-control">
                   <option value="0">未知</option> 
-        				  <option value="1">主管</option>
-        				  <option value="2">经理</option>
-        				  <option value="3">总监</option>
-        				  <option value="4">副总裁</option>
-        				  <option value="5">总裁</option>
-        				  <option value="6">首席执行官</option>
-        				  <option value="7">董事长</option>
-                  <option value="8">职员</option>
               </select>
             </div>
           </div>
-		  <div class="form-group">
-            <label class="col-lg-3 control-label">所属行业:</label>
+		      <div class="form-group">
+            <label class="col-lg-3 control-label">爱好 (至多4项): </label>
             <div class="col-lg-8">
-                <select id="sel-profession" class="form-control">
-                  <option value="0">未知</option>
-        				  <option value="1">金融</option>
-        				  <option value="2">互联网/IT</option>
-        				  <option value="3">商务服务</option>
-        				  <option value="4">贸易</option>
-        				  <option value="5">交通/运输</option>
-        				  <option value="6">文化/传媒/娱乐/体育</option>
-        				  <option value="7">政府</option>
-                  <option value="8">房地产</option>
-        				  <option value="9">其他</option>
+              <select name="hobby" id="sel-hobby" class="selectpicker" data-width="100%" title="与球友分享你美妙的感受!" multiple > 
+                  <option value="1">红酒</option>
+                  <option value="2">美食</option>
+                  <option value="3">茶道</option>
+                  <option value="4">收藏</option>
+                  <option value="5">旅游</option>
+                  <option value="6">雪茄</option>
+                  <option value="7">摄影</option>
+                  <option value="8">滑雪</option>
+                  <option value="9">马术</option>
+                  <option value="10">名表</option>
+                  <option value="11">汽车</option>
+                  <option value="12">摩托车</option>
+                  <option value="13">帆船游艇</option>
+                  <option value="14">美容美体</option>
+                  <option value="15">音乐会</option>
+                  <option value="16">演唱会</option>
+                  <option value="17">话剧</option>
+                  <option value="18">奢侈品</option>
+                  <option value="19">公益慈善</option>
+                  <option value="20">滑翔机</option>
+                  <option value="21">热气球</option>
+                  <option value="22">跳伞</option>
                 </select>
             </div>
           </div>
@@ -367,6 +371,15 @@
    </div>
     </div>
    </div>
+   <div id="dialog-message" title="Download complete">
+  <p>
+    <span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+    Your files have downloaded successfully into the My Downloads folder.
+  </p>
+  <p>
+    Currently using <b>36% of your storage space</b>.
+  </p>
+</div>
 </div>
 </template>
 

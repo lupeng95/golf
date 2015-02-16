@@ -32,12 +32,11 @@
         return;
       }
     
-
       Meteor.call("generateGGN",function (error, result){
-        alert(result.ggn);
         Accounts.createUser({username : Session.get(SMS_CODE), password : password,
-              profile : {ggn: result.ggn, nick_name: nikeName, sex: 0, status: 0, ball_age: 0,position: 0, profession: 0, company: '', des: '',
-                  driver:0,fairway_wood:0,hybrid:0,irons:0,wedges:0,putter:0,shoe:0}},
+              profile : {ggn: result.ggn, nick_name: nikeName, sex: 0, status: 0, ball_age: 0,position: 0,
+              profession: 0, hobby: '', Membership: 0, company: '', des: '',
+              driver:0,fairway_wood:0,hybrid:0,irons:0,wedges:0,putter:0,shoe:0}},
             function(err){
             if (err) {
               if(err.error === 403){

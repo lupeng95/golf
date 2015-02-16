@@ -21,7 +21,11 @@ Template.updateButton.events({
       var sex = $("#sel-sex").val();
       var status = $("#sel-status").val();
       var position = $("#sel-position").val();
-      var profession = $("#sel-profession").val();
+      var hobby = '';
+       $('#sel-hobby :selected').each(function(i, selected){
+        hobby = hobby + $(selected).val()+',';
+      });
+      hobby = hobby.substr(0,hobby.lastIndexOf(','));
       var company = $("#company").val();
       var des = $("#description").val();
       var driver = $("#sel-driver").val();
@@ -33,7 +37,7 @@ Template.updateButton.events({
       var shoe = $("#sel-shoe").val();
       Meteor.users.update({_id: Meteor.userId()},
       {$set: {'profile.nick_name': nick_name, 'profile.sex': sex, 'profile.status': status,
-              'profile.ball_age': ball_age, 'profile.position': position, 'profile.profession': profession,
+              'profile.ball_age': ball_age, 'profile.position': position, 'profile.hobby': hobby,
               'profile.company': company,'profile.des': des,'profile.driver': driver,
               'profile.fairway_wood':fairway_wood, 'profile.hybrid':hybrid,
               'profile.irons':irons, 'profile.wedges': wedges, 'profile.putter': putter,'profile.shoe':shoe}});

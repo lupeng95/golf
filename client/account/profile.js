@@ -45,6 +45,17 @@ Template.profile.events({
     },
     'click #change-avatar': function () {
        Router.go('/avatar');
+    },
+    'change select[name=hobby]': function(evt, tmpl){
+     if($('#sel-hobby :selected').size() == 4 ){
+        // $('#sel-hobby :selected')[4].selected = false ;
+        // $('.selectpicker').selectpicker('refresh');
+        $('.selectpicker').unwrap();
+     }
+      // $('#sel-hobby :selected').each(function(i, selected){
+      //   alert(i);
+      //   alert($(selected).text());
+      // });
     }
 });
 
@@ -54,7 +65,7 @@ Template.profile.rendered = function(){
   var sex = profile.sex;
   var status = profile.status;
   var position = profile.position;
-  var profession = profile.profession;
+  var hobby = profile.hobby;
   var driver = profile.driver;
   var fairway_wood = profile.fairway_wood;
   var hybrid = profile.hybrid;
@@ -65,7 +76,6 @@ Template.profile.rendered = function(){
 	document.getElementById("sel-sex")[sex].selected=true;
   document.getElementById("sel-status")[status].selected=true;
   document.getElementById("sel-position")[position].selected=true;
-  document.getElementById("sel-profession")[profession].selected=true;
   document.getElementById("sel-driver")[driver].selected=true;
   document.getElementById("sel-fairway-wood")[fairway_wood].selected=true;
   document.getElementById("sel-hybrid")[hybrid].selected=true;
@@ -73,6 +83,12 @@ Template.profile.rendered = function(){
   document.getElementById("sel-wedges")[wedges].selected=true;
   document.getElementById("sel-putter")[putter].selected=true;
   document.getElementById("sel-shoe")[shoe].selected=true;
+  $('.selectpicker').selectpicker({mobile: true});
+  if(hobby !== ''){
+    var hobbys = hobby.split(',');
+    $('.selectpicker').val(hobbys);
+    $('.selectpicker').selectpicker('render');
+  }
 };
 
 
