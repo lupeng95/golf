@@ -75,7 +75,7 @@ Template.profile.rendered = function(){
   var shoe = profile.shoe;
 	document.getElementById("sel-sex")[sex].selected=true;
   document.getElementById("sel-status")[status].selected=true;
-  document.getElementById("sel-position")[position].selected=true;
+  //document.getElementById("sel-position")[position].selected=true;
   document.getElementById("sel-driver")[driver].selected=true;
   document.getElementById("sel-fairway-wood")[fairway_wood].selected=true;
   document.getElementById("sel-hybrid")[hybrid].selected=true;
@@ -84,7 +84,8 @@ Template.profile.rendered = function(){
   document.getElementById("sel-putter")[putter].selected=true;
   document.getElementById("sel-shoe")[shoe].selected=true;
   $('.selectpicker').selectpicker({mobile: true});
-  if(hobby !== ''){
+  
+  if(hobby && hobby !== ''){
     var hobbys = hobby.split(',');
     $('.selectpicker').val(hobbys);
     $('.selectpicker').selectpicker('render');
