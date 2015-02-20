@@ -63,3 +63,9 @@ body {
 .img{
   max-width: 100%!important;height: auto!important;width:expression(this.width > 600 ? "600px" : this.width)!important;
 }
+.alert {
+  padding: 1px;
+  margin-bottom: 3px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}

@@ -1,3 +1,6 @@
+var membership_limit = 5;
+var hobby_limit = 3;
+
 Template.profile.helpers({
 		sex : function () {
 			return Meteor.user().username;
@@ -47,15 +50,39 @@ Template.profile.events({
        Router.go('/avatar');
     },
     'change select[name=hobby]': function(evt, tmpl){
-     if($('#sel-hobby :selected').size() == 4 ){
-        // $('#sel-hobby :selected')[4].selected = false ;
-        // $('.selectpicker').selectpicker('refresh');
+      var hobby = $('.selectpicker').val().split(',');
+      if(hobby == ''){
+         if($('#sel-hobby :selected').size() >= hobby_limit ){
+          $('.selectpicker').unwrap();
+          return;
+         }
+      }
+      if($('#sel-hobby :selected').size() > hobby_limit ){
+        $('.selectpicker').selectpicker('val',hobby);
         $('.selectpicker').unwrap();
+        return;
+      }
+    },
+    'click #add-membership': function(evt, tmpl){
+     // check values
+     var limit = $('#membership-club-p div').size();
+     var city = $('#membership-city :selected');
+     var club = $('#membership-club').val();
+     if(limit >= membership_limit){
+        alert("最多只能填写 6 个会籍.");
+        return;
      }
-      // $('#sel-hobby :selected').each(function(i, selected){
-      //   alert(i);
-      //   alert($(selected).text());
-      // });
+     if(city.val() == 0 ){//未选择城市
+       $('#membership-city').focus();
+       return;
+     }
+     if($('#membership-club').val() == ''){
+      $('#membership-club').focus();
+      return;
+     }
+     $('#membership-club-p').append("<div class=\"alert alert-info alert-dismissible\" role=\"alert\"> <button id=\"del-membership\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span> </button>"
+      +"<p>城市: "+city.text() +"<br> 俱乐部: " + $('#membership-club').val()+"<br>更新时间: "+moment().format("YYYY MMM Do") +"</p></div>");
+     
     }
 });
 
@@ -66,6 +93,7 @@ Template.profile.rendered = function(){
   var status = profile.status;
   var position = profile.position;
   var hobby = profile.hobby;
+  var membership = profile.membership;
   var driver = profile.driver;
   var fairway_wood = profile.fairway_wood;
   var hybrid = profile.hybrid;
@@ -89,6 +117,10 @@ Template.profile.rendered = function(){
     var hobbys = hobby.split(',');
     $('.selectpicker').val(hobbys);
     $('.selectpicker').selectpicker('render');
+  }
+  for(m in membership){
+  $('#membership-club-p').append("<div class=\"alert alert-info alert-dismissible\" role=\"alert\"> <button id=\"del-membership\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span> </button>"
+      +"<p>"+membership[m] +"</p></div>");
   }
 };
 

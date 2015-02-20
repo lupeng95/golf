@@ -25,6 +25,10 @@ Template.updateButton.events({
        $('#sel-hobby :selected').each(function(i, selected){
         hobby = hobby + $(selected).val()+',';
       });
+      var membership = [];
+      $('#membership-club-p p').each(function(i, p){
+       membership.push(p.innerHTML);
+      });
       hobby = hobby.substr(0,hobby.lastIndexOf(','));
       var company = $("#company").val();
       var des = $("#description").val();
@@ -38,7 +42,7 @@ Template.updateButton.events({
       Meteor.users.update({_id: Meteor.userId()},
       {$set: {'profile.nick_name': nick_name, 'profile.sex': sex, 'profile.status': status,
               'profile.ball_age': ball_age, 'profile.position': position, 'profile.hobby': hobby,
-              'profile.company': company,'profile.des': des,'profile.driver': driver,
+              'profile.membership': membership, 'profile.company': company,'profile.des': des,'profile.driver': driver,
               'profile.fairway_wood':fairway_wood, 'profile.hybrid':hybrid,
               'profile.irons':irons, 'profile.wedges': wedges, 'profile.putter': putter,'profile.shoe':shoe}});
      
