@@ -130,9 +130,9 @@ var processChangeAvatar = function(tmp,userId){
                 maxHeight: 128,
                 crop: true,
             });
-        if(scedimg instanceof HTMLCanvasElement ){
-            alert("is HTMLCanvasElement object");
-        }
+        // if(scedimg instanceof HTMLCanvasElement ){
+        //     alert("is HTMLCanvasElement object");
+        // }
 
         //alert(typeof Blob !== "undefined")
         //alert(typeof ArrayBuffer !== "undefined")
@@ -152,7 +152,6 @@ var processChangeAvatar = function(tmp,userId){
         scedimg.toBlob(
               function(blob){
                 var avatarFile = new FS.File(blob);
-                alert(avatarFile.data.blob.size);
                 avatarFile.name('');
                 avatarFile.key = userId;
                 //try find existed image
@@ -171,6 +170,7 @@ var processChangeAvatar = function(tmp,userId){
                        if(err){
                         alert(err);
                        }else{//after added new avatar , delete old one.
+                        // alert(FS.HTTP.uploadUrl);
                           var avatars= existedAvatar.fetch();
                           for(var i = 0 , ln = existedAvatar.count()-1 ; i< ln ; i++ ){
                              Images.remove({_id: avatars[i]._id});

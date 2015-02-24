@@ -49,20 +49,6 @@ Template.profile.events({
     'click #change-avatar': function () {
        Router.go('/avatar');
     },
-    'change select[name=hobby]': function(evt, tmpl){
-      var hobby = $('.selectpicker').val().split(',');
-      if(hobby == ''){
-         if($('#sel-hobby :selected').size() >= hobby_limit ){
-          $('.selectpicker').unwrap();
-          return;
-         }
-      }
-      if($('#sel-hobby :selected').size() > hobby_limit ){
-        $('.selectpicker').selectpicker('val',hobby);
-        $('.selectpicker').unwrap();
-        return;
-      }
-    },
     'click #add-membership': function(evt, tmpl){
      // check values
      var limit = $('#membership-club-p div').size();
@@ -81,7 +67,30 @@ Template.profile.events({
       return;
      }
      $('#membership-club-p').append("<div class=\"alert alert-info alert-dismissible\" role=\"alert\"> <button id=\"del-membership\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span> </button>"
-      +"<p>城市: "+city.text() +"<br> 俱乐部: " + $('#membership-club').val()+"<br>更新时间: "+moment().format("YYYY MMM Do") +"</p></div>");
+      +"<p>城市: "+city.text() +"<br> 俱乐部: <strong> " + $('#membership-club').val()+"</strong><br>更新时间: "+moment().format("YYYY MMM Do") +"</p></div>");
+    },
+    'click #add-hobby': function(evt, tmpl){
+     // check values
+     var limit = $('#membership-hobby-p div').size();
+     var hobby = $('#sel-hobby :selected');
+     var orgHobby = $('#membership-hobby-p div').text().indexOf(hobby.text());
+
+     if(limit >= hobby_limit){
+        bootbox.alert("最多只能填写 3 个主要爱好.");
+        return;
+     }
+     if(hobby.val() == 0 ){//未选择爱好
+      bootbox.alert('请选择至少一个爱好');
+      $('#sel-hobby').focus();
+       return;
+     }
+     if(orgHobby > 0 ){
+      bootbox.alert('爱好重复了, 请重新选择');
+      return;
+     }
+     $('#membership-hobby-p').append("<div class=\"alert alert-info alert-dismissible\" role=\"alert\"> <button id=\"del-membership\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span> </button>"
+      +"<p>爱好: <strong>"+hobby.text() +"</strong><br>更新时间: "+moment().format("YYYY MMM Do") +"</p></div>");
+
      
     }
 });
@@ -111,16 +120,14 @@ Template.profile.rendered = function(){
   document.getElementById("sel-wedges")[wedges].selected=true;
   document.getElementById("sel-putter")[putter].selected=true;
   document.getElementById("sel-shoe")[shoe].selected=true;
-  $('.selectpicker').selectpicker({mobile: true});
   
-  if(hobby && hobby !== ''){
-    var hobbys = hobby.split(',');
-    $('.selectpicker').val(hobbys);
-    $('.selectpicker').selectpicker('render');
-  }
   for(m in membership){
   $('#membership-club-p').append("<div class=\"alert alert-info alert-dismissible\" role=\"alert\"> <button id=\"del-membership\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span> </button>"
       +"<p>"+membership[m] +"</p></div>");
+  }
+  for(m in hobby){
+  $('#membership-hobby-p').append("<div class=\"alert alert-info alert-dismissible\" role=\"alert\"> <button id=\"del-membership\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span> </button>"
+      +"<p>"+hobby[m] +"</p></div>");
   }
 };
 

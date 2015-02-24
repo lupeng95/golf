@@ -25,11 +25,17 @@ Template.updateButton.events({
        $('#sel-hobby :selected').each(function(i, selected){
         hobby = hobby + $(selected).val()+',';
       });
+
       var membership = [];
       $('#membership-club-p p').each(function(i, p){
        membership.push(p.innerHTML);
       });
-      hobby = hobby.substr(0,hobby.lastIndexOf(','));
+
+      var hobby = [];
+      $('#membership-hobby-p p').each(function(i, p){
+       hobby.push(p.innerHTML);
+      });
+
       var company = $("#company").val();
       var des = $("#description").val();
       var driver = $("#sel-driver").val();
