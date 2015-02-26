@@ -16,6 +16,9 @@ var widthAvatar = 128,
 heightAvatar = 128;
 var tempcanvas, options_orientation;
 Meteor.subscribe('images');
+var headerStr = {"content-type":"multipart/form-data"};
+var imageServerUrl=avaterBaseURL+"api/photo";
+
 // FS.debug = true;
 
 Template.editYourAvatarModalBody.events({
@@ -130,57 +133,18 @@ var processChangeAvatar = function(tmp,userId){
                 maxHeight: 128,
                 crop: true,
             });
-        // if(scedimg instanceof HTMLCanvasElement ){
-        //     alert("is HTMLCanvasElement object");
-        // }
-
-        //alert(typeof Blob !== "undefined")
-        //alert(typeof ArrayBuffer !== "undefined")
-
-        // var imgSrc = scedimg.toDataURL("image/png");
-        // //alert(imgSrc)
-
-
-        // //if (imgSrc.slice(0, 5) === "data:") {
-        //       var type = imgSrc.slice(5, imgSrc.indexOf(';'));
-        //       var blob = dataURItoBlob(imgSrc, type);
-        // //}
-      
-        // var avatarFile = new FS.File(blob);
-    
-        //var avatarFile = new FS.File(scedimg.toDataURL("image/png"));
         scedimg.toBlob(
-              function(blob){
-                var avatarFile = new FS.File(blob);
-                avatarFile.name('');
-                avatarFile.key = userId;
-                //try find existed image
-                //因为没找到事务的方式，所以要doublecheck是不是只保留一条头像数据
-                var existedAvatar = Images.find({key: userId});
-                if(existedAvatar.count() == 0){// create new
-                   Images.insert(avatarFile, function (err, fileObj) {
-                       if(err){
-                        alert(err);
-                       }else{
-                        Router.go('/profile');
-                       }
-                   });
-                }else{
-                   Images.insert(avatarFile, function (err, fileObj) {
-                       if(err){
-                        alert(err);
-                       }else{//after added new avatar , delete old one.
-                        // alert(FS.HTTP.uploadUrl);
-                          var avatars= existedAvatar.fetch();
-                          for(var i = 0 , ln = existedAvatar.count()-1 ; i< ln ; i++ ){
-                             Images.remove({_id: avatars[i]._id});
-                          }
-                          Router.go('/profile');
-                       }
-                    });
-                }
-              },'image/jpeg');
-
+          function(blob){
+            var xhr = new XMLHttpRequest();
+            var formData = new FormData();
+            formData.append(userId, blob);
+            xhr.open('POST', imageServerUrl, true);
+            xhr.send(formData);
+            xhr.onload = function(e) {
+                Router.go('/profile');
+            };
+        });
+              
 };
 
 function showCoords(c)
