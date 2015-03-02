@@ -39,6 +39,22 @@ Template.userinfo.rendered = function() {
      });
 
    }
+  //添加用户会籍信息
+  var membership = user.profile.membership;
+  for(m in membership){
+      var sBr = membership[m].lastIndexOf("<br>");
+      var mm = membership[m].substr(0,sBr);
+      mm = mm.replace("<br>"," ,");
+  $('#membership-club-p').append("<p>"+mm +"</p>");
+  }
+  //添加用户爱好信息
+  var hobby = user.profile.hobby;
+  var temp = '';
+  for(m in hobby){
+  temp=temp+hobby[m].substr(0,hobby[m].lastIndexOf("<br>")).substr(4)+" ,";
+  }
+  $('#membership-hobby-p').append("<p>"+temp.substr(0,temp.length-1) +"</p>");
+
 };
 
 Template.userinfo.helpers({
@@ -62,12 +78,6 @@ Template.userinfo.helpers({
  },
  getStatus:function(){
   return _status.split(",")[user.profile.sex];
- },
- getPosition:function(){
-  return _position.split(",")[user.profile.position];
- },
- getProfession:function(){
-  return _profession.split(",")[user.profile.profession];
  },
  getDriver:function(){
   return _driver.split(",")[user.profile.driver];

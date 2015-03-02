@@ -55,7 +55,7 @@ Template.profile.events({
      var city = $('#membership-city :selected');
      var club = $('#membership-club').val();
      if(limit >= membership_limit){
-        alert("最多只能填写 6 个会籍.");
+        alert("最多只能填写 5 个会籍.");
         return;
      }
      if(city.val() == 0 ){//未选择城市
