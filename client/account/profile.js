@@ -68,6 +68,7 @@ Template.profile.events({
      }
      $('#membership-club-p').append("<div class=\"alert alert-info alert-dismissible\" role=\"alert\"> <button id=\"del-membership\" type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span> </button>"
       +"<p>城市: "+city.text() +"<br> 俱乐部: <strong> " + $('#membership-club').val()+"</strong><br>更新时间: "+moment().format("YYYY MMM Do") +"</p></div>");
+     $("#membership-club").val("")
     },
     'click #add-hobby': function(evt, tmpl){
      // check values
