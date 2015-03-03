@@ -34,14 +34,15 @@ Template.editYourAvatarModalBody.events({
         if (!file) {
             return;
         }
+        
         loadImage.parseMetaData(file, function (data) {
             if (data.exif) {
                 options_orientation = data.exif.get('Orientation');
             }
-
-    
-        tempcanvas = loadImage(file, function(img){
-            $('#realImage').attr('src', img.toDataURL());
+         
+        loadImage(file, function(img){
+            tempcanvas =img;
+            $('#realImage').attr('src', img.toDataURL("image/png"));
             var w = screen.width;
             var h = screen.height;
             if(w>h){
@@ -56,15 +57,58 @@ Template.editYourAvatarModalBody.events({
                 allowResize: false,
                 allowSelect: false
             });
-        },{orientation: options_orientation, maxHeight:500, maxWidth: $("#picDiv").width(),canvas: true});
+            $('#orientation').val(options_orientation);
+        },{orientation: options_orientation, maxHeight:500,canvas: true});
       });
     },
     'click #changeAvatarButton': function(evt, tmp){
         evt.preventDefault();
         var userId = Meteor.user()._id;
         processChangeAvatar(tmp,userId);
+    },
+    'click #changeAvatarDirection': function(evt, tmp){
+       evt.preventDefault();
+
+        var orientation_c = parseInt($('#orientation').val())+1;
+        if(orientation_c > 8){
+            orientation_c =1;
+        }
+        $('#orientation').val(orientation_c);
+        var avatarFile = $('input[name=avatarFile]').addClass('hide');
+        loadImage(avatarFile[0].files[0], function(img){
+            
+            var size = $('#picDiv img').size();
+            var imgs = $('#picDiv img');
+            var pic = $('#picDiv img')[0];
+            pic.src = img.toDataURL("image/png");
+            $('#picDiv').html(avatarFile);
+            $('#picDiv').append(pic);
+            // for(i = 0;i<size;i++){
+            //     imgs[i].src = img.toDataURL("image/png");
+            // }
+            // $('div[class=jcrop-holder]').css("width",img.width());
+            // $('div[class=jcrop-holder]').css("width",img.hight());
+            // $('#picDiv img').css("width",img.width());
+            // $('#picDiv img').css("hight",img.hight());
+            // debugger
+            var w = screen.width;
+            var h = screen.height;
+            if(w>h){
+                w =h;
+            }
+            w = w * 0.6;
+            $('#realImage').Jcrop({
+                onChange: showCoords,
+                onSelect: showCoords,
+                aspectRatio: 1,
+                setSelect: [ 0, 0, w, w ],
+                allowResize: false,
+                allowSelect: false
+            });
+        },{orientation: orientation_c, maxHeight:500,canvas: true});
     }
-});
+   
+}); 
 /**
  * FUNCTION CLASS DEFINE
  */
@@ -120,7 +164,7 @@ function dataURItoBlob(dataURI, dataTYPE) {
 }
 
 var processChangeAvatar = function(tmp,userId){
-
+      
         var realImage= tmp.find('#realImage');
         orgWidth = document.querySelector('img').naturalWidth;
         scale = orgWidth/$('#realImage').width();
@@ -133,6 +177,7 @@ var processChangeAvatar = function(tmp,userId){
                 maxHeight: 128,
                 crop: true,
             });
+
         scedimg.toBlob(
           function(blob){
             var xhr = new XMLHttpRequest();
@@ -158,6 +203,27 @@ function showCoords(c)
 function loadImagefile(tmp, src){
     $(tmp.find('#realImage')).attr('src', src);
 };
+
+function base64toBlob(base64Data, contentType) {
+    contentType = contentType || '';
+    var sliceSize = 1024;
+    var byteCharacters = atob(base64Data);
+    var bytesLength = byteCharacters.length;
+    var slicesCount = Math.ceil(bytesLength / sliceSize);
+    var byteArrays = new Array(slicesCount);
+
+    for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+        var begin = sliceIndex * sliceSize;
+        var end = Math.min(begin + sliceSize, bytesLength);
+
+        var bytes = new Array(end - begin);
+        for (var offset = begin, i = 0 ; offset < end; ++i, ++offset) {
+            bytes[i] = byteCharacters[offset].charCodeAt(0);
+        }
+        byteArrays[sliceIndex] = new Uint8Array(bytes);
+    }
+    return new Blob(byteArrays, { type: contentType });
+}
 
 Template.profile.rendered = function(){
 

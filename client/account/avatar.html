@@ -17,14 +17,14 @@
         <div class="col-md-12">
             <img id="realImage"  class="img" src="" alt="" />
             <span id="avatarChooseFile" class="btn btn-default btn-file">
-               选择照片 <input  name="avatarFile" accept="image/*" type="file">
+               选择照片 <input  id="avatarFile" name="avatarFile" accept="image/*" type="file">
             </span>
         </div>
     </div>
      <div class="row" >
         <div class="col-md-12">
             <input class="btn btn-primary hide" type="button" id="changeAvatarButton" value="更新头像" />
-<!--              <input class="btn btn-primary " type="button" id="changeAvatarDirection" value="换个方向" /> -->
+            <input class="btn btn-primary hide" type="button" id="changeAvatarDirection" value="换个方向" />
         </div>
         <div class="jc_coords hide">
             <label>X1 <input type="text" size="4" id="x" name="x"></label>
@@ -33,6 +33,7 @@
             <label>Y2 <input type="text" size="4" id="y2" name="y2"></label>
             <label>W <input type="text" size="4" id="w" name="w"></label>
             <label>H <input type="text" size="4" id="h" name="h"></label>
+            <label>orientation<input type="number" size="1" id="orientation" name="orientation"></label>
         </div>
     </div>
 </template>
