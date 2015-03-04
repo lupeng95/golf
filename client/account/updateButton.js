@@ -41,7 +41,7 @@ Template.updateButton.events({
       var driver = $("#sel-driver").val();
       var fairway_wood = $("#sel-fairway-wood").val();
       var hybrid = $("#sel-hybrid").val();
-      var irons = $("#sel-hybrid").val();
+      var irons = $("#sel-irons").val();
       var wedges = $("#sel-wedges").val();
       var putter = $("#sel-putter").val();
       var shoe = $("#sel-shoe").val();
