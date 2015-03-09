@@ -12,14 +12,12 @@ realImage,
 displayImage,
 jcrop_api,
 isShowCropAndButton = false;
-var widthAvatar = 128,
-heightAvatar = 128;
+var widthAvatar = 128;
+var heightAvatar = 128;
 var tempcanvas, options_orientation;
 Meteor.subscribe('images');
 var headerStr = {"content-type":"multipart/form-data"};
 var imageServerUrl=avaterBaseURL+"api/photo";
-
-// FS.debug = true;
 
 Template.editYourAvatarModalBody.events({
     'change input[name=avatarFile]': function(evt, tmpl){
@@ -76,21 +74,12 @@ Template.editYourAvatarModalBody.events({
         $('#orientation').val(orientation_c);
         var avatarFile = $('input[name=avatarFile]').addClass('hide');
         loadImage(avatarFile[0].files[0], function(img){
-            
             var size = $('#picDiv img').size();
             var imgs = $('#picDiv img');
             var pic = $('#picDiv img')[0];
             pic.src = img.toDataURL("image/png");
             $('#picDiv').html(avatarFile);
             $('#picDiv').append(pic);
-            // for(i = 0;i<size;i++){
-            //     imgs[i].src = img.toDataURL("image/png");
-            // }
-            // $('div[class=jcrop-holder]').css("width",img.width());
-            // $('div[class=jcrop-holder]').css("width",img.hight());
-            // $('#picDiv img').css("width",img.width());
-            // $('#picDiv img').css("hight",img.hight());
-            // debugger
             var w = screen.width;
             var h = screen.height;
             if(w>h){
@@ -149,18 +138,9 @@ function dataURItoBlob(dataURI, dataTYPE) {
         // We're screwed, blob constructor unsupported entirely  
          alert("No Way!!."); 
     }
-
-    // if (window.BlobBuilder){
-    //     blob = new BlobBuilder();
-    //     blob.append(new Uint8Array(array));
-    //     blob = blob.getBlob();
-    // } else {
-    //     alert("No Blob or BlobBuilder constructor.");
-    // }
 }
 
     return blob;
-  //return new Blob([new Uint8Array(array)], {type: dataTYPE});
 }
 
 var processChangeAvatar = function(tmp,userId){
@@ -177,18 +157,31 @@ var processChangeAvatar = function(tmp,userId){
                 maxHeight: 128,
                 crop: true,
             });
+// 直接传送图片
+        var avatar_base64 = scedimg.toDataURL();
+        var result = Meteor.call('sendAvatar', userId, imageServerUrl, avatar_base64, function(error, result) {
+                if(error) {
+                    bootbox.alert('头像传送失败 :(');
+                } else {
+                   Router.go('/profile');
+                }
+            });
 
-        scedimg.toBlob(
-          function(blob){
-            var xhr = new XMLHttpRequest();
-            var formData = new FormData();
-            formData.append(userId, blob);
-            xhr.open('POST', imageServerUrl, true);
-            xhr.send(formData);
-            xhr.onload = function(e) {
-                Router.go('/profile');
-            };
-        });
+        // var result = HTTP.call("POST", imageServerUrl,{params: {avatar: avatar_base64}});
+
+//由于部分安卓 4.4.2 系统的formdata 对像在传送blob的时候异常，所以采取直接使用paramter 发送图片内容.
+//以下是之前的方式：
+        // scedimg.toBlob(
+        //   function(blob){
+        //     var xhr = new XMLHttpRequest();
+        //     var formData = new FormData();
+        //     formData.append(userId, blob);
+        //     xhr.open('POST', imageServerUrl, true);
+        //     xhr.send(formData);
+        //     xhr.onload = function(e) {
+        //         Router.go('/profile');
+        //     };
+        // });
               
 };
 
