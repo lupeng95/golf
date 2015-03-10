@@ -9,9 +9,9 @@
 // });
 
 Meteor.methods({sendAvatar: function (userId,imageServerUrl,avatar_base64) {
-	console.log(userId);
+	// console.log(userId);
 	imageServerUrl = imageServerUrl+'?avatar='+encodeURIComponent(avatar_base64)+'&id='+userId;
-	console.log(imageServerUrl);
+	// console.log(imageServerUrl);
 	var result = HTTP.call("POST", imageServerUrl);
 	  if(result.statusCode==200) {
 	     return true;
